@@ -34,4 +34,7 @@
 
 - (void)setLocationStatus:(MTLocationStatus)locationStatus animated:(BOOL)animated;
 
+// re-direct target-action to MTLocateMeButton
+- (void)addTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents;
+
 @end

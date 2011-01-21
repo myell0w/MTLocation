@@ -94,6 +94,10 @@
 	return self.locateMeButton.locationStatus;
 }
 
+- (void)addTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents {
+	[self.locateMeButton addTarget:target action:action forControlEvents:controlEvents];
+}
+
 ////////////////////////////////////////////////////////////////////////
 #pragma mark -
 #pragma mark locationManager Delegate
