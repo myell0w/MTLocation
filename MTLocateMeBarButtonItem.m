@@ -108,6 +108,12 @@
 							  newLocation, @"newLocation",
 							  oldLocation, @"oldLocation", nil];
 
+	// if horizontal accuracy is below our threshold update status
+	if (newLocation.horizontalAccuracy < kMTLocationMinimumHorizontalAccuracy) {
+		self.locateMeButton.locationStatus = MTLocationStatusReceivingLocationUpdates;
+	}
+
+
 	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidUpdateToLocationFromLocation object:self userInfo:userInfo];
 }
 
@@ -115,12 +121,16 @@
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, @"locationManager",
 							  error, @"error", nil];
 
+	self.locateMeButton.locationStatus = MTLocationStatusIdle;
+
 	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidFailWithError object:self userInfo:userInfo];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading {
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, @"locationManager",
 							  newHeading, @"newHeading", nil];
+
+	self.locateMeButton.locationStatus = MTLocationStatusReceivingHeadingUpdates;
 
 	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidUpdateHeading object:self userInfo:userInfo];
 }
