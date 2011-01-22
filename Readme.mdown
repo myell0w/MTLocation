@@ -1,15 +1,13 @@
 Read Me
 =====================
 
-![Currently Idle](https://img.skitch.com/20110121-bjfysmex62njp41cfta6nc2n4y.png "Currently Idle")
-![Currently searching for a location](https://img.skitch.com/20110121-mjsaqjbs62i3wqm4945jmg6wjm.png "Currently searching for a location")
-![Currently searching for a location](https://img.skitch.com/20110121-ep9ky3mycge435ywnn9pm78r3w.png "Currently searching for a location")
+![Currently Idle](http://img.skitch.com/20110122-j2e722trxp9gexuyjh1rqwuxs2.png "Currently Idle") ![Currently searching for a location](http://img.skitch.com/20110122-e9r8qcmrr4px6d3mijtkhjcwtg.png "Currently searching for a location") ![Currently receiving location updates](http://img.skitch.com/20110122-jdpwfa3x52m21gip8ekkj3fsrc.png "Currently receiving location updates") ![Currently receiving heading updates](http://img.skitch.com/20110122-1bhcj3gdjkeyktcxtsg2nuqcu6.png "Currently receiving heading updates")
 
 Description
 -----------------
 
-This class mimics the LocateMe-Button of the built-in  Application MobileMaps.app on iOS.
-It's either a drop-in-replacement for any BarButtonItem you may have used until now, or can optionally act as the LocationManagerDelegate for you and send Notification whenever a delegate-method gets called.
+This class mimics the LocateMe-Button of the built-in Google Maps App on iOS.
+It's either a drop-in-replacement for any BarButtonItem you may have used until now, or can optionally act as the LocationManagerDelegate for you and send Notification whenever a delegate-method gets called. The switch from one mode to another is animated, just like in the Google Maps App.
 
 It can also be customized to support Heading-Mode or not, by setting property headingEnabled.
 
@@ -18,11 +16,6 @@ Installation
 
 Just copy over all .h and .m - Files to your project, as well as the images included. You may exchange the images with your own, but make sure to adopt frames and sizes in the code, if your images have a different size than the one provided (only if there are any visual quirks).
 
-
-TODO
-------------------
-
-Replace Heading-Image with one looking like the one in MobileMaps.app. If anyone can provide me with such a image that has a licence that it can be used here, please contact me!
 
 Usage
 ------------------
