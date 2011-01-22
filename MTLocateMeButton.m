@@ -20,7 +20,7 @@
 #pragma mark Defines/Customization
 ////////////////////////////////////////////////////////////////////////
 
-#define kSmallFrameOffset 5
+#define kSmallFrameOffset 9
 
 
 ////////////////////////////////////////////////////////////////////////
@@ -64,7 +64,7 @@
 
 - (id)initWithFrame:(CGRect)frame  {
     if ((self = [super initWithFrame:frame])) {
-        CGRect activityFrame = CGRectInset(frame, 8.0f, 8.0f);
+        CGRect activityFrame = CGRectInset(frame, 7.0f, 7.0f);
 
 		imageSize_ = [UIImage imageNamed:@"Location.png"].size;
 		locationStatus_ = MTLocationStatusIdle;
