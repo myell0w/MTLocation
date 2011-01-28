@@ -24,8 +24,10 @@
 	UIActivityIndicatorView* activityIndicator_;
 	// Subview: Holds image that is shown in all other LocationStati
 	UIImageView *imageView_;
-	// the size of an image displayed in the imageView
-	CGSize imageSize_;
+	// the initial frame of the activity indicator
+	CGRect activityIndicatorFrame_;
+	// the initial frame of the image view
+	CGRect imageViewFrame_;
 
 	// the currently displayed sub-view
 	UIView *activeSubview_;

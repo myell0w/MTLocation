@@ -15,13 +15,17 @@
 #import "MTLocateMeButton.h"
 
 
-
 ////////////////////////////////////////////////////////////////////////
 #pragma mark -
-#pragma mark Defines/Customization
+#pragma mark Customize Section
 ////////////////////////////////////////////////////////////////////////
 
-#define kSmallFrameInset 7
+#define kShrinkAnimationDuration 0.25
+#define kExpandAnimationDuration 0.25
+#define kExpandAnimationDelay    0.1
+
+#define kActivityIndicatorInset 12.f
+#define kImageViewInset		    10.f
 
 
 ////////////////////////////////////////////////////////////////////////
@@ -34,7 +38,8 @@
 
 @property (nonatomic, retain) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, retain) UIImageView *imageView;
-@property (nonatomic, assign) CGSize imageSize;
+@property (nonatomic, assign) CGRect activityIndicatorFrame;
+@property (nonatomic, assign) CGRect imageViewFrame;
 @property (nonatomic, assign) UIView *activeSubview;
 @property (nonatomic, readonly) UIView *inactiveSubview;
 
@@ -53,7 +58,8 @@
 @synthesize headingEnabled = headingEnabled_;
 @synthesize activityIndicator = activityIndicator_;
 @synthesize imageView = imageView_;
-@synthesize imageSize = imageSize_;
+@synthesize activityIndicatorFrame = activityIndicatorFrame_;
+@synthesize imageViewFrame = imageViewFrame_;
 @synthesize activeSubview = activeSubview_;
 
 
@@ -65,24 +71,27 @@
 
 - (id)initWithFrame:(CGRect)frame  {
     if ((self = [super initWithFrame:frame])) {
-        CGRect activityFrame = CGRectInset(frame, kSmallFrameInset, kSmallFrameInset);
+		activityIndicatorFrame_ = CGRectInset(frame, kActivityIndicatorInset, kActivityIndicatorInset);
+		imageViewFrame_ = CGRectInset(frame, kImageViewInset , kImageViewInset);
 
-		imageSize_ = [UIImage imageNamed:@"Location.png"].size;
 		locationStatus_ = MTLocationStatusIdle;
 
-		activityIndicator_ = [[UIActivityIndicatorView alloc] initWithFrame:activityFrame];
+		activityIndicator_ = [[UIActivityIndicatorView alloc] initWithFrame:activityIndicatorFrame_];
         activityIndicator_.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+		activityIndicator_.contentMode = UIViewContentModeScaleAspectFit;
+		activityIndicator_.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		activityIndicator_.userInteractionEnabled = NO;
 
-		imageView_ = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, imageSize_.width, imageSize_.height)];
-		imageView_.center = self.center;
+		imageView_ = [[UIImageView alloc] initWithFrame:imageViewFrame_];
+		imageView_.contentMode = UIViewContentModeScaleAspectFit;
+		imageView_.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
 		[self addSubview:imageView_];
         [self addSubview:activityIndicator_];
 		[self addTarget:self action:@selector(locationStatusToggled:) forControlEvents:UIControlEventTouchUpInside];
 
 		[self updateUI];
-    }
+	}
 
     return self;
 }
@@ -121,7 +130,7 @@
 		// when finished, animate currently invisible subview to big frame
 		[UIView beginAnimations:@"AnimateLocationStatusShrink" context:(void *)[NSNumber numberWithInt:locationStatus]];
 		[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-		[UIView setAnimationDuration:0.1];
+		[UIView setAnimationDuration:kShrinkAnimationDuration];
 		[UIView setAnimationDelegate:self];
 		[UIView setAnimationDidStopSelector:@selector(locationStatusAnimationShrinkDidFinish:finished:context:)];
 
@@ -150,8 +159,8 @@
 	// animate the currently visible subview back to a big frame
 	[UIView beginAnimations:@"AnimateLocationStatusExpand" context:NULL];
 	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-	[UIView setAnimationDelay:0.1];
-	[UIView setAnimationDuration:0.1];
+	[UIView setAnimationDelay:kExpandAnimationDelay];
+	[UIView setAnimationDuration:kExpandAnimationDuration];
 
 	[self setBigFrame:self.activeSubview];
 
@@ -222,14 +231,19 @@
 
 // sets a view to a smaller frame, used for animation
 - (void)setSmallFrame:(UIView *)view {
-	view.frame = CGRectMake(view.frame.origin.x + kSmallFrameInset, view.frame.origin.y + kSmallFrameInset,
-							view.frame.size.width - 2*kSmallFrameInset, view.frame.size.height - 2*kSmallFrameInset);
+	double inset = view.frame.size.width / 2.;
+
+	view.frame = CGRectMake(view.frame.origin.x + inset, view.frame.origin.y + inset,
+							view.frame.size.width - 2*inset, view.frame.size.height - 2*inset);
 }
 
 // sets a view to the original bigger frame, used for animation
 - (void)setBigFrame:(UIView *)view {
-	view.frame = CGRectMake(view.frame.origin.x - kSmallFrameInset, view.frame.origin.y - kSmallFrameInset,
-							view.frame.size.width + 2*kSmallFrameInset, view.frame.size.height + 2*kSmallFrameInset);
+	if (view == self.activityIndicator) {
+		view.frame = self.activityIndicatorFrame;
+	} else {
+		view.frame = self.imageViewFrame;
+	}
 }
 
 @end
