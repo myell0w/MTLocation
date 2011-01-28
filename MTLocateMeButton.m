@@ -11,6 +11,7 @@
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 // WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
 #import "MTLocateMeButton.h"
 
 
@@ -20,7 +21,7 @@
 #pragma mark Defines/Customization
 ////////////////////////////////////////////////////////////////////////
 
-#define kSmallFrameOffset 7
+#define kSmallFrameInset 7
 
 
 ////////////////////////////////////////////////////////////////////////
@@ -64,7 +65,7 @@
 
 - (id)initWithFrame:(CGRect)frame  {
     if ((self = [super initWithFrame:frame])) {
-        CGRect activityFrame = CGRectInset(frame, 7.0f, 7.0f);
+        CGRect activityFrame = CGRectInset(frame, kSmallFrameInset, kSmallFrameInset);
 
 		imageSize_ = [UIImage imageNamed:@"Location.png"].size;
 		locationStatus_ = MTLocationStatusIdle;
@@ -221,14 +222,14 @@
 
 // sets a view to a smaller frame, used for animation
 - (void)setSmallFrame:(UIView *)view {
-	view.frame = CGRectMake(view.frame.origin.x + kSmallFrameOffset, view.frame.origin.y + kSmallFrameOffset,
-							view.frame.size.width - 2*kSmallFrameOffset, view.frame.size.height - 2*kSmallFrameOffset);
+	view.frame = CGRectMake(view.frame.origin.x + kSmallFrameInset, view.frame.origin.y + kSmallFrameInset,
+							view.frame.size.width - 2*kSmallFrameInset, view.frame.size.height - 2*kSmallFrameInset);
 }
 
 // sets a view to the original bigger frame, used for animation
 - (void)setBigFrame:(UIView *)view {
-	view.frame = CGRectMake(view.frame.origin.x - kSmallFrameOffset, view.frame.origin.y - kSmallFrameOffset,
-							view.frame.size.width + 2*kSmallFrameOffset, view.frame.size.height + 2*kSmallFrameOffset);
+	view.frame = CGRectMake(view.frame.origin.x - kSmallFrameInset, view.frame.origin.y - kSmallFrameInset,
+							view.frame.size.width + 2*kSmallFrameInset, view.frame.size.height + 2*kSmallFrameInset);
 }
 
 @end
