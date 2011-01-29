@@ -13,6 +13,7 @@
 // WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 #import "MTLocationDefines.h"
 
 
@@ -33,10 +34,12 @@
 	UIView *activeSubview_;
 
 	BOOL headingEnabled_;
+	CLLocationManager *locationManager_;
 }
 
 @property (nonatomic, assign) MTLocationStatus locationStatus;
 @property (nonatomic, assign) BOOL headingEnabled;
+@property (nonatomic, retain) CLLocationManager *locationManager;
 
 - (void)setLocationStatus:(MTLocationStatus)locationStatus animated:(BOOL)animated;
 

@@ -61,6 +61,7 @@
 @synthesize activityIndicatorFrame = activityIndicatorFrame_;
 @synthesize imageViewFrame = imageViewFrame_;
 @synthesize activeSubview = activeSubview_;
+@synthesize locationManager = locationManager_;
 
 
 ////////////////////////////////////////////////////////////////////////
@@ -99,6 +100,7 @@
 - (void)dealloc {
     [activityIndicator_ release], activityIndicator_ = nil;
 	[imageView_ release], imageView_ = nil;
+	[locationManager_ release], locationManager_ = nil;
 
     [super dealloc];
 }
@@ -118,12 +120,15 @@
 }
 
 - (void)setLocationStatus:(MTLocationStatus)locationStatus {
+	NSLog(@"Setting new location status now: %d", locationStatus);
 	locationStatus_ = locationStatus;
 	[self updateUI];
 }
 
 - (void)setLocationStatus:(MTLocationStatus)locationStatus animated:(BOOL)animated {
 	if (animated) {
+		// Important: do not use setter here, because otherwise updateUI is triggered too soon!
+		locationStatus_ = locationStatus;
 		[self setSmallFrame:self.inactiveSubview];
 
 		// animate currently visible subview to a smaller frame
@@ -149,10 +154,8 @@
 ////////////////////////////////////////////////////////////////////////
 
 - (void)locationStatusAnimationShrinkDidFinish:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
-	NSNumber *locationStatusWrapper = (NSNumber *)context;
-
 	// location status changed, now another subview is visible
-	self.locationStatus = [locationStatusWrapper intValue];
+	[self updateUI];
 	// set the inactive subview back to the original frame
 	[self setBigFrame:self.inactiveSubview];
 
@@ -206,26 +209,65 @@
 
 // is called when the user taps the button
 - (void)locationStatusToggled:(id)sender {
+	MTLocationStatus newLocationStatus = MTLocationStatusIdle;
+
+	// set new location status
 	switch (self.locationStatus) {
 			// if we are currently idle, search for location
 		case MTLocationStatusIdle:
-			[self setLocationStatus:MTLocationStatusSearching animated:YES];
+			newLocationStatus = MTLocationStatusSearching;
 			break;
 
 			// if we are currently searching, abort and switch back to idle
 		case MTLocationStatusSearching:
-			[self setLocationStatus:MTLocationStatusIdle animated:YES];
+			newLocationStatus = MTLocationStatusIdle;
 			break;
 
 			// if we are currently receiving updates next status depends whether heading is supported or not
 		case MTLocationStatusReceivingLocationUpdates:
-			[self setLocationStatus:self.headingEnabled ? MTLocationStatusReceivingHeadingUpdates : MTLocationStatusIdle animated:YES];
+			newLocationStatus = self.headingEnabled ? MTLocationStatusReceivingHeadingUpdates : MTLocationStatusIdle;
 			break;
 
 			// if we are currently receiving heading updates, switch back to idle
 		case MTLocationStatusReceivingHeadingUpdates:
-			[self setLocationStatus:MTLocationStatusIdle animated:YES];
+			newLocationStatus = MTLocationStatusIdle;
 			break;
+	}
+
+	// update to new location status
+	[self setLocationStatus:newLocationStatus animated:YES];
+
+	// check new status after status-toggle
+	// and update locationManager accordingly
+	switch(newLocationStatus) {
+			// if we are currently idle, stop updates
+		case MTLocationStatusIdle:
+			NSLog(@"Stopped updating");
+			[self.locationManager stopUpdatingLocation];
+			[self.locationManager stopUpdatingHeading];
+			break;
+
+			// if we are currently searching, start updating location
+		case MTLocationStatusSearching:
+			NSLog(@"Start updating location");
+			[self.locationManager startUpdatingLocation];
+			[self.locationManager stopUpdatingHeading];
+			break;
+
+			// if we are already receiving updates
+		case MTLocationStatusReceivingLocationUpdates:
+			NSLog(@"Start updating location");
+			[self.locationManager startUpdatingLocation];
+			[self.locationManager stopUpdatingHeading];
+			break;
+
+			// if we are currently receiving heading updates, start updating heading
+		case MTLocationStatusReceivingHeadingUpdates:
+			NSLog(@"start updating heading");
+			[self.locationManager startUpdatingLocation];
+			[self.locationManager startUpdatingHeading];
+			break;
+
 	}
 }
 

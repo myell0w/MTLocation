@@ -40,6 +40,8 @@
 
 @synthesize locateMeButton = locateMeButton_;
 @synthesize headingEnabled = headingEnabled_;
+@synthesize locationManager = locationManager_;
+
 
 ////////////////////////////////////////////////////////////////////////
 #pragma mark -
@@ -52,11 +54,11 @@
 
 	if ((self = [super initWithCustomView:locateMeButton_])) {
 		locateMeButton_.locationStatus = locationStatus;
+		locateMeButton_.locationManager = locationManager;
 		headingEnabled_ = YES;
-
-		if (locationManager != nil) {
-			locationManager.delegate = self;
-		}
+		// pass is nil for locationManager if you don't want to use it
+		locationManager_ = [locationManager retain];
+		locationManager_.delegate = self;
 	}
 
 	return self;
@@ -73,6 +75,7 @@
 
 - (void)dealloc {
 	[locateMeButton_ release], locateMeButton_ = nil;
+	[locationManager_ release], locationManager_ = nil;
 
 	[super dealloc];
 }
@@ -108,9 +111,11 @@
 							  newLocation, @"newLocation",
 							  oldLocation, @"oldLocation", nil];
 
+	NSLog(@"Received new location with accuracy: %f", newLocation.horizontalAccuracy);
+
 	// if horizontal accuracy is below our threshold update status
 	if (newLocation.horizontalAccuracy < kMTLocationMinimumHorizontalAccuracy) {
-		self.locateMeButton.locationStatus = MTLocationStatusReceivingLocationUpdates;
+		[self.locateMeButton setLocationStatus:MTLocationStatusReceivingLocationUpdates animated:YES];
 	}
 
 

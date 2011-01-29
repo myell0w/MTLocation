@@ -27,7 +27,7 @@ typedef enum MTLocationStatus {
 #define kMTLocationStatusCount 4
 
 // defined threshold for a location that counts as a location update
-#define kMTLocationMinimumHorizontalAccuracy 100
+#define kMTLocationMinimumHorizontalAccuracy 160
 
 
 #define kMTLocationManagerDidUpdateToLocationFromLocation	@"kMTLocationManagerDidUpdateToLocationFromLocation"

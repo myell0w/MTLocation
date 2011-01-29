@@ -22,10 +22,12 @@
 @interface MTLocateMeBarButtonItem : UIBarButtonItem <CLLocationManagerDelegate> {
 	MTLocateMeButton *locateMeButton_;
 	BOOL headingEnabled_;
+	CLLocationManager *locationManager_;
 }
 
 @property (nonatomic, assign) MTLocationStatus locationStatus;
 @property (nonatomic, assign) BOOL headingEnabled;
+@property (nonatomic, readonly) CLLocationManager *locationManager;
 
 
 - (id)initWithLocationStatus:(MTLocationStatus)locationStatus;
