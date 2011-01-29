@@ -242,28 +242,28 @@
 	switch(newLocationStatus) {
 			// if we are currently idle, stop updates
 		case MTLocationStatusIdle:
-			NSLog(@"Stopped updating");
+			//NSLog(@"Stopped updating");
 			[self.locationManager stopUpdatingLocation];
 			[self.locationManager stopUpdatingHeading];
 			break;
 
 			// if we are currently searching, start updating location
 		case MTLocationStatusSearching:
-			NSLog(@"Start updating location");
+			//NSLog(@"Start updating location");
 			[self.locationManager startUpdatingLocation];
 			[self.locationManager stopUpdatingHeading];
 			break;
 
 			// if we are already receiving updates
 		case MTLocationStatusReceivingLocationUpdates:
-			NSLog(@"Start updating location");
+			//NSLog(@"Start updating location");
 			[self.locationManager startUpdatingLocation];
 			[self.locationManager stopUpdatingHeading];
 			break;
 
 			// if we are currently receiving heading updates, start updating heading
 		case MTLocationStatusReceivingHeadingUpdates:
-			NSLog(@"start updating heading");
+			//NSLog(@"start updating heading");
 			[self.locationManager startUpdatingLocation];
 			[self.locationManager startUpdatingHeading];
 			break;

@@ -111,13 +111,12 @@
 							  newLocation, @"newLocation",
 							  oldLocation, @"oldLocation", nil];
 
-	NSLog(@"Received new location with accuracy: %f", newLocation.horizontalAccuracy);
-
 	// if horizontal accuracy is below our threshold update status
 	if (newLocation.horizontalAccuracy < kMTLocationMinimumHorizontalAccuracy) {
 		[self.locateMeButton setLocationStatus:MTLocationStatusReceivingLocationUpdates animated:YES];
+	} else {
+		[self.locateMeButton setLocationStatus:MTLocationStatusSearching animated:YES];
 	}
-
 
 	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidUpdateToLocationFromLocation object:self userInfo:userInfo];
 }
