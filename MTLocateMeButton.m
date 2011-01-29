@@ -71,9 +71,11 @@
 
 
 - (id)initWithFrame:(CGRect)frame  {
-    if ((self = [super initWithFrame:frame])) {
-		activityIndicatorFrame_ = CGRectInset(frame, kActivityIndicatorInset, kActivityIndicatorInset);
-		imageViewFrame_ = CGRectInset(frame, kImageViewInset , kImageViewInset);
+	CGRect buttonFrame = (CGRect){CGPointZero, [UIImage imageNamed:@"LocateMeButton.png"].size};
+
+    if ((self = [super initWithFrame:buttonFrame])) {
+		activityIndicatorFrame_ = CGRectInset(buttonFrame, kActivityIndicatorInset, kActivityIndicatorInset);
+		imageViewFrame_ = CGRectInset(buttonFrame, kImageViewInset , kImageViewInset);
 
 		locationStatus_ = MTLocationStatusIdle;
 

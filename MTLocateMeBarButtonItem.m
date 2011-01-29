@@ -15,14 +15,6 @@
 #import "MTLocateMeBarButtonItem.h"
 #import "MTLocateMeButton.h"
 
-////////////////////////////////////////////////////////////////////////
-#pragma mark -
-#pragma mark Defines/Customization
-////////////////////////////////////////////////////////////////////////
-
-
-#define kLocateMeButtonFrame CGRectMake(0.0f, 0.0f, 44.0f, 44.0f)
-
 
 ////////////////////////////////////////////////////////////////////////
 #pragma mark -
@@ -50,7 +42,7 @@
 
 // the designated initializer
 - (id)initWithLocationStatus:(MTLocationStatus)locationStatus locationManager:(CLLocationManager *)locationManager {
-	locateMeButton_ = [[MTLocateMeButton alloc] initWithFrame:kLocateMeButtonFrame];
+	locateMeButton_ = [[MTLocateMeButton alloc] initWithFrame:CGRectZero];
 
 	if ((self = [super initWithCustomView:locateMeButton_])) {
 		locateMeButton_.locationStatus = locationStatus;
