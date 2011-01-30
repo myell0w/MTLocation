@@ -82,7 +82,9 @@
 }
 
 - (void)setLocationStatus:(MTLocationStatus)locationStatus animated:(BOOL)animated {
-	[self.locateMeButton setLocationStatus:locationStatus animated:YES];
+	if (self.locationStatus != locationStatus) {
+		[self.locateMeButton setLocationStatus:locationStatus animated:YES];
+	}
 }
 
 - (MTLocationStatus)locationStatus {
@@ -105,9 +107,9 @@
 
 	// if horizontal accuracy is below our threshold update status
 	if (newLocation.horizontalAccuracy < kMTLocationMinimumHorizontalAccuracy) {
-		[self.locateMeButton setLocationStatus:MTLocationStatusReceivingLocationUpdates animated:YES];
+		[self setLocationStatus:MTLocationStatusReceivingLocationUpdates animated:YES];
 	} else {
-		[self.locateMeButton setLocationStatus:MTLocationStatusSearching animated:YES];
+		[self setLocationStatus:MTLocationStatusSearching animated:YES];
 	}
 
 	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidUpdateToLocationFromLocation object:self userInfo:userInfo];
