@@ -47,7 +47,6 @@
 	if ((self = [super initWithCustomView:locateMeButton_])) {
 		locateMeButton_.locationStatus = locationStatus;
 		locateMeButton_.locationManager = locationManager;
-		headingEnabled_ = YES;
 		// pass is nil for locationManager if you don't want to use it
 		locationManager_ = [locationManager retain];
 		locationManager_.delegate = self;
@@ -89,6 +88,14 @@
 
 - (MTLocationStatus)locationStatus {
 	return self.locateMeButton.locationStatus;
+}
+
+- (void)setHeadingEnabled:(BOOL)headingEnabled {
+	self.locateMeButton.headingEnabled = headingEnabled;
+}
+
+- (BOOL)headingEnabled {
+	return self.locateMeButton.headingEnabled;
 }
 
 - (void)addTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents {

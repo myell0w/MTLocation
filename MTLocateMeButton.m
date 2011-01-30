@@ -78,6 +78,7 @@
 		imageViewFrame_ = CGRectInset(buttonFrame, kImageViewInset , kImageViewInset);
 
 		locationStatus_ = MTLocationStatusIdle;
+		headingEnabled_ = YES;
 
 		activityIndicator_ = [[UIActivityIndicatorView alloc] initWithFrame:activityIndicatorFrame_];
         activityIndicator_.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;

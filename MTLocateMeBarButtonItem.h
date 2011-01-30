@@ -21,7 +21,6 @@
 
 @interface MTLocateMeBarButtonItem : UIBarButtonItem <CLLocationManagerDelegate> {
 	MTLocateMeButton *locateMeButton_;
-	BOOL headingEnabled_;
 	CLLocationManager *locationManager_;
 }
 
