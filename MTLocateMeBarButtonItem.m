@@ -114,8 +114,6 @@
 
 	// only set new location status if we are currently not receiving heading updates
 	if (self.locationStatus != MTLocationStatusReceivingHeadingUpdates) {
-		NSLog(@"Did update to location");
-
 		// if horizontal accuracy is below our threshold update status
 		if (newLocation.horizontalAccuracy < kMTLocationMinimumHorizontalAccuracy) {
 			[self setLocationStatus:MTLocationStatusReceivingLocationUpdates animated:YES];
@@ -131,7 +129,6 @@
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, @"locationManager",
 							  error, @"error", nil];
 
-	NSLog(@"Did fail");
 	[self setLocationStatus:MTLocationStatusIdle animated:YES];
 
 	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidFailWithError object:self userInfo:userInfo];
@@ -141,7 +138,6 @@
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, @"locationManager",
 							  newHeading, @"newHeading", nil];
 
-	NSLog(@"Did update heading");
 	[self setLocationStatus:MTLocationStatusReceivingHeadingUpdates animated:YES];
 
 	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidUpdateHeading object:self userInfo:userInfo];

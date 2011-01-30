@@ -123,13 +123,11 @@
 }
 
 - (void)setLocationStatus:(MTLocationStatus)locationStatus {
-	NSLog(@"Setting new location status now: %d", locationStatus);
 	locationStatus_ = locationStatus;
 	[self updateUI];
 }
 
 - (void)setLocationStatus:(MTLocationStatus)locationStatus animated:(BOOL)animated {
-	NSLog(@"Will animate to: %d", locationStatus);
 	if (animated) {
 		// Important: do not use setter here, because otherwise updateUI is triggered too soon!
 		locationStatus_ = locationStatus;
