@@ -126,7 +126,7 @@
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, @"locationManager",
 							  error, @"error", nil];
 
-	self.locateMeButton.locationStatus = MTLocationStatusIdle;
+	[self setLocationStatus:MTLocationStatusIdle animated:YES];
 
 	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidFailWithError object:self userInfo:userInfo];
 }
@@ -135,7 +135,7 @@
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, @"locationManager",
 							  newHeading, @"newHeading", nil];
 
-	self.locateMeButton.locationStatus = MTLocationStatusReceivingHeadingUpdates;
+	[self setLocationStatus:MTLocationStatusReceivingHeadingUpdates animated:YES];
 
 	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidUpdateHeading object:self userInfo:userInfo];
 }
