@@ -233,6 +233,8 @@
 			// if we are currently receiving heading updates, switch back to idle
 		case MTLocationStatusReceivingHeadingUpdates:
 			newLocationStatus = MTLocationStatusIdle;
+			// post notification that heading updates stopped
+			[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidStopUpdatingHeading object:self userInfo:nil];
 			break;
 	}
 

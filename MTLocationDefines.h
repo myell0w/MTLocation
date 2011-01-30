@@ -33,6 +33,7 @@ typedef enum MTLocationStatus {
 #define kMTLocationManagerDidUpdateToLocationFromLocation	@"kMTLocationManagerDidUpdateToLocationFromLocation"
 #define kMTLocationManagerDidFailWithError					@"kMTLocationManagerDidFailWithError"
 #define kMTLocationManagerDidUpdateHeading					@"kMTLocationManagerDidUpdateHeading"
+#define kMTLocationManagerDidStopUpdatingHeading			@"kMTLocationManagerDidStopUpdatingHeading"
 #define kMTLocationManagerDidEnterRegion					@"kMTLocationManagerDidEnterRegion"
 #define kMTLocationManagerDidExitRegion						@"kMTLocationManagerDidExitRegion"
 #define kMTLocationManagerMonitoringDidFailForRegion		@"kMTLocationManagerMonitoringDidFailForRegion"
