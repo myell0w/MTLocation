@@ -20,10 +20,23 @@
 #pragma mark Customize Section
 ////////////////////////////////////////////////////////////////////////
 
+// Background images
+#define kLocationStatusIdleBackgroundImage						@"LocateMeButton.png"
+#define kLocationStatusSearchingBackgroundImage					@"LocateMeButtonTrackingPressed.png"
+#define kLocationStatusRecevingLocationUpdatesBackgroundImage	@"LocateMeButtonTrackingPressed.png"
+#define kLocationStatusRecevingHeadingUpdatesBackgroundImage	@"LocateMeButtonTrackingPressed.png"
+
+// foreground images
+#define kLocationStatusIdleImage					@"Location.png"
+#define kLocationStatusRecevingLocationUpdatesImage	@"Location.png"
+#define kLocationStatusRecevingHeadingUpdatesImage	@"LocationHeading.png"
+
+// animation durations
 #define kShrinkAnimationDuration 0.25
 #define kExpandAnimationDuration 0.25
 #define kExpandAnimationDelay    0.1
 
+// size insets
 #define kActivityIndicatorInset 12.f
 #define kImageViewInset		    10.f
 
@@ -71,7 +84,7 @@
 
 
 - (id)initWithFrame:(CGRect)frame  {
-	CGRect buttonFrame = (CGRect){CGPointZero, [UIImage imageNamed:@"LocateMeButton.png"].size};
+	CGRect buttonFrame = (CGRect){CGPointZero, [UIImage imageNamed:kLocationStatusIdleBackgroundImage].size};
 
     if ((self = [super initWithFrame:buttonFrame])) {
 		activityIndicatorFrame_ = CGRectInset(buttonFrame, kActivityIndicatorInset, kActivityIndicatorInset);
@@ -180,30 +193,30 @@
 - (void)updateUI {
 	switch (self.locationStatus) {
 		case MTLocationStatusIdle:
-			[self setImage:[UIImage imageNamed:@"LocateMeButton.png"] forState:UIControlStateNormal];
+			[self setImage:[UIImage imageNamed:kLocationStatusIdleBackgroundImage] forState:UIControlStateNormal];
 			[self.activityIndicator stopAnimating];
-			self.imageView.image = [UIImage imageNamed:@"Location.png"];
+			self.imageView.image = [UIImage imageNamed:kLocationStatusIdleImage];
 			self.activeSubview = self.imageView;
 			break;
 
 		case MTLocationStatusSearching:
-			[self setImage:[UIImage imageNamed:@"LocateMeButtonTrackingPressed.png"] forState:UIControlStateNormal];
+			[self setImage:[UIImage imageNamed:kLocationStatusSearchingBackgroundImage] forState:UIControlStateNormal];
 			[self.activityIndicator startAnimating];
 			self.imageView.image = nil;
 			self.activeSubview = self.activityIndicator;
 			break;
 
 		case MTLocationStatusReceivingLocationUpdates:
-			[self setImage:[UIImage imageNamed:@"LocateMeButtonTrackingPressed.png"] forState:UIControlStateNormal];
+			[self setImage:[UIImage imageNamed:kLocationStatusRecevingLocationUpdatesBackgroundImage] forState:UIControlStateNormal];
 			[self.activityIndicator stopAnimating];
-			self.imageView.image = [UIImage imageNamed:@"Location.png"];
+			self.imageView.image = [UIImage imageNamed:kLocationStatusRecevingLocationUpdatesImage];
 			self.activeSubview = self.imageView;
 			break;
 
 		case MTLocationStatusReceivingHeadingUpdates:
-			[self setImage:[UIImage imageNamed:@"LocateMeButtonTrackingPressed.png"] forState:UIControlStateNormal];
+			[self setImage:[UIImage imageNamed:kLocationStatusRecevingHeadingUpdatesBackgroundImage] forState:UIControlStateNormal];
 			[self.activityIndicator stopAnimating];
-			self.imageView.image = [UIImage imageNamed:@"LocationHeading.png"];
+			self.imageView.image = [UIImage imageNamed:kLocationStatusRecevingHeadingUpdatesImage];
 			self.activeSubview = self.imageView;
 			break;
 	}
