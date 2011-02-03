@@ -15,6 +15,7 @@
 		39382DED12E9B7370012007D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39382DEC12E9B7370012007D /* UIKit.framework */; };
 		39CFA14312FA267100B859F9 /* MTLocationFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 39CFA14112FA267100B859F9 /* MTLocationFunctions.h */; };
 		39CFA14412FA267100B859F9 /* MTLocationFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 39CFA14212FA267100B859F9 /* MTLocationFunctions.m */; };
+		39CFA15E12FA29F000B859F9 /* MTLocateMe.h in Headers */ = {isa = PBXBuildFile; fileRef = 39CFA15D12FA29F000B859F9 /* MTLocateMe.h */; };
 		AA747D9F0F9514B9006C5449 /* MTLocateMeBarButtonItem_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* MTLocateMeBarButtonItem_Prefix.pch */; };
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
 /* End PBXBuildFile section */
@@ -36,6 +37,7 @@
 		39382DEC12E9B7370012007D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		39CFA14112FA267100B859F9 /* MTLocationFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLocationFunctions.h; sourceTree = "<group>"; };
 		39CFA14212FA267100B859F9 /* MTLocationFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTLocationFunctions.m; sourceTree = "<group>"; };
+		39CFA15D12FA29F000B859F9 /* MTLocateMe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLocateMe.h; sourceTree = "<group>"; };
 		AA747D9E0F9514B9006C5449 /* MTLocateMeBarButtonItem_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLocateMeBarButtonItem_Prefix.pch; sourceTree = SOURCE_ROOT; };
 		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D2AAC07E0554694100DB518D /* libMTLocateMeBarButtonItem.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMTLocateMeBarButtonItem.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,6 +90,7 @@
 			children = (
 				39CFA14712FA268F00B859F9 /* Buttons */,
 				39CFA14612FA268500B859F9 /* Utils */,
+				39CFA15D12FA29F000B859F9 /* MTLocateMe.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -148,6 +151,7 @@
 				39382D7C12E9B6400012007D /* MTLocateMeButton.h in Headers */,
 				39382D7E12E9B6400012007D /* MTLocationDefines.h in Headers */,
 				39CFA14312FA267100B859F9 /* MTLocationFunctions.h in Headers */,
+				39CFA15E12FA29F000B859F9 /* MTLocateMe.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
