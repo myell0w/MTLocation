@@ -136,29 +136,33 @@
 }
 
 - (void)setLocationStatus:(MTLocationStatus)locationStatus {
-	locationStatus_ = locationStatus;
-	[self updateUI];
+	if (locationStatus_ != locationStatus) {
+		locationStatus_ = locationStatus;
+		[self updateUI];
+	}
 }
 
 - (void)setLocationStatus:(MTLocationStatus)locationStatus animated:(BOOL)animated {
-	if (animated) {
-		// Important: do not use setter here, because otherwise updateUI is triggered too soon!
-		locationStatus_ = locationStatus;
-		[self setSmallFrame:self.inactiveSubview];
+	if (locationStatus_ != locationStatus) {
+		if (animated) {
+			// Important: do not use setter here, because otherwise updateUI is triggered too soon!
+			locationStatus_ = locationStatus;
+			[self setSmallFrame:self.inactiveSubview];
 
-		// animate currently visible subview to a smaller frame
-		// when finished, animate currently invisible subview to big frame
-		[UIView beginAnimations:@"AnimateLocationStatusShrink" context:(void *)[NSNumber numberWithInt:locationStatus]];
-		[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-		[UIView setAnimationDuration:kShrinkAnimationDuration];
-		[UIView setAnimationDelegate:self];
-		[UIView setAnimationDidStopSelector:@selector(locationStatusAnimationShrinkDidFinish:finished:context:)];
+			// animate currently visible subview to a smaller frame
+			// when finished, animate currently invisible subview to big frame
+			[UIView beginAnimations:@"AnimateLocationStatusShrink" context:(void *)[NSNumber numberWithInt:locationStatus]];
+			[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+			[UIView setAnimationDuration:kShrinkAnimationDuration];
+			[UIView setAnimationDelegate:self];
+			[UIView setAnimationDidStopSelector:@selector(locationStatusAnimationShrinkDidFinish:finished:context:)];
 
-		[self setSmallFrame:self.activeSubview];
+			[self setSmallFrame:self.activeSubview];
 
-		[UIView commitAnimations];
-	} else {
-		self.locationStatus = locationStatus;
+			[UIView commitAnimations];
+		} else {
+			self.locationStatus = locationStatus;
+		}
 	}
 }
 

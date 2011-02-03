@@ -81,9 +81,7 @@
 }
 
 - (void)setLocationStatus:(MTLocationStatus)locationStatus animated:(BOOL)animated {
-	if (self.locationStatus != locationStatus) {
-		[self.locateMeButton setLocationStatus:locationStatus animated:YES];
-	}
+	[self.locateMeButton setLocationStatus:locationStatus animated:YES];
 }
 
 - (MTLocationStatus)locationStatus {
