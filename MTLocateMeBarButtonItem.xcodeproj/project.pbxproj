@@ -13,6 +13,8 @@
 		39382D7D12E9B6400012007D /* MTLocateMeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 39382D7812E9B6400012007D /* MTLocateMeButton.m */; };
 		39382D7E12E9B6400012007D /* MTLocationDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 39382D7912E9B6400012007D /* MTLocationDefines.h */; };
 		39382DED12E9B7370012007D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39382DEC12E9B7370012007D /* UIKit.framework */; };
+		39CFA14312FA267100B859F9 /* MTLocationFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 39CFA14112FA267100B859F9 /* MTLocationFunctions.h */; };
+		39CFA14412FA267100B859F9 /* MTLocationFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 39CFA14212FA267100B859F9 /* MTLocationFunctions.m */; };
 		AA747D9F0F9514B9006C5449 /* MTLocateMeBarButtonItem_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* MTLocateMeBarButtonItem_Prefix.pch */; };
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
 /* End PBXBuildFile section */
@@ -32,6 +34,8 @@
 		39382D8512E9B6710012007D /* LocationHeading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LocationHeading.png; sourceTree = "<group>"; };
 		39382D8612E9B6710012007D /* LocationHeading@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LocationHeading@2x.png"; sourceTree = "<group>"; };
 		39382DEC12E9B7370012007D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		39CFA14112FA267100B859F9 /* MTLocationFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLocationFunctions.h; sourceTree = "<group>"; };
+		39CFA14212FA267100B859F9 /* MTLocationFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTLocationFunctions.m; sourceTree = "<group>"; };
 		AA747D9E0F9514B9006C5449 /* MTLocateMeBarButtonItem_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLocateMeBarButtonItem_Prefix.pch; sourceTree = SOURCE_ROOT; };
 		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D2AAC07E0554694100DB518D /* libMTLocateMeBarButtonItem.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMTLocateMeBarButtonItem.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,11 +86,8 @@
 		08FB77AEFE84172EC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				39382D7512E9B6400012007D /* MTLocateMeBarButtonItem.h */,
-				39382D7612E9B6400012007D /* MTLocateMeBarButtonItem.m */,
-				39382D7712E9B6400012007D /* MTLocateMeButton.h */,
-				39382D7812E9B6400012007D /* MTLocateMeButton.m */,
-				39382D7912E9B6400012007D /* MTLocationDefines.h */,
+				39CFA14712FA268F00B859F9 /* Buttons */,
+				39CFA14612FA268500B859F9 /* Utils */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -114,6 +115,27 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		39CFA14612FA268500B859F9 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				39382D7912E9B6400012007D /* MTLocationDefines.h */,
+				39CFA14112FA267100B859F9 /* MTLocationFunctions.h */,
+				39CFA14212FA267100B859F9 /* MTLocationFunctions.m */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
+		39CFA14712FA268F00B859F9 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				39382D7512E9B6400012007D /* MTLocateMeBarButtonItem.h */,
+				39382D7612E9B6400012007D /* MTLocateMeBarButtonItem.m */,
+				39382D7712E9B6400012007D /* MTLocateMeButton.h */,
+				39382D7812E9B6400012007D /* MTLocateMeButton.m */,
+			);
+			name = Buttons;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -125,6 +147,7 @@
 				39382D7A12E9B6400012007D /* MTLocateMeBarButtonItem.h in Headers */,
 				39382D7C12E9B6400012007D /* MTLocateMeButton.h in Headers */,
 				39382D7E12E9B6400012007D /* MTLocationDefines.h in Headers */,
+				39CFA14312FA267100B859F9 /* MTLocationFunctions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,6 +203,7 @@
 			files = (
 				39382D7B12E9B6400012007D /* MTLocateMeBarButtonItem.m in Sources */,
 				39382D7D12E9B6400012007D /* MTLocateMeButton.m in Sources */,
+				39CFA14412FA267100B859F9 /* MTLocationFunctions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
