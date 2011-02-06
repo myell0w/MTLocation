@@ -41,3 +41,11 @@ void MTRotateMapToHeading(MKMapView *mapView, CLHeading *heading) {
 					 }];
 
 }
+
+
+void MTClearMapRotation(MKMapView *mapView) {
+    // reset rotation of map-view
+	[UIView animateWithDuration:0.5 animations:^{
+		[mapView setTransform:CGAffineTransformIdentity];
+	}];
+}

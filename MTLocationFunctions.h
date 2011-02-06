@@ -19,3 +19,6 @@
 
 // Rotates the given map so that it fits the current heading (animated)
 void MTRotateMapToHeading(MKMapView *mapView, CLHeading *heading);
+
+// Sets the rotation-transform of the MapView back to Identity
+void MTClearMapRotation(MKMapView *mapView);
