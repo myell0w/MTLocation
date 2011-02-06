@@ -19,27 +19,28 @@
 void MTRotateMapToHeading(MKMapView *mapView, CLHeading *heading) {
 	double animationDuration = 0.2;
 
-	// if the map is currently not rotated
-	// we are just starting the rotation
-	// therefore it is possible that there is a big
-	// angle between current transformation and the one
-	// applied, so we increase the animation duration
-	if (CGAffineTransformIsIdentity(mapView.transform)) {
-		if (fabs(heading.magneticHeading) > 135.0) {
-			animationDuration = 0.5;
-		} else if (fabs(heading.magneticHeading) > 90.0) {
-			animationDuration = 0.4;
-		} else if (fabs(heading.magneticHeading) > 45.0) {
-			animationDuration = 0.3;
+	if (heading.headingAccuracy > 0) {
+		// if the map is currently not rotated
+		// we are just starting the rotation
+		// therefore it is possible that there is a big
+		// angle between current transformation and the one
+		// applied, so we increase the animation duration
+		if (CGAffineTransformIsIdentity(mapView.transform)) {
+			if (fabs(heading.magneticHeading) > 135.0) {
+				animationDuration = 0.5;
+			} else if (fabs(heading.magneticHeading) > 90.0) {
+				animationDuration = 0.4;
+			} else if (fabs(heading.magneticHeading) > 45.0) {
+				animationDuration = 0.3;
+			}
 		}
+
+		// Apply the transformation animated
+		[UIView animateWithDuration:animationDuration
+						 animations:^{
+							 [mapView setTransform:CGAffineTransformMakeRotation(heading.magneticHeading * M_PI / -180.0)];
+						 }];
 	}
-
-	// Apply the transformation animated
-	[UIView animateWithDuration:animationDuration
-					 animations:^{
-						 [mapView setTransform:CGAffineTransformMakeRotation(heading.magneticHeading * M_PI / -180.0)];
-					 }];
-
 }
 
 
