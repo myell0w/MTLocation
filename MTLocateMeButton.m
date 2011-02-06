@@ -132,7 +132,10 @@
 	} else {
 		return self.activityIndicator;
 	}
+}
 
+- (BOOL)headingEnabled {
+	return [CLLocationManager headingAvailable] && headingEnabled_;
 }
 
 - (void)setLocationStatus:(MTLocationStatus)locationStatus {
