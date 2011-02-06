@@ -30,17 +30,25 @@
 		39382D7712E9B6400012007D /* MTLocateMeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLocateMeButton.h; sourceTree = "<group>"; };
 		39382D7812E9B6400012007D /* MTLocateMeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTLocateMeButton.m; sourceTree = "<group>"; };
 		39382D7912E9B6400012007D /* MTLocationDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLocationDefines.h; sourceTree = "<group>"; };
-		39382D7F12E9B6710012007D /* LocateMeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LocateMeButton.png; sourceTree = "<group>"; };
-		39382D8012E9B6710012007D /* LocateMeButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LocateMeButton@2x.png"; sourceTree = "<group>"; };
-		39382D8112E9B6710012007D /* LocateMeButtonTrackingPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LocateMeButtonTrackingPressed.png; sourceTree = "<group>"; };
-		39382D8212E9B6710012007D /* LocateMeButtonTrackingPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LocateMeButtonTrackingPressed@2x.png"; sourceTree = "<group>"; };
-		39382D8312E9B6710012007D /* Location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Location.png; sourceTree = "<group>"; };
-		39382D8412E9B6710012007D /* Location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Location@2x.png"; sourceTree = "<group>"; };
-		39382D8512E9B6710012007D /* LocationHeading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LocationHeading.png; sourceTree = "<group>"; };
-		39382D8612E9B6710012007D /* LocationHeading@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LocationHeading@2x.png"; sourceTree = "<group>"; };
 		39382DEC12E9B7370012007D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		39645C0412FF585D008E8F9E /* MTTouchesBeganGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTTouchesBeganGestureRecognizer.h; sourceTree = "<group>"; };
 		39645C0512FF585D008E8F9E /* MTTouchesBeganGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTTouchesBeganGestureRecognizer.m; sourceTree = "<group>"; };
+		397F552812FF6414006BE3B5 /* GoogleBadge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GoogleBadge.png; sourceTree = "<group>"; };
+		397F552912FF6414006BE3B5 /* GoogleBadge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GoogleBadge@2x.png"; sourceTree = "<group>"; };
+		397F552A12FF6414006BE3B5 /* HeadingAngleLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HeadingAngleLarge.png; sourceTree = "<group>"; };
+		397F552B12FF6414006BE3B5 /* HeadingAngleLarge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HeadingAngleLarge@2x.png"; sourceTree = "<group>"; };
+		397F552C12FF6414006BE3B5 /* HeadingAngleMedium.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HeadingAngleMedium.png; sourceTree = "<group>"; };
+		397F552D12FF6414006BE3B5 /* HeadingAngleMedium@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HeadingAngleMedium@2x.png"; sourceTree = "<group>"; };
+		397F552E12FF6414006BE3B5 /* HeadingAngleSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HeadingAngleSmall.png; sourceTree = "<group>"; };
+		397F552F12FF6414006BE3B5 /* HeadingAngleSmall@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HeadingAngleSmall@2x.png"; sourceTree = "<group>"; };
+		397F553012FF6414006BE3B5 /* LocateMeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LocateMeButton.png; sourceTree = "<group>"; };
+		397F553112FF6414006BE3B5 /* LocateMeButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LocateMeButton@2x.png"; sourceTree = "<group>"; };
+		397F553212FF6414006BE3B5 /* LocateMeButtonTrackingPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LocateMeButtonTrackingPressed.png; sourceTree = "<group>"; };
+		397F553312FF6414006BE3B5 /* LocateMeButtonTrackingPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LocateMeButtonTrackingPressed@2x.png"; sourceTree = "<group>"; };
+		397F553412FF6414006BE3B5 /* Location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Location.png; sourceTree = "<group>"; };
+		397F553512FF6414006BE3B5 /* Location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Location@2x.png"; sourceTree = "<group>"; };
+		397F553612FF6414006BE3B5 /* LocationHeading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LocationHeading.png; sourceTree = "<group>"; };
+		397F553712FF6414006BE3B5 /* LocationHeading@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LocationHeading@2x.png"; sourceTree = "<group>"; };
 		39CFA14112FA267100B859F9 /* MTLocationFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLocationFunctions.h; sourceTree = "<group>"; };
 		39CFA14212FA267100B859F9 /* MTLocationFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTLocationFunctions.m; sourceTree = "<group>"; };
 		39CFA15D12FA29F000B859F9 /* MTLocateMe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLocateMe.h; sourceTree = "<group>"; };
@@ -75,7 +83,7 @@
 		0867D691FE84028FC02AAC07 /* MTLocateMeBarButtonItem */ = {
 			isa = PBXGroup;
 			children = (
-				39382C1412E9A07E0012007D /* Resources */,
+				397F552712FF6414006BE3B5 /* Resources */,
 				08FB77AEFE84172EC02AAC07 /* Classes */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				0867D69AFE84028FC02AAC07 /* Frameworks */,
@@ -112,19 +120,27 @@
 			name = "Other Sources";
 			sourceTree = "<group>";
 		};
-		39382C1412E9A07E0012007D /* Resources */ = {
+		397F552712FF6414006BE3B5 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				39382D7F12E9B6710012007D /* LocateMeButton.png */,
-				39382D8012E9B6710012007D /* LocateMeButton@2x.png */,
-				39382D8112E9B6710012007D /* LocateMeButtonTrackingPressed.png */,
-				39382D8212E9B6710012007D /* LocateMeButtonTrackingPressed@2x.png */,
-				39382D8312E9B6710012007D /* Location.png */,
-				39382D8412E9B6710012007D /* Location@2x.png */,
-				39382D8512E9B6710012007D /* LocationHeading.png */,
-				39382D8612E9B6710012007D /* LocationHeading@2x.png */,
+				397F552812FF6414006BE3B5 /* GoogleBadge.png */,
+				397F552912FF6414006BE3B5 /* GoogleBadge@2x.png */,
+				397F552A12FF6414006BE3B5 /* HeadingAngleLarge.png */,
+				397F552B12FF6414006BE3B5 /* HeadingAngleLarge@2x.png */,
+				397F552C12FF6414006BE3B5 /* HeadingAngleMedium.png */,
+				397F552D12FF6414006BE3B5 /* HeadingAngleMedium@2x.png */,
+				397F552E12FF6414006BE3B5 /* HeadingAngleSmall.png */,
+				397F552F12FF6414006BE3B5 /* HeadingAngleSmall@2x.png */,
+				397F553012FF6414006BE3B5 /* LocateMeButton.png */,
+				397F553112FF6414006BE3B5 /* LocateMeButton@2x.png */,
+				397F553212FF6414006BE3B5 /* LocateMeButtonTrackingPressed.png */,
+				397F553312FF6414006BE3B5 /* LocateMeButtonTrackingPressed@2x.png */,
+				397F553412FF6414006BE3B5 /* Location.png */,
+				397F553512FF6414006BE3B5 /* Location@2x.png */,
+				397F553612FF6414006BE3B5 /* LocationHeading.png */,
+				397F553712FF6414006BE3B5 /* LocationHeading@2x.png */,
 			);
-			name = Resources;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		39CFA14612FA268500B859F9 /* Utils */ = {
