@@ -17,21 +17,19 @@
 #import "MTLocationDefines.h"
 
 @class MTLocateMeButton;
+@protocol MTLocateMeButtonDelegate;
 
 
-@interface MTLocateMeBarButtonItem : UIBarButtonItem <CLLocationManagerDelegate> {
+@interface MTLocateMeBarButtonItem : UIBarButtonItem {
 	MTLocateMeButton *locateMeButton_;
-	CLLocationManager *locationManager_;
 }
 
 @property (nonatomic, assign) MTLocationStatus locationStatus;
 @property (nonatomic, assign) BOOL headingEnabled;
-@property (nonatomic, readonly) CLLocationManager *locationManager;
+@property (nonatomic, assign) id<MTLocateMeButtonDelegate> delegate;
 
 
 - (id)initWithLocationStatus:(MTLocationStatus)locationStatus;
-// if you pass in a locationManager the button acts as it's delegate and sends Notifications when location changes
-- (id)initWithLocationStatus:(MTLocationStatus)locationStatus locationManager:(CLLocationManager *)locationManager;
 
 - (void)setLocationStatus:(MTLocationStatus)locationStatus animated:(BOOL)animated;
 

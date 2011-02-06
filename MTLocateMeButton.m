@@ -75,6 +75,7 @@
 @synthesize imageViewFrame = imageViewFrame_;
 @synthesize activeSubview = activeSubview_;
 @synthesize locationManager = locationManager_;
+@synthesize delegate = delegate_;
 
 
 ////////////////////////////////////////////////////////////////////////
@@ -114,6 +115,7 @@
 }
 
 - (void)dealloc {
+    delegate_ = nil;
     [activityIndicator_ release], activityIndicator_ = nil;
 	[imageView_ release], imageView_ = nil;
 	[locationManager_ release], locationManager_ = nil;
@@ -261,38 +263,8 @@
 	// update to new location status
 	[self setLocationStatus:newLocationStatus animated:YES];
 
-	// check new status after status-toggle
-	// and update locationManager accordingly
-	switch(newLocationStatus) {
-			// if we are currently idle, stop updates
-		case MTLocationStatusIdle:
-			//NSLog(@"Stopped updating");
-			[self.locationManager stopUpdatingLocation];
-			[self.locationManager stopUpdatingHeading];
-			break;
-
-			// if we are currently searching, start updating location
-		case MTLocationStatusSearching:
-			//NSLog(@"Start updating location");
-			[self.locationManager startUpdatingLocation];
-			[self.locationManager stopUpdatingHeading];
-			break;
-
-			// if we are already receiving updates
-		case MTLocationStatusReceivingLocationUpdates:
-			//NSLog(@"Start updating location");
-			[self.locationManager startUpdatingLocation];
-			[self.locationManager stopUpdatingHeading];
-			break;
-
-			// if we are currently receiving heading updates, start updating heading
-		case MTLocationStatusReceivingHeadingUpdates:
-			//NSLog(@"start updating heading");
-			[self.locationManager startUpdatingLocation];
-			[self.locationManager startUpdatingHeading];
-			break;
-
-	}
+	// call delegate
+    [self.delegate locateMeButton:self didChangeLocationStatus:newLocationStatus];
 }
 
 // sets a view to a smaller frame, used for animation

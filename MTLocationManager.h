@@ -1,7 +1,7 @@
 //
-//  MTLocateMe.h
+//  MTLocationManager.h
 //
-//  Created by Matthias Tretter on 2.02.11.
+//  Created by Matthias Tretter on 06.02.11.
 //  Copyright (c) 2009-2011  Matthias Tretter, @myell0w. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
@@ -12,9 +12,32 @@
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 // WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-
-#import "MTLocateMeBarButtonItem.h"
+#import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 #import "MTLocateMeButton.h"
-#import "MTLocationDefines.h"
-#import "MTLocationFunctions.h"
-#import "MTLocationManager.h"
+#import "MTLocateMeBarButtonItem.h"
+
+// Singleton class that acts as the Location Manager and it's delegate
+// Sends Notifications when CLLocationManagerDelegate-Methods are called
+@interface MTLocationManager : NSObject <CLLocationManagerDelegate, MTLocateMeButtonDelegate> {
+    // The Core Location location manager
+    CLLocationManager *locationManager_;
+}
+
+
+////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Properties
+////////////////////////////////////////////////////////////////////////
+
+@property (nonatomic, retain) CLLocationManager *locationManager;
+
+////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Class Methods
+////////////////////////////////////////////////////////////////////////
+
+// Singleton Instance
++ (MTLocationManager *)sharedInstance;
+
+@end

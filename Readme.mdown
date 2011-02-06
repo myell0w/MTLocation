@@ -6,10 +6,11 @@ Read Me
 Description
 -----------------
 
-This class mimics the LocateMe-Button of the built-in Google Maps App on iOS.
-It's either a drop-in-replacement for any BarButtonItem you may have used until now, or can optionally act as the LocationManagerDelegate for you and send Notification whenever a delegate-method gets called. The switch from one mode to another is animated, just like in the Google Maps App.
+These classes aim to mimic some of the functions of the built-in Google Maps App on iOS for you.
+Currently the library contains a simple Location Manager-Singleton that sends out notifications when CLLocationManager-Delegate-Methods are called and a UIBarButtonItem/UIButton that acts as a Locate-Me Button that behaves similar to the one in the Google Maps App.
+The switch from one mode to another is animated, just like in the Google Maps App.
 
-It can also be customized to support Heading-Mode or not, by setting property headingEnabled.
+It can also be customized to support Heading-Updates or not, by setting property headingEnabled.
 
 Installation
 ------------------
@@ -22,8 +23,15 @@ Usage
 
 You can use MTLocateMeBarButtonItem like this:
 
+	 // Configure Location Manager
+	 [MTLocationManager sharedInstance].locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+	 [MTLocationManager sharedInstance].locationManager.distanceFilter = kCLDistanceFilterNone;
+	 [MTLocationManager sharedInstance].locationManager.headingFilter = 5; // 5 Degrees
+
      // create locate-me item
 	 MTLocateMeBarButtonItem *locateMeItem = [[MTLocateMeBarButtonItem alloc] initWithLocationStatus:MTLocationStatusIdle];
+	 // set delegate that is called when mode of Button changes
+	 locateMeItem.delegate = [MTLocationManager sharedInstance];
  	 // add target-action
 	 [locateMeItem addTarget:self action:@selector(myCustomSelector:) forControlEvents:UIControlEventTouchUpInside];
 	 // disable heading

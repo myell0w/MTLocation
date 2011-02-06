@@ -16,6 +16,8 @@
 #import <CoreLocation/CoreLocation.h>
 #import "MTLocationDefines.h"
 
+@protocol MTLocateMeButtonDelegate;
+
 
 @interface MTLocateMeButton : UIButton {
 	// Current Location-State of the Button
@@ -34,13 +36,23 @@
 	UIView *activeSubview_;
 
 	BOOL headingEnabled_;
-	CLLocationManager *locationManager_;
+    
+    id<MTLocateMeButtonDelegate> delegate_;
 }
 
 @property (nonatomic, assign) MTLocationStatus locationStatus;
 @property (nonatomic, assign) BOOL headingEnabled;
 @property (nonatomic, retain) CLLocationManager *locationManager;
+@property (nonatomic, assign) id<MTLocateMeButtonDelegate> delegate;
 
 - (void)setLocationStatus:(MTLocationStatus)locationStatus animated:(BOOL)animated;
+
+@end
+
+
+
+@protocol MTLocateMeButtonDelegate <NSObject>
+
+- (void)locateMeButton:(MTLocateMeButton *)locateMeButton didChangeLocationStatus:(MTLocationStatus)locationStatus;
 
 @end

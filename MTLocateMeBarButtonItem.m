@@ -25,6 +25,10 @@
 
 @property (nonatomic, retain) MTLocateMeButton *locateMeButton;
 
+- (void)locationManagerDidUpdateToLocationFromLocation:(NSNotification *)notification;
+- (void)locationManagerDidUpdateHeading:(NSNotification *)notification;
+- (void)locationManagerDidFail:(NSNotification *)notification;
+
 @end
 
 
@@ -32,7 +36,6 @@
 
 @synthesize locateMeButton = locateMeButton_;
 @synthesize headingEnabled = headingEnabled_;
-@synthesize locationManager = locationManager_;
 
 
 ////////////////////////////////////////////////////////////////////////
@@ -41,22 +44,30 @@
 ////////////////////////////////////////////////////////////////////////
 
 // the designated initializer
-- (id)initWithLocationStatus:(MTLocationStatus)locationStatus locationManager:(CLLocationManager *)locationManager {
+- (id)initWithLocationStatus:(MTLocationStatus)locationStatus {
 	locateMeButton_ = [[MTLocateMeButton alloc] initWithFrame:CGRectZero];
-
+    
 	if ((self = [super initWithCustomView:locateMeButton_])) {
 		locateMeButton_.locationStatus = locationStatus;
-		locateMeButton_.locationManager = locationManager;
-		// pass is nil for locationManager if you don't want to use it
-		locationManager_ = [locationManager retain];
-		locationManager_.delegate = self;
+        
+        // begin listening to location update notifications
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(locationManagerDidUpdateToLocationFromLocation:)
+                                                     name:kMTLocationManagerDidUpdateToLocationFromLocation
+                                                   object:nil];
+        // begin listening to heading update notifications
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(locationManagerDidUpdateHeading:)
+                                                     name:kMTLocationManagerDidUpdateHeading
+                                                   object:nil];
+        // begin listening to heading update notifications
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(locationManagerDidFail:)
+                                                     name:kMTLocationManagerDidFailWithError
+                                                   object:nil];
 	}
-
+    
 	return self;
-}
-
-- (id)initWithLocationStatus:(MTLocationStatus)locationStatus {
-	return [self initWithLocationStatus:locationStatus locationManager:nil];
 }
 
 // The designated initializer of the base-class
@@ -65,9 +76,11 @@
 }
 
 - (void)dealloc {
+    // end listening to location update notifications
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+    
 	[locateMeButton_ release], locateMeButton_ = nil;
-	[locationManager_ release], locationManager_ = nil;
-
+    
 	[super dealloc];
 }
 
@@ -100,17 +113,25 @@
 	[self.locateMeButton addTarget:target action:action forControlEvents:controlEvents];
 }
 
+- (void)setDelegate:(id<MTLocateMeButtonDelegate>)delegate {
+    self.locateMeButton.delegate = delegate;
+}
+
+- (id<MTLocateMeButtonDelegate>)delegate {
+    return self.locateMeButton.delegate;
+}
+
+
 ////////////////////////////////////////////////////////////////////////
 #pragma mark -
-#pragma mark locationManager Delegate
+#pragma mark Location Manager Notifications
 ////////////////////////////////////////////////////////////////////////
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
-	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, @"locationManager",
-							  newLocation, @"newLocation",
-							  oldLocation, @"oldLocation", nil];
 
-	// only set new location status if we are currently not receiving heading updates
+- (void)locationManagerDidUpdateToLocationFromLocation:(NSNotification *)notification {
+	CLLocation *newLocation = [notification.userInfo valueForKey:@"newLocation"];
+    
+    // only set new location status if we are currently not receiving heading updates
 	if (self.locationStatus != MTLocationStatusReceivingHeadingUpdates) {
 		// if horizontal accuracy is below our threshold update status
 		if (newLocation.horizontalAccuracy < kMTLocationMinimumHorizontalAccuracy) {
@@ -119,59 +140,20 @@
 			[self setLocationStatus:MTLocationStatusSearching animated:YES];
 		}
 	}
-
-	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidUpdateToLocationFromLocation object:self userInfo:userInfo];
 }
 
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, @"locationManager",
-							  error, @"error", nil];
-
-	[self setLocationStatus:MTLocationStatusIdle animated:YES];
-
-	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidFailWithError object:self userInfo:userInfo];
+- (void)locationManagerDidUpdateHeading:(NSNotification *)notification {
+	CLHeading *newHeading = [notification.userInfo valueForKey:@"newHeading"];
+    
+    if (newHeading.headingAccuracy > 0) {
+        [self setLocationStatus:MTLocationStatusReceivingHeadingUpdates animated:YES];  
+    } else {
+        [self setLocationStatus:MTLocationStatusReceivingLocationUpdates animated:YES];
+    }
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading {
-	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, @"locationManager",
-							  newHeading, @"newHeading", nil];
-
-	[self setLocationStatus:MTLocationStatusReceivingHeadingUpdates animated:YES];
-
-	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidUpdateHeading object:self userInfo:userInfo];
-}
-
-- (BOOL)locationManagerShouldDisplayHeadingCalibration:(CLLocationManager *)manager {
-	return YES;
-}
-
-- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
-	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, @"locationManager",
-							  region, @"region", nil];
-
-	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidEnterRegion object:self userInfo:userInfo];
-}
-
-- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
-	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, @"locationManager",
-							  region, @"region", nil];
-
-	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidExitRegion object:self userInfo:userInfo];
-}
-
-- (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
-	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, @"locationManager",
-							  region, @"region",
-							  error, @"error", nil];
-
-	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerMonitoringDidFailForRegion object:self userInfo:userInfo];
-}
-
-- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
-	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, @"locationManager",
-							  [NSNumber numberWithInt:status], @"status", nil];
-
-	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidChangeAuthorizationStatus object:self userInfo:userInfo];
+- (void)locationManagerDidFail:(NSNotification *)notification {
+    [self setLocationStatus:MTLocationStatusIdle animated:YES];
 }
 
 

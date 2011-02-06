@@ -16,6 +16,8 @@
 		39CFA14312FA267100B859F9 /* MTLocationFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 39CFA14112FA267100B859F9 /* MTLocationFunctions.h */; };
 		39CFA14412FA267100B859F9 /* MTLocationFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 39CFA14212FA267100B859F9 /* MTLocationFunctions.m */; };
 		39CFA15E12FA29F000B859F9 /* MTLocateMe.h in Headers */ = {isa = PBXBuildFile; fileRef = 39CFA15D12FA29F000B859F9 /* MTLocateMe.h */; };
+		39E47D1312FF41D100649F01 /* MTLocationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 39E47D1112FF41D100649F01 /* MTLocationManager.h */; };
+		39E47D1412FF41D100649F01 /* MTLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E47D1212FF41D100649F01 /* MTLocationManager.m */; };
 		AA747D9F0F9514B9006C5449 /* MTLocateMeBarButtonItem_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* MTLocateMeBarButtonItem_Prefix.pch */; };
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
 /* End PBXBuildFile section */
@@ -38,6 +40,8 @@
 		39CFA14112FA267100B859F9 /* MTLocationFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLocationFunctions.h; sourceTree = "<group>"; };
 		39CFA14212FA267100B859F9 /* MTLocationFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTLocationFunctions.m; sourceTree = "<group>"; };
 		39CFA15D12FA29F000B859F9 /* MTLocateMe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLocateMe.h; sourceTree = "<group>"; };
+		39E47D1112FF41D100649F01 /* MTLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLocationManager.h; sourceTree = "<group>"; };
+		39E47D1212FF41D100649F01 /* MTLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTLocationManager.m; sourceTree = "<group>"; };
 		AA747D9E0F9514B9006C5449 /* MTLocateMeBarButtonItem_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLocateMeBarButtonItem_Prefix.pch; sourceTree = SOURCE_ROOT; };
 		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D2AAC07E0554694100DB518D /* libMTLocateMeBarButtonItem.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMTLocateMeBarButtonItem.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,6 +92,7 @@
 		08FB77AEFE84172EC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				39E47D1012FF41A000649F01 /* Delegation */,
 				39CFA14712FA268F00B859F9 /* Buttons */,
 				39CFA14612FA268500B859F9 /* Utils */,
 				39CFA15D12FA29F000B859F9 /* MTLocateMe.h */,
@@ -139,6 +144,15 @@
 			name = Buttons;
 			sourceTree = "<group>";
 		};
+		39E47D1012FF41A000649F01 /* Delegation */ = {
+			isa = PBXGroup;
+			children = (
+				39E47D1112FF41D100649F01 /* MTLocationManager.h */,
+				39E47D1212FF41D100649F01 /* MTLocationManager.m */,
+			);
+			name = Delegation;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -152,6 +166,7 @@
 				39382D7E12E9B6400012007D /* MTLocationDefines.h in Headers */,
 				39CFA14312FA267100B859F9 /* MTLocationFunctions.h in Headers */,
 				39CFA15E12FA29F000B859F9 /* MTLocateMe.h in Headers */,
+				39E47D1312FF41D100649F01 /* MTLocationManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,6 +223,7 @@
 				39382D7B12E9B6400012007D /* MTLocateMeBarButtonItem.m in Sources */,
 				39382D7D12E9B6400012007D /* MTLocateMeButton.m in Sources */,
 				39CFA14412FA267100B859F9 /* MTLocationFunctions.m in Sources */,
+				39E47D1412FF41D100649F01 /* MTLocationManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
