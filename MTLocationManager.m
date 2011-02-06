@@ -15,18 +15,20 @@
 
 #import "MTLocationManager.h"
 #import "MTLocationDefines.h"
+#import "MTLocationFunctions.h"
+#import "MTTouchesBeganGestureRecognizer.h"
 
 
 @implementation MTLocationManager
 
 @synthesize locationManager = locationManager_;
+@synthesize mapView = mapView_;
 
 
 ////////////////////////////////////////////////////////////////////////
 #pragma mark -
 #pragma mark Lifecycle
 ////////////////////////////////////////////////////////////////////////
-
 
 - (id)init {
     if ((self = [super init])) {
@@ -39,10 +41,43 @@
 
 - (void)dealloc {
     [locationManager_ release], locationManager_ = nil;
+	[mapView_ release], mapView_ = nil;
 
     [super dealloc];
 }
 
+
+////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Setter/Getter
+////////////////////////////////////////////////////////////////////////
+
+- (void)setMapView:(MKMapView *)mapView {
+	if(mapView != mapView_) {
+		[mapView_ release];
+		mapView_ = [mapView retain];
+	}
+
+	// detect taps on the map-view
+	MTTouchesBeganGestureRecognizer * tapInterceptor = [[[MTTouchesBeganGestureRecognizer alloc] init] autorelease];
+	// safe self for block
+	__block __typeof__(self) blockSelf = self;
+
+	tapInterceptor.touchesBeganCallback = ^(NSSet * touches, UIEvent * event) {
+		// Reset transform on map
+		MTClearMapRotation(blockSelf.mapView);
+
+		// stop location-services
+		[[MTLocationManager sharedInstance].locationManager stopUpdatingLocation];
+		[[MTLocationManager sharedInstance].locationManager stopUpdatingHeading];
+
+		// Tell LocateMeBarButtonItem to update it's state
+		[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidStopUpdatingHeading object:blockSelf userInfo:nil];
+		[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidStopUpdatingServices object:blockSelf userInfo:nil];
+	};
+
+	[self.mapView addGestureRecognizer:tapInterceptor];
+}
 
 
 ////////////////////////////////////////////////////////////////////////
@@ -69,6 +104,11 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading {
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, @"locationManager",
 							  newHeading, @"newHeading", nil];
+
+	if (self.mapView) {
+		// rotate map
+		MTRotateMapToHeading(self.mapView, newHeading);
+	}
 
 	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidUpdateHeading object:self userInfo:userInfo];
 }

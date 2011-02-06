@@ -14,6 +14,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
 #import "MTLocateMeButton.h"
 #import "MTLocateMeBarButtonItem.h"
 
@@ -22,6 +23,8 @@
 @interface MTLocationManager : NSObject <CLLocationManagerDelegate, MTLocateMeButtonDelegate> {
     // The Core Location location manager
     CLLocationManager *locationManager_;
+	// Optional: a MapView that gets rotated according to heading updates
+	MKMapView *mapView_;
 }
 
 
@@ -31,6 +34,7 @@
 ////////////////////////////////////////////////////////////////////////
 
 @property (nonatomic, retain) CLLocationManager *locationManager;
+@property (nonatomic, retain) MKMapView *mapView;
 
 ////////////////////////////////////////////////////////////////////////
 #pragma mark -

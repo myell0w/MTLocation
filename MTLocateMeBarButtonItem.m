@@ -28,6 +28,7 @@
 - (void)locationManagerDidUpdateToLocationFromLocation:(NSNotification *)notification;
 - (void)locationManagerDidUpdateHeading:(NSNotification *)notification;
 - (void)locationManagerDidFail:(NSNotification *)notification;
+- (void)locationManagerDidStopUpdatingServices:(NSNotification *)notification;
 
 @end
 
@@ -46,10 +47,10 @@
 // the designated initializer
 - (id)initWithLocationStatus:(MTLocationStatus)locationStatus {
 	locateMeButton_ = [[MTLocateMeButton alloc] initWithFrame:CGRectZero];
-    
+
 	if ((self = [super initWithCustomView:locateMeButton_])) {
 		locateMeButton_.locationStatus = locationStatus;
-        
+
         // begin listening to location update notifications
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(locationManagerDidUpdateToLocationFromLocation:)
@@ -60,13 +61,18 @@
                                                  selector:@selector(locationManagerDidUpdateHeading:)
                                                      name:kMTLocationManagerDidUpdateHeading
                                                    object:nil];
-        // begin listening to heading update notifications
+        // begin listening to location errors
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(locationManagerDidFail:)
                                                      name:kMTLocationManagerDidFailWithError
                                                    object:nil];
+		// begin listening to end of updating of all services
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(locationManagerDidStopUpdatingServices:)
+                                                     name:kMTLocationManagerDidStopUpdatingServices
+                                                   object:nil];
 	}
-    
+
 	return self;
 }
 
@@ -78,9 +84,9 @@
 - (void)dealloc {
     // end listening to location update notifications
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-    
+
 	[locateMeButton_ release], locateMeButton_ = nil;
-    
+
 	[super dealloc];
 }
 
@@ -127,10 +133,9 @@
 #pragma mark Location Manager Notifications
 ////////////////////////////////////////////////////////////////////////
 
-
 - (void)locationManagerDidUpdateToLocationFromLocation:(NSNotification *)notification {
 	CLLocation *newLocation = [notification.userInfo valueForKey:@"newLocation"];
-    
+
     // only set new location status if we are currently not receiving heading updates
 	if (self.locationStatus != MTLocationStatusReceivingHeadingUpdates) {
 		// if horizontal accuracy is below our threshold update status
@@ -144,9 +149,9 @@
 
 - (void)locationManagerDidUpdateHeading:(NSNotification *)notification {
 	CLHeading *newHeading = [notification.userInfo valueForKey:@"newHeading"];
-    
+
     if (newHeading.headingAccuracy > 0) {
-        [self setLocationStatus:MTLocationStatusReceivingHeadingUpdates animated:YES];  
+        [self setLocationStatus:MTLocationStatusReceivingHeadingUpdates animated:YES];
     } else {
         [self setLocationStatus:MTLocationStatusReceivingLocationUpdates animated:YES];
     }
@@ -154,6 +159,11 @@
 
 - (void)locationManagerDidFail:(NSNotification *)notification {
     [self setLocationStatus:MTLocationStatusIdle animated:YES];
+}
+
+- (void)locationManagerDidStopUpdatingServices:(NSNotification *)notification {
+	// update locationStatus
+	[self setLocationStatus:MTLocationStatusIdle animated:YES];
 }
 
 
