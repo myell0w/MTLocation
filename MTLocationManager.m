@@ -16,7 +16,7 @@
 #import "MTLocationManager.h"
 #import "MTLocationDefines.h"
 #import "MTLocationFunctions.h"
-#import "MTTouchesBeganGestureRecognizer.h"
+#import "MTTouchesMovedGestureRecognizer.h"
 
 
 @implementation MTLocationManager
@@ -59,11 +59,11 @@
 	}
 
 	// detect taps on the map-view
-	MTTouchesBeganGestureRecognizer * tapInterceptor = [[[MTTouchesBeganGestureRecognizer alloc] init] autorelease];
+	MTTouchesMovedGestureRecognizer * tapInterceptor = [[[MTTouchesMovedGestureRecognizer alloc] init] autorelease];
 	// safe self for block
 	__block __typeof__(self) blockSelf = self;
 
-	tapInterceptor.touchesBeganCallback = ^(NSSet * touches, UIEvent * event) {
+	tapInterceptor.touchesMovedCallback = ^(NSSet * touches, UIEvent * event) {
 		// Reset transform on map
 		MTClearMapRotation(blockSelf.mapView);
 

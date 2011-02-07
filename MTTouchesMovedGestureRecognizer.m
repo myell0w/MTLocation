@@ -4,12 +4,12 @@
 // Copyright 2010 Floatopian LLC. All rights reserved.
 //
 
-#import "MTTouchesBeganGestureRecognizer.h"
+#import "MTTouchesMovedGestureRecognizer.h"
 
 
-@implementation MTTouchesBeganGestureRecognizer
+@implementation MTTouchesMovedGestureRecognizer
 
-@synthesize touchesBeganCallback;
+@synthesize touchesMovedCallback = touchesMovedCallback_;
 
 - (id)init {
 	if ((self = [super init])) {
@@ -20,14 +20,14 @@
 }
 
 - (void)dealloc {
-    [touchesBeganCallback release];
+    [touchesMovedCallback_ release], touchesMovedCallback_ = nil;
 
     [super dealloc];
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-	if (touchesBeganCallback) {
-		touchesBeganCallback(touches, event);
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+	if (self.touchesMovedCallback) {
+		self.touchesMovedCallback(touches, event);
 	}
 }
 

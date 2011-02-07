@@ -18,4 +18,4 @@
 #import "MTLocationDefines.h"
 #import "MTLocationFunctions.h"
 #import "MTLocationManager.h"
-#import "MTTouchesBeganGestureRecognizer.h"
+#import "MTTouchesMovedGestureRecognizer.h"
