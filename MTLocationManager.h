@@ -44,4 +44,6 @@
 // Singleton Instance
 + (MTLocationManager *)sharedInstance;
 
+- (void)stopAllServices;
+
 @end

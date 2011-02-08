@@ -46,6 +46,25 @@
     [super dealloc];
 }
 
+////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Location Service Methods
+////////////////////////////////////////////////////////////////////////
+
+- (void)stopAllServices {
+	// Reset transform on map
+	if (self.mapView) {
+		MTClearMapRotation(self.mapView);
+	}
+
+	// stop location-services
+	[self.locationManager stopUpdatingLocation];
+	[self.locationManager stopUpdatingHeading];
+
+	// post notification
+	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidStopUpdatingHeading object:self userInfo:nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidStopUpdatingServices object:self userInfo:nil];
+}
 
 ////////////////////////////////////////////////////////////////////////
 #pragma mark -
