@@ -29,7 +29,7 @@ You can use MTLocateMeBarButtonItem like this:
 	 [MTLocationManager sharedInstance].locationManager.headingFilter = 5; // 5 Degrees
 
      // create locate-me item
-	 MTLocateMeBarButtonItem *locateMeItem = [[MTLocateMeBarButtonItem alloc] initWithLocationStatus:MTLocationStatusIdle];
+	 MTLocateMeBarButtonItem *locateMeItem = [[[MTLocateMeBarButtonItem alloc] initWithLocationStatus:MTLocationStatusIdle] autorelease];
 	 // set delegate that is called when mode of Button changes
 	 locateMeItem.delegate = [MTLocationManager sharedInstance];
  	 // add target-action
