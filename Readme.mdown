@@ -3,6 +3,13 @@ Read Me
 
 ![Currently Idle](http://img.skitch.com/20110122-j2e722trxp9gexuyjh1rqwuxs2.png "Currently Idle") ![Currently searching for a location](http://img.skitch.com/20110122-e9r8qcmrr4px6d3mijtkhjcwtg.png "Currently searching for a location") ![Currently receiving location updates](http://img.skitch.com/20110122-jdpwfa3x52m21gip8ekkj3fsrc.png "Currently receiving location updates") ![Currently receiving heading updates](http://img.skitch.com/20110122-1bhcj3gdjkeyktcxtsg2nuqcu6.png "Currently receiving heading updates")
 
+
+Attention!
+======================
+The repository MTLocateMeBarButtonItem was renamed to MTLocation because it already contains more than "only" the initial LocateMe-BarButtonItem and my plans are to add more features in the future. Be sure to update the URLs of your local clones, check out the section **Changing a remote’s URL** of
+
+[Help.GitHub - Working with remotes](http://help.github.com/remotes/ "Help.GitHub - Working with remotes")
+
 Description
 -----------------
 

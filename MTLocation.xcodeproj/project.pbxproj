@@ -196,9 +196,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		D2AAC07D0554694100DB518D /* MTLocateMeBarButtonItem */ = {
+		D2AAC07D0554694100DB518D /* MTLocation */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB921E08733DC00010E9CD /* Build configuration list for PBXNativeTarget "MTLocateMeBarButtonItem" */;
+			buildConfigurationList = 1DEB921E08733DC00010E9CD /* Build configuration list for PBXNativeTarget "MTLocation" */;
 			buildPhases = (
 				D2AAC07A0554694100DB518D /* Headers */,
 				D2AAC07B0554694100DB518D /* Sources */,
@@ -208,7 +208,7 @@
 			);
 			dependencies = (
 			);
-			name = MTLocateMeBarButtonItem;
+			name = MTLocation;
 			productName = MTLocateMeBarButtonItem;
 			productReference = D2AAC07E0554694100DB518D /* libMTLocateMeBarButtonItem.a */;
 			productType = "com.apple.product-type.library.static";
@@ -218,7 +218,7 @@
 /* Begin PBXProject section */
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = 1DEB922208733DC00010E9CD /* Build configuration list for PBXProject "MTLocateMeBarButtonItem" */;
+			buildConfigurationList = 1DEB922208733DC00010E9CD /* Build configuration list for PBXProject "MTLocation" */;
 			compatibilityVersion = "Xcode 3.1";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -233,7 +233,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D2AAC07D0554694100DB518D /* MTLocateMeBarButtonItem */,
+				D2AAC07D0554694100DB518D /* MTLocation */,
 			);
 		};
 /* End PBXProject section */
@@ -316,7 +316,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB921E08733DC00010E9CD /* Build configuration list for PBXNativeTarget "MTLocateMeBarButtonItem" */ = {
+		1DEB921E08733DC00010E9CD /* Build configuration list for PBXNativeTarget "MTLocation" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB921F08733DC00010E9CD /* Debug */,
@@ -325,7 +325,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1DEB922208733DC00010E9CD /* Build configuration list for PBXProject "MTLocateMeBarButtonItem" */ = {
+		1DEB922208733DC00010E9CD /* Build configuration list for PBXProject "MTLocation" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB922308733DC00010E9CD /* Debug */,
