@@ -16,6 +16,6 @@
 #import "MTLocateMeBarButtonItem.h"
 #import "MTLocateMeButton.h"
 #import "MTLocationDefines.h"
-#import "MTLocationFunctions.h"
+#import "MKMapView+MTLocation.h"
 #import "MTLocationManager.h"
 #import "MTTouchesMovedGestureRecognizer.h"

@@ -15,7 +15,7 @@
 
 #import "MTLocationManager.h"
 #import "MTLocationDefines.h"
-#import "MTLocationFunctions.h"
+#import "MKMapView+MTLocation.h"
 #import "MTTouchesMovedGestureRecognizer.h"
 
 
@@ -53,9 +53,7 @@
 
 - (void)stopAllServices {
 	// Reset transform on map
-	if (self.mapView) {
-		MTClearMapRotation(self.mapView);
-	}
+    [self.mapView resetHeadingRotationAnimated:YES];
 
 	// stop location-services
 	[self.locationManager stopUpdatingLocation];
@@ -84,7 +82,7 @@
 
 	tapInterceptor.touchesMovedCallback = ^(NSSet * touches, UIEvent * event) {
 		// Reset transform on map
-		MTClearMapRotation(blockSelf.mapView);
+        [blockSelf.mapView resetHeadingRotationAnimated:YES];
 
 		// stop location-services
 		[[MTLocationManager sharedInstance].locationManager stopUpdatingLocation];
@@ -124,10 +122,8 @@
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, @"locationManager",
 							  newHeading, @"newHeading", nil];
 
-	if (self.mapView) {
-		// rotate map
-		MTRotateMapToHeading(self.mapView, newHeading);
-	}
+    // rotate map according to heading
+	[self.mapView rotateToHeading:newHeading animated:YES];
 
 	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidUpdateHeading object:self userInfo:userInfo];
 }
