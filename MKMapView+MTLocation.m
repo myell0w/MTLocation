@@ -14,9 +14,33 @@
 
 #import "MKMapView+MTLocation.h"
 
+#define kDefaultGoogleBadgeOriginX 12
+#define kDefaultGoogleBadgeOriginY 340
 
 
 @implementation MKMapView (MTLocation)
+
+////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Google Badge
+////////////////////////////////////////////////////////////////////////
+
+- (void)addGoogleBadge {
+    [self addGoogleBadgeAtPoint:CGPointMake(kDefaultGoogleBadgeOriginX, kDefaultGoogleBadgeOriginY)];
+}
+
+- (void)addGoogleBadgeAtPoint:(CGPoint)topLeftOfGoogleBadge {
+    UIImageView *googleView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GoogleBadge.png"]] autorelease];
+	googleView.frame = CGRectMake(topLeftOfGoogleBadge.x, topLeftOfGoogleBadge.y,
+                                  googleView.frame.size.width, googleView.frame.size.height);
+	
+    [self.superview addSubview:googleView];
+}
+
+////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Rotation (Heading information)
+////////////////////////////////////////////////////////////////////////
 
 - (void)rotateToHeading:(CLHeading *)heading animated:(BOOL)animated {
     double animationDuration = animated ? 0.2 : 0.0;

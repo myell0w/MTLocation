@@ -17,7 +17,10 @@
 
 
 @interface MKMapView (MTLocation)
-    
+
+- (void)addGoogleBadge;
+- (void)addGoogleBadgeAtPoint:(CGPoint)topLeftOfGoogleBadge;
+
 - (void)rotateToHeading:(CLHeading *)heading animated:(BOOL)animated;
 - (void)resetHeadingRotationAnimated:(BOOL)animated;
 

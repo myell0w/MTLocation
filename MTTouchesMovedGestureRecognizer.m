@@ -26,6 +26,7 @@
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+	NSLog(@"Touches: %d", touches.count);
 	if (touches.count == 1 && self.touchesMovedCallback) {
 		self.touchesMovedCallback(touches, event);
 	}
