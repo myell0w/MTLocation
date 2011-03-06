@@ -67,6 +67,11 @@
 		[UIView animateWithDuration:animationDuration
 						 animations:^{
 							 [self setTransform:CGAffineTransformMakeRotation(heading.magneticHeading * M_PI / -180.0)];
+                             
+                             // rotate annotation-views back so that Pins & Annotations appear non-rotated
+                             for (id<MKAnnotation> annotation in self.annotations) {
+                                 [[self viewForAnnotation:annotation] setTransform:CGAffineTransformMakeRotation(heading.magneticHeading * M_PI / 180.0)];
+                             }
 						 }];
 	}
     
