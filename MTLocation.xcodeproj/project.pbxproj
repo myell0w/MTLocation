@@ -15,6 +15,8 @@
 		39382DED12E9B7370012007D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39382DEC12E9B7370012007D /* UIKit.framework */; };
 		39645C0612FF585D008E8F9E /* MTTouchesMovedGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 39645C0412FF585D008E8F9E /* MTTouchesMovedGestureRecognizer.h */; };
 		39645C0712FF585D008E8F9E /* MTTouchesMovedGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 39645C0512FF585D008E8F9E /* MTTouchesMovedGestureRecognizer.m */; };
+		39781DB31323C6A80030FB3D /* MKAnnotationView+MTLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 39781DB11323C6A80030FB3D /* MKAnnotationView+MTLocation.h */; };
+		39781DB41323C6A80030FB3D /* MKAnnotationView+MTLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 39781DB21323C6A80030FB3D /* MKAnnotationView+MTLocation.m */; };
 		39B0E06A131E58950057991D /* MKMapView+MTLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 39B0E068131E58950057991D /* MKMapView+MTLocation.h */; };
 		39B0E06B131E58950057991D /* MKMapView+MTLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 39B0E069131E58950057991D /* MKMapView+MTLocation.m */; };
 		39CFA15E12FA29F000B859F9 /* MTLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 39CFA15D12FA29F000B859F9 /* MTLocation.h */; };
@@ -33,6 +35,8 @@
 		39382DEC12E9B7370012007D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		39645C0412FF585D008E8F9E /* MTTouchesMovedGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTTouchesMovedGestureRecognizer.h; sourceTree = "<group>"; };
 		39645C0512FF585D008E8F9E /* MTTouchesMovedGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTTouchesMovedGestureRecognizer.m; sourceTree = "<group>"; };
+		39781DB11323C6A80030FB3D /* MKAnnotationView+MTLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+MTLocation.h"; sourceTree = "<group>"; };
+		39781DB21323C6A80030FB3D /* MKAnnotationView+MTLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKAnnotationView+MTLocation.m"; sourceTree = "<group>"; };
 		397F552812FF6414006BE3B5 /* GoogleBadge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GoogleBadge.png; sourceTree = "<group>"; };
 		397F552912FF6414006BE3B5 /* GoogleBadge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GoogleBadge@2x.png"; sourceTree = "<group>"; };
 		397F552A12FF6414006BE3B5 /* HeadingAngleLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HeadingAngleLarge.png; sourceTree = "<group>"; };
@@ -104,8 +108,9 @@
 		08FB77AEFE84172EC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				39E47D1012FF41A000649F01 /* Delegation */,
 				39CFA14712FA268F00B859F9 /* Buttons */,
+				39781DB01323C6770030FB3D /* Categories */,
+				39E47D1012FF41A000649F01 /* Delegation */,
 				39CFA14612FA268500B859F9 /* Utils */,
 				39CFA15D12FA29F000B859F9 /* MTLocation.h */,
 			);
@@ -118,6 +123,17 @@
 				AA747D9E0F9514B9006C5449 /* MTLocateMeBarButtonItem_Prefix.pch */,
 			);
 			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		39781DB01323C6770030FB3D /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				39B0E068131E58950057991D /* MKMapView+MTLocation.h */,
+				39B0E069131E58950057991D /* MKMapView+MTLocation.m */,
+				39781DB11323C6A80030FB3D /* MKAnnotationView+MTLocation.h */,
+				39781DB21323C6A80030FB3D /* MKAnnotationView+MTLocation.m */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 		397F552712FF6414006BE3B5 /* Resources */ = {
@@ -149,8 +165,6 @@
 				39382D7912E9B6400012007D /* MTLocationDefines.h */,
 				39645C0412FF585D008E8F9E /* MTTouchesMovedGestureRecognizer.h */,
 				39645C0512FF585D008E8F9E /* MTTouchesMovedGestureRecognizer.m */,
-				39B0E068131E58950057991D /* MKMapView+MTLocation.h */,
-				39B0E069131E58950057991D /* MKMapView+MTLocation.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -190,6 +204,7 @@
 				39E47D1312FF41D100649F01 /* MTLocationManager.h in Headers */,
 				39645C0612FF585D008E8F9E /* MTTouchesMovedGestureRecognizer.h in Headers */,
 				39B0E06A131E58950057991D /* MKMapView+MTLocation.h in Headers */,
+				39781DB31323C6A80030FB3D /* MKAnnotationView+MTLocation.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,6 +263,7 @@
 				39E47D1412FF41D100649F01 /* MTLocationManager.m in Sources */,
 				39645C0712FF585D008E8F9E /* MTTouchesMovedGestureRecognizer.m in Sources */,
 				39B0E06B131E58950057991D /* MKMapView+MTLocation.m in Sources */,
+				39781DB41323C6A80030FB3D /* MKAnnotationView+MTLocation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
