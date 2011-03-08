@@ -25,11 +25,23 @@
     [super dealloc];
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+	NSLog(@"Began: %d", touches.count);
+}
+
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-	NSLog(@"Touches: %d", touches.count);
+	NSLog(@"Moved: %d", touches.count);
 	if (touches.count == 1 && self.touchesMovedCallback) {
 		self.touchesMovedCallback(touches, event);
 	}
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+	NSLog(@"Ended: %d", touches.count);
+}
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+	NSLog(@"Cancelled: %d", touches.count);
 }
 
 - (BOOL)canBePreventedByGestureRecognizer:(UIGestureRecognizer *)preventingGestureRecognizer {

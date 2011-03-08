@@ -1,8 +1,8 @@
 //
-//  MTLocateMe.h
+//  MTLocationFunctions.m
 //
-//  Created by Matthias Tretter on 2.02.11.
-//  Copyright (c) 2009-2011  Matthias Tretter, @myell0w. All rights reserved.
+//  Created by Matthias Tretter on 8.3.2011.
+//  Copyright (c) 2009-2011 Matthias Tretter, @myell0w. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
 // to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -13,14 +13,17 @@
 // WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-// Buttons
-#import "MTLocateMeBarButtonItem.h"
-#import "MTLocateMeButton.h"
-// Categories
-#import "MKMapView+MTLocation.h"
-#import "MKAnnotationView+MTLocation.h"
-// Utils
-#import "MTLocationDefines.h"
-#import "MTLocationManager.h"
-#import "MTTouchesMovedGestureRecognizer.h"
 #import "MTLocationFunctions.h"
+
+
+
+void MTOpenDirectionInGoogleMaps(CLLocationCoordinate2D startingPoint, CLLocationCoordinate2D endPoint, NSString *directionMode) {
+	NSString *googleMapsURL = [NSString stringWithFormat:@"http://maps.google.com/maps?saddr=%f,%f&daddr=%f,%f",
+							   startingPoint.latitude,startingPoint.longitude, endPoint.latitude, endPoint.longitude];
+
+	if (![directionMode isEqualToString:kMTDirectionModeCar]) {
+		googleMapsURL = [googleMapsURL stringByAppendingFormat:@"&dirflg=%@", directionMode];
+	}
+
+	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:googleMapsURL]];
+}

@@ -1,8 +1,8 @@
 //
-//  MTLocateMe.h
+//  MTLocationFunctions.h
 //
-//  Created by Matthias Tretter on 2.02.11.
-//  Copyright (c) 2009-2011  Matthias Tretter, @myell0w. All rights reserved.
+//  Created by Matthias Tretter on 8.3.2011.
+//  Copyright (c) 2009-2011 Matthias Tretter, @myell0w. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
 // to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -12,15 +12,12 @@
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 // WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
-// Buttons
-#import "MTLocateMeBarButtonItem.h"
-#import "MTLocateMeButton.h"
-// Categories
-#import "MKMapView+MTLocation.h"
-#import "MKAnnotationView+MTLocation.h"
-// Utils
-#import "MTLocationDefines.h"
-#import "MTLocationManager.h"
-#import "MTTouchesMovedGestureRecognizer.h"
-#import "MTLocationFunctions.h"
+#define kMTDirectionModeCar					@"kMTDirectionModeCar"
+#define kMTDirectionModeWalking				@"w"
+#define kMTDirectionModePublicTransport		@"r"
+
+
+void MTOpenDirectionInGoogleMaps(CLLocationCoordinate2D startingPoint, CLLocationCoordinate2D endPoint, NSString *directionMode);
