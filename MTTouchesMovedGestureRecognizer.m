@@ -6,10 +6,20 @@
 
 #import "MTTouchesMovedGestureRecognizer.h"
 
+#define kMTTouchesMinimumDuration  0.5
+
+
+@interface MTTouchesMovedGestureRecognizer ()
+
+@property (nonatomic, retain) NSDate *touchesBeganTimestamp;
+
+@end
+
 
 @implementation MTTouchesMovedGestureRecognizer
 
 @synthesize touchesMovedCallback = touchesMovedCallback_;
+@synthesize touchesBeganTimestamp = touchesBeganTimestamp_;
 
 - (id)init {
 	if ((self = [super init])) {
@@ -21,28 +31,31 @@
 
 - (void)dealloc {
     [touchesMovedCallback_ release], touchesMovedCallback_ = nil;
+	[touchesBeganTimestamp_ release], touchesBeganTimestamp_ = nil;
 
     [super dealloc];
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-	NSLog(@"Began: %d", touches.count);
-}
+/*- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+	if (touches.count >= 2) {
+        self.touchesBeganTimestamp = [NSDate date];
+    }
+}*/
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-	NSLog(@"Moved: %d", touches.count);
-	if (touches.count == 1 && self.touchesMovedCallback) {
+	if (/*self.touchesBeganTimestamp != nil && [self.touchesBeganTimestamp timeIntervalSinceNow] < kMTTouchesMinimumDuration &&*/
+		touches.count == 1 && self.touchesMovedCallback) {
 		self.touchesMovedCallback(touches, event);
 	}
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-	NSLog(@"Ended: %d", touches.count);
+/*- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+	self.touchesBeganTimestamp = nil;
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-	NSLog(@"Cancelled: %d", touches.count);
-}
+	self.touchesBeganTimestamp = nil;
+}*/
 
 - (BOOL)canBePreventedByGestureRecognizer:(UIGestureRecognizer *)preventingGestureRecognizer {
 	return NO;
