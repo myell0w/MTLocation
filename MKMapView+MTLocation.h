@@ -21,6 +21,11 @@
 - (void)addGoogleBadge;
 - (void)addGoogleBadgeAtPoint:(CGPoint)topLeftOfGoogleBadge;
 
+- (void)addHeadingAngleView;
+- (void)showHeadingAngleView;
+- (void)hideHeadingAngleView;
+- (void)moveHeadingAngleViewToCoordinate:(CLLocationCoordinate2D)coordinate;
+
 - (void)rotateToHeading:(CLHeading *)heading animated:(BOOL)animated;
 - (void)resetHeadingRotationAnimated:(BOOL)animated;
 

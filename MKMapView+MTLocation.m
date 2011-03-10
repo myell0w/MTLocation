@@ -13,16 +13,18 @@
 // WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import "MKMapView+MTLocation.h"
+#import <objc/runtime.h>
 
 #define kDefaultGoogleBadgeOriginX 12
 #define kDefaultGoogleBadgeOriginY 340
 
+static char headingAngleViewKey = 'h';
 
 @implementation MKMapView (MTLocation)
 
 ////////////////////////////////////////////////////////////////////////
 #pragma mark -
-#pragma mark Google Badge
+#pragma mark Adding Overlay Views
 ////////////////////////////////////////////////////////////////////////
 
 - (void)addGoogleBadge {
@@ -35,6 +37,36 @@
                                   googleView.frame.size.width, googleView.frame.size.height);
 	
     [self.superview addSubview:googleView];
+}
+
+- (void)addHeadingAngleView {
+    UIImageView *headingAngleView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"HeadingAngleSmall.png"]] autorelease];
+    headingAngleView.hidden = YES;
+    
+    // add to superview
+    [self.superview addSubview:headingAngleView];
+    // add as associated object to MapView
+    objc_setAssociatedObject(self, &headingAngleViewKey, headingAngleView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (void)showHeadingAngleView {
+    id headingAngleView = objc_getAssociatedObject(self, &headingAngleViewKey);
+    
+    [headingAngleView setHidden:NO];
+}
+
+- (void)hideHeadingAngleView {
+    id headingAngleView = objc_getAssociatedObject(self, &headingAngleViewKey);
+    
+    [headingAngleView setHidden:YES];
+}
+
+- (void)moveHeadingAngleViewToCoordinate:(CLLocationCoordinate2D)coordinate {
+    CGPoint center = [self convertCoordinate:coordinate toPointToView:self.superview];
+    id headingAngleView = objc_getAssociatedObject(self, &headingAngleViewKey);
+    
+    center.y -= [headingAngleView frame].size.height/2 + 8;
+    [headingAngleView setCenter:center];
 }
 
 ////////////////////////////////////////////////////////////////////////

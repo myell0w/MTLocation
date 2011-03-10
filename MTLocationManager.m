@@ -54,6 +54,7 @@
 - (void)stopAllServices {
 	// Reset transform on map
     [self.mapView resetHeadingRotationAnimated:YES];
+    [self.mapView hideHeadingAngleView];
 
 	// stop location-services
 	[self.locationManager stopUpdatingLocation];
@@ -83,6 +84,8 @@
 	tapInterceptor.touchesMovedCallback = ^(NSSet * touches, UIEvent * event) {
 		// Reset transform on map
         [blockSelf.mapView resetHeadingRotationAnimated:YES];
+        // hide heading angle overlay
+        [blockSelf.mapView hideHeadingAngleView];
 
 		// stop location-services
 		[[MTLocationManager sharedInstance].locationManager stopUpdatingLocation];
@@ -107,6 +110,9 @@
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, @"locationManager",
 							  newLocation, @"newLocation",
 							  oldLocation, @"oldLocation", nil];
+    
+    // move heading angle overlay to new coordinate
+    [self.mapView moveHeadingAngleViewToCoordinate:newLocation.coordinate];
 
 	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidUpdateToLocationFromLocation object:self userInfo:userInfo];
 }
@@ -122,10 +128,14 @@
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, @"locationManager",
 							  newHeading, @"newHeading", nil];
 
-    // rotate map according to heading
-	[self.mapView rotateToHeading:newHeading animated:YES];
+    if (newHeading.headingAccuracy > 0) {
+        // show heading angle overlay
+        [self.mapView showHeadingAngleView];
+        // rotate map according to heading
+        [self.mapView rotateToHeading:newHeading animated:YES];
+    }
 
-	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidUpdateHeading object:self userInfo:userInfo];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidUpdateHeading object:self userInfo:userInfo];
 }
 
 - (BOOL)locationManagerShouldDisplayHeadingCalibration:(CLLocationManager *)manager {
