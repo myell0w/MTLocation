@@ -182,9 +182,7 @@
     switch(locationStatus) {
             // if we are currently idle, stop updates
         case MTLocationStatusIdle:
-            //NSLog(@"Stopped updating");
-            [self.locationManager stopUpdatingLocation];
-            [self.locationManager stopUpdatingHeading];
+            [self stopAllServices];
             break;
 
             // if we are currently searching, start updating location
