@@ -20,4 +20,10 @@
 #define kMTDirectionModePublicTransport		@"r"
 
 
+// opens directions from startPoint to endPoint in the built-in Google Maps App
 void MTOpenDirectionInGoogleMaps(CLLocationCoordinate2D startingPoint, CLLocationCoordinate2D endPoint, NSString *directionMode);
+
+// rotates any UIView according to some heading information
+void MTRotateViewToHeading(UIView *view, CLHeading *heading, BOOL animated);
+// clears the rotation-transform on the view
+void MTResetViewRotation(UIView *view, BOOL animated);

@@ -13,6 +13,7 @@
 // WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import "MKMapView+MTLocation.h"
+#import "MTLocationFunctions.h"
 #import <objc/runtime.h>
 
 #define kDefaultGoogleBadgeOriginX 12
@@ -74,52 +75,20 @@ static char headingAngleViewKey = 'h';
 #pragma mark Rotation (Heading information)
 ////////////////////////////////////////////////////////////////////////
 
+- (void)rotateToHeading:(CLHeading *)heading {
+    [self rotateToHeading:heading animated:YES];
+}
+
 - (void)rotateToHeading:(CLHeading *)heading animated:(BOOL)animated {
-    double animationDuration = animated ? 0.2 : 0.0;
-    
-	if (heading.headingAccuracy > 0) {
-        if (animated) {
-            // if the map is currently not rotated
-            // we are just starting the rotation
-            // therefore it is possible that there is a big
-            // angle between current transformation and the one
-            // applied, so we increase the animation duration
-            if (CGAffineTransformIsIdentity(self.transform)) {
-                if (fabs(heading.magneticHeading) > 135.0) {
-                    animationDuration = 0.5;
-                } else if (fabs(heading.magneticHeading) > 90.0) {
-                    animationDuration = 0.4;
-                } else if (fabs(heading.magneticHeading) > 45.0) {
-                    animationDuration = 0.3;
-                }
-            }
-        }
-        
-		// Apply the transformation animated
-		[UIView animateWithDuration:animationDuration
-						 animations:^{
-							 [self setTransform:CGAffineTransformMakeRotation(heading.magneticHeading * M_PI / -180.0)];
-                             
-                             // rotate annotation-views back so that Pins & Annotations appear non-rotated
-                             for (id<MKAnnotation> annotation in self.annotations) {
-                                 [[self viewForAnnotation:annotation] setTransform:CGAffineTransformMakeRotation(heading.magneticHeading * M_PI / 180.0)];
-                             }
-						 }];
-	}
-    
+    MTRotateViewToHeading(self, heading, animated);
+}
+
+- (void)resetHeadingRotation {
+    [self resetHeadingRotationAnimated:YES];
 }
 
 - (void)resetHeadingRotationAnimated:(BOOL)animated {
-    // reset rotation of map-view
-	[UIView animateWithDuration:animated ? 0.5 : 0.0
-                     animations:^{
-                         [self setTransform:CGAffineTransformIdentity];
-                         
-                         // rotate annotation-views back so that Pins & Annotations appear non-rotated
-                         for (id<MKAnnotation> annotation in self.annotations) {
-                             [[self viewForAnnotation:annotation] setTransform:CGAffineTransformIdentity];
-                         }
-                     }];
+    MTResetViewRotation(self, animated);
 }
 
 @end

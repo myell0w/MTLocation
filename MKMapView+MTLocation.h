@@ -26,7 +26,10 @@
 - (void)hideHeadingAngleView;
 - (void)moveHeadingAngleViewToCoordinate:(CLLocationCoordinate2D)coordinate;
 
+- (void)rotateToHeading:(CLHeading *)heading;
 - (void)rotateToHeading:(CLHeading *)heading animated:(BOOL)animated;
+
+- (void)resetHeadingRotation;
 - (void)resetHeadingRotationAnimated:(BOOL)animated;
 
 @end
