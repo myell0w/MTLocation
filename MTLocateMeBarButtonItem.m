@@ -44,16 +44,23 @@
 #pragma mark Lifecycle, Memory Management
 ////////////////////////////////////////////////////////////////////////
 
-// the designated initializer
-- (id)initWithLocationStatus:(MTLocationStatus)locationStatus {
-	locateMeButton_ = [[MTLocateMeButton alloc] initWithFrame:CGRectZero];
-
+- (id)initWithLocationStatus:(MTLocationStatus)locationStatus startListening:(BOOL)startListening {
+    locateMeButton_ = [[MTLocateMeButton alloc] initWithFrame:CGRectZero];
+    
 	if ((self = [super initWithCustomView:locateMeButton_])) {
 		locateMeButton_.locationStatus = locationStatus;
-        [self startListeningToLocationUpdates];
+        
+        if (startListening) {
+            [self startListeningToLocationUpdates];
+        }
 	}
-
+    
 	return self;
+}
+
+// the designated initializer
+- (id)initWithLocationStatus:(MTLocationStatus)locationStatus {
+	return [self initWithLocationStatus:locationStatus startListening:YES];
 }
 
 // The designated initializer of the base-class

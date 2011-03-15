@@ -29,10 +29,12 @@
 @property (nonatomic, assign) id<MTLocateMeButtonDelegate> delegate;
 
 
+// initializer
+- (id)initWithLocationStatus:(MTLocationStatus)locationStatus startListening:(BOOL)startListening;
 - (id)initWithLocationStatus:(MTLocationStatus)locationStatus;
 
+// re-direct setting of location status to MTLocateMeButton
 - (void)setLocationStatus:(MTLocationStatus)locationStatus animated:(BOOL)animated;
-
 // re-direct target-action to MTLocateMeButton
 - (void)addTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents;
 
