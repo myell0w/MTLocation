@@ -23,6 +23,7 @@
 
 @synthesize locationManager = locationManager_;
 @synthesize mapView = mapView_;
+@synthesize displayHeadingCalibration = displayHeadingCalibration_;
 
 
 ////////////////////////////////////////////////////////////////////////
@@ -34,6 +35,7 @@
     if ((self = [super init])) {
         locationManager_ = [[CLLocationManager alloc] init];
 		locationManager_.delegate = self;
+        displayHeadingCalibration_ = YES;
     }
 
     return self;
@@ -139,7 +141,7 @@
 }
 
 - (BOOL)locationManagerShouldDisplayHeadingCalibration:(CLLocationManager *)manager {
-	return YES;
+	return self.displayHeadingCalibration;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {

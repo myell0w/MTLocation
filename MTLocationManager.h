@@ -25,6 +25,8 @@
     CLLocationManager *locationManager_;
 	// Optional: a MapView that gets rotated according to heading updates
 	MKMapView *mapView_;
+    // configure if heading calibration should be displayed
+    BOOL displayHeadingCalibration_;
 }
 
 
@@ -35,6 +37,8 @@
 
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @property (nonatomic, retain) MKMapView *mapView;
+@property (nonatomic, getter=isHeadingCalibrationDisplayed) BOOL displayHeadingCalibration;
+
 
 ////////////////////////////////////////////////////////////////////////
 #pragma mark -
