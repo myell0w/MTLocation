@@ -50,27 +50,7 @@
 
 	if ((self = [super initWithCustomView:locateMeButton_])) {
 		locateMeButton_.locationStatus = locationStatus;
-
-        // begin listening to location update notifications
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(locationManagerDidUpdateToLocationFromLocation:)
-                                                     name:kMTLocationManagerDidUpdateToLocationFromLocation
-                                                   object:nil];
-        // begin listening to heading update notifications
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(locationManagerDidUpdateHeading:)
-                                                     name:kMTLocationManagerDidUpdateHeading
-                                                   object:nil];
-        // begin listening to location errors
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(locationManagerDidFail:)
-                                                     name:kMTLocationManagerDidFailWithError
-                                                   object:nil];
-		// begin listening to end of updating of all services
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(locationManagerDidStopUpdatingServices:)
-                                                     name:kMTLocationManagerDidStopUpdatingServices
-                                                   object:nil];
+        [self startListeningToLocationUpdates];
 	}
 
 	return self;
@@ -125,6 +105,38 @@
 
 - (id<MTLocateMeButtonDelegate>)delegate {
     return self.locateMeButton.delegate;
+}
+
+////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Listener
+////////////////////////////////////////////////////////////////////////
+
+- (void)startListeningToLocationUpdates {
+    // begin listening to location update notifications
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(locationManagerDidUpdateToLocationFromLocation:)
+                                                 name:kMTLocationManagerDidUpdateToLocationFromLocation
+                                               object:nil];
+    // begin listening to heading update notifications
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(locationManagerDidUpdateHeading:)
+                                                 name:kMTLocationManagerDidUpdateHeading
+                                               object:nil];
+    // begin listening to location errors
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(locationManagerDidFail:)
+                                                 name:kMTLocationManagerDidFailWithError
+                                               object:nil];
+    // begin listening to end of updating of all services
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(locationManagerDidStopUpdatingServices:)
+                                                 name:kMTLocationManagerDidStopUpdatingServices
+                                               object:nil];
+}
+
+- (void)stopListeningToLocationUpdates {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 

@@ -36,4 +36,8 @@
 // re-direct target-action to MTLocateMeButton
 - (void)addTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents;
 
+// start/stop listening to location and heading updates
+- (void)startListeningToLocationUpdates;
+- (void)stopListeningToLocationUpdates;
+
 @end
