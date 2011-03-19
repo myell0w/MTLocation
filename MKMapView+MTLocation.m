@@ -34,7 +34,8 @@ static char headingAngleViewKey = 'h';
 
 - (void)addGoogleBadgeAtPoint:(CGPoint)topLeftOfGoogleBadge {
     UIImageView *googleView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GoogleBadge.png"]] autorelease];
-	googleView.frame = CGRectMake(topLeftOfGoogleBadge.x, topLeftOfGoogleBadge.y,
+	googleView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin;
+    googleView.frame = CGRectMake(topLeftOfGoogleBadge.x, topLeftOfGoogleBadge.y,
                                   googleView.frame.size.width, googleView.frame.size.height);
 	
     [self.superview addSubview:googleView];
