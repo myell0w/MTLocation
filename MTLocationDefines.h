@@ -44,3 +44,8 @@ typedef enum MTLocationStatus {
 
 #define kMTLocationManagerDidStopUpdatingHeading			@"kMTLocationManagerDidStopUpdatingHeading"
 #define kMTLocationManagerDidStopUpdatingServices			@"kMTLocationManagerDidStopUpdatingServices"
+
+
+// UIView Tags
+#define kMTLocationGoogleBadgeTag   666
+#define kMTLocationHeadingViewTag   667

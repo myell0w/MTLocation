@@ -13,6 +13,7 @@
 // WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import "MKMapView+MTLocation.h"
+#import "MTLocation.h"
 #import "MTLocationFunctions.h"
 #import <objc/runtime.h>
 
@@ -34,7 +35,8 @@ static char headingAngleViewKey = 'h';
 
 - (void)addGoogleBadgeAtPoint:(CGPoint)topLeftOfGoogleBadge {
     UIImageView *googleView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GoogleBadge.png"]] autorelease];
-	googleView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin;
+	googleView.tag = kMTLocationGoogleBadgeTag;
+    googleView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin;
     googleView.frame = CGRectMake(topLeftOfGoogleBadge.x, topLeftOfGoogleBadge.y,
                                   googleView.frame.size.width, googleView.frame.size.height);
 	
@@ -44,6 +46,7 @@ static char headingAngleViewKey = 'h';
 - (void)addHeadingAngleView {
     UIImageView *headingAngleView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"HeadingAngleSmall.png"]] autorelease];
     headingAngleView.hidden = YES;
+    headingAngleView.tag = kMTLocationHeadingViewTag;
     
     // add to superview
     [self.superview addSubview:headingAngleView];
