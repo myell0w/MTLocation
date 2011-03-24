@@ -199,15 +199,15 @@
     [UIView setAnimationDuration:duration];
     
     if (UIInterfaceOrientationIsPortrait(orientation)) {
-        self.frame = (CGRect){CGPointZero, [UIImage imageNamed:kLocationStatusIdleBackgroundImage].size};
+        self.frame = (CGRect){{self.frame.origin.x, self.frame.origin.y}, [UIImage imageNamed:kLocationStatusIdleBackgroundImage].size};
         
-        self.activityIndicatorFrame = CGRectInset(self.frame, kActivityIndicatorInsetPortrait, kActivityIndicatorInsetPortrait);
-        self.imageViewFrame = CGRectInset(self.frame, kImageViewInsetPortrait , kImageViewInsetPortrait);
+        self.activityIndicatorFrame = CGRectInset(self.bounds, kActivityIndicatorInsetPortrait, kActivityIndicatorInsetPortrait);
+        self.imageViewFrame = CGRectInset(self.bounds, kImageViewInsetPortrait , kImageViewInsetPortrait);
     } else {
-        self.frame = CGRectMake(0.,0.,kWidthLandscape,kHeightLandscape);
+        self.frame = (CGRect){self.frame.origin.x, self.frame.origin.y, kWidthLandscape, kHeightLandscape};
         
-        self.activityIndicatorFrame = CGRectInset(self.frame, kActivityIndicatorInsetLandscape, kActivityIndicatorInsetLandscape);
-        self.imageViewFrame = CGRectInset(self.frame, kImageViewInsetLandscape, kImageViewInsetLandscape);
+        self.activityIndicatorFrame = CGRectInset(self.bounds, kActivityIndicatorInsetLandscape, kActivityIndicatorInsetLandscape);
+        self.imageViewFrame = CGRectInset(self.bounds, kImageViewInsetLandscape, kImageViewInsetLandscape);
     }
     
     [self setBigFrame:self.activeSubview];
