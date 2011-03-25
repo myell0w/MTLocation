@@ -18,7 +18,7 @@
 #import <objc/runtime.h>
 
 #define kDefaultGoogleBadgeOriginX 12
-#define kDefaultGoogleBadgeOriginY 340
+#define kDefaultGoogleBadgeYOffset 27
 
 static char headingAngleViewKey = 'h';
 
@@ -30,7 +30,12 @@ static char headingAngleViewKey = 'h';
 ////////////////////////////////////////////////////////////////////////
 
 - (void)addGoogleBadge {
-    [self addGoogleBadgeAtPoint:CGPointMake(kDefaultGoogleBadgeOriginX, kDefaultGoogleBadgeOriginY)];
+    CGPoint p;
+    
+    p.x = kDefaultGoogleBadgeOriginX;
+    p.y = self.superview.frame.origin.y + self.superview.frame.size.height - kDefaultGoogleBadgeYOffset;
+    
+    [self addGoogleBadgeAtPoint:p];
 }
 
 - (void)addGoogleBadgeAtPoint:(CGPoint)topLeftOfGoogleBadge {
@@ -39,7 +44,7 @@ static char headingAngleViewKey = 'h';
     googleView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin;
     googleView.frame = CGRectMake(topLeftOfGoogleBadge.x, topLeftOfGoogleBadge.y,
                                   googleView.frame.size.width, googleView.frame.size.height);
-	
+    
     [self.superview addSubview:googleView];
 }
 
