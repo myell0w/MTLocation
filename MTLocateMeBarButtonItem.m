@@ -70,7 +70,10 @@
 
 - (void)dealloc {
     // end listening to location update notifications
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:kMTLocationManagerDidUpdateToLocationFromLocation object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kMTLocationManagerDidUpdateHeading object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kMTLocationManagerDidFailWithError object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kMTLocationManagerDidStopUpdatingServices object:nil];
 
 	[locateMeButton_ release], locateMeButton_ = nil;
 
