@@ -43,6 +43,6 @@
 - (void)stopListeningToLocationUpdates;
 
 // sets the right frame when used in a UINavigationBar for portrait/landscape
-- (void)setFrameForInterfaceOrientation:(UIInterfaceOrientation)orientation duration:(NSTimeInterval)duration;
+- (void)setFrameForInterfaceOrientation:(UIInterfaceOrientation)orientation;
 
 @end

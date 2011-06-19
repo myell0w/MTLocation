@@ -122,8 +122,8 @@
 #pragma mark Portrait/Landscape
 ////////////////////////////////////////////////////////////////////////
 
-- (void)setFrameForInterfaceOrientation:(UIInterfaceOrientation)orientation duration:(NSTimeInterval)duration {
-    [self.locateMeButton setFrameForInterfaceOrientation:orientation duration:duration];
+- (void)setFrameForInterfaceOrientation:(UIInterfaceOrientation)orientation {
+    [self.locateMeButton setFrameForInterfaceOrientation:orientation];
 }
 
 

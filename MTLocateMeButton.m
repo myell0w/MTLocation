@@ -194,10 +194,7 @@
 #pragma mark Portrait/Landscape
 ////////////////////////////////////////////////////////////////////////
 
-- (void)setFrameForInterfaceOrientation:(UIInterfaceOrientation)orientation duration:(NSTimeInterval)duration {
-    [UIView beginAnimations:@"MTLocationRotationAnimation" context:NULL];
-    [UIView setAnimationDuration:duration];
-    
+- (void)setFrameForInterfaceOrientation:(UIInterfaceOrientation)orientation {
     if (UIInterfaceOrientationIsPortrait(orientation)) {
         self.frame = (CGRect){{self.frame.origin.x, self.frame.origin.y}, [UIImage imageNamed:kLocationStatusIdleBackgroundImage].size};
         
@@ -211,8 +208,6 @@
     }
     
     [self setBigFrame:self.activeSubview];
-    
-    [UIView commitAnimations];
 }
 
 
