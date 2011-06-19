@@ -17,10 +17,15 @@
 // currently is, whether it is idle, searching for a location, receiving locations or receiving heading information
 typedef enum MTLocationStatus {
 	MTLocationStatusIdle = 0,						// Currently Idle
-	MTLocationStatusSearching = 1,					// Currently determining Location
-	MTLocationStatusReceivingLocationUpdates = 2,	// Currently receiving location updates
-	MTLocationStatusReceivingHeadingUpdates = 3		// Currently receiving heading updates
+	MTLocationStatusReceivingLocationUpdates,       // Currently receiving location updates
+	MTLocationStatusReceivingHeadingUpdates,        // Currently receiving heading updates
+   	MTLocationStatusSearching                       // Currently determining Location
 } MTLocationStatus;
+
+// legacy
+#define MTUserTrackingModeNone                  MTLocationStatusIdle
+#define MTUserTrackingModeFollow                MTLocationStatusReceivingLocationUpdates
+#define MTUserTrackingModeFollowWithHeading     MTLocationStatusReceivingHeadingUpdates
 
 
 // number of defines stati
