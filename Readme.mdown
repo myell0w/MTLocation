@@ -24,6 +24,8 @@ Usage
 If you have problems getting the map-rotation to work, please refer to the following thread on StackOverflow:
 [Rotating MapView](http://stackoverflow.com/questions/6262463/rotating-mapview-according-to-compass "Rotating MapView")
 
+Update: MTLocation now provides the category-method [MKMapView sizeToFitTrackingModeFollowWithHeading] to automatically size to MapView.
+
 You can use MTLocateMeBarButtonItem like this:
 
 	 // Configure Location Manager
@@ -31,16 +33,18 @@ You can use MTLocateMeBarButtonItem like this:
 	 [MTLocationManager sharedInstance].locationManager.distanceFilter = kCLDistanceFilterNone;
 	 [MTLocationManager sharedInstance].locationManager.headingFilter = 5; // 5 Degrees
 
-     // create locate-me item
-	 MTLocateMeBarButtonItem *locateMeItem = [[[MTLocateMeBarButtonItem alloc] initWithLocationStatus:MTLocationStatusIdle] autorelease];
-	 // set delegate that is called when mode of Button changes
-	 locateMeItem.delegate = [MTLocationManager sharedInstance];
+	 // Create MapView
+	 self.mapView = [[[MKMapView alloc] initWithFrame:CGRectZero] autorelease];
+	 [self.view addSubview:self.mapView];
+
+     // create locate-me item, automatically prepare mapView
+	 self.locateMeItem = [UIBarButtonItem userTrackingBarButtonItemForMapView:self.mapView];
  	 // add target-action
-	 [locateMeItem addTarget:self action:@selector(myCustomSelector:) forControlEvents:UIControlEventTouchUpInside];
+	 [self.locateMeItem addTarget:self action:@selector(myCustomSelector:) forControlEvents:UIControlEventTouchUpInside];
 	 // disable heading
-	 locateMeItem.headingEnabled = NO;
+	 self.locateMeItem.headingEnabled = NO;
 	 
 	 // create array with ToolbarItems
-	 NSArray *toolbarItems = [NSArray arrayWithObject:locateMeItem];
+	 NSArray *toolbarItems = [NSArray arrayWithObject:self.locateMeItem];
 	 // set toolbar items
 	 [self.toolbar setItems:toolbarItems animated:NO];
