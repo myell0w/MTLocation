@@ -20,6 +20,9 @@
 #define kMTDirectionModePublicTransport		@"r"
 
 
+// use iOS 5 APIs?
+BOOL MTLocationUsesNewAPIs();
+
 // opens directions from startPoint to endPoint in the built-in Google Maps App
 void MTOpenDirectionInGoogleMaps(CLLocationCoordinate2D startingPoint, CLLocationCoordinate2D endPoint, NSString *directionMode);
 

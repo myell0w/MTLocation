@@ -17,6 +17,27 @@
 #import <MapKit/MapKit.h>
 
 
+
+
+BOOL MTLocationUsesNewAPIs() {
+#if (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_5_0)
+    static BOOL useNewAPIs = NO;
+    static BOOL checkedForNewAPI = NO;
+    
+    if (!checkedForNewAPI) {
+        useNewAPIs = NSClassFromString(@"MKUserTrackingBarButtonItem") != nil;
+        
+        checkedForNewAPI = YES;
+    }
+    
+    return useNewAPIs;
+    
+#else
+    return NO;
+#endif
+}
+
+
 void MTOpenDirectionInGoogleMaps(CLLocationCoordinate2D startingPoint, CLLocationCoordinate2D endPoint, NSString *directionMode) {
 	NSString *googleMapsURL = [NSString stringWithFormat:@"http://maps.google.com/maps?saddr=%f,%f&daddr=%f,%f",
 							   startingPoint.latitude,startingPoint.longitude, endPoint.latitude, endPoint.longitude];

@@ -15,6 +15,7 @@
 
 #import "MTLocationManager.h"
 #import "MTLocationDefines.h"
+#import "MTLocationFunctions.h"
 #import "MKMapView+MTLocation.h"
 #import "MTTouchesMovedGestureRecognizer.h"
 
@@ -37,14 +38,14 @@
 		locationManager_.delegate = self;
         displayHeadingCalibration_ = YES;
     }
-
+    
     return self;
 }
 
 - (void)dealloc {
     [locationManager_ release], locationManager_ = nil;
 	[mapView_ release], mapView_ = nil;
-
+    
     [super dealloc];
 }
 
@@ -57,11 +58,11 @@
 	// Reset transform on map
     [self.mapView resetHeadingRotationAnimated:YES];
     [self.mapView hideHeadingAngleView];
-
+    
 	// stop location-services
 	[self.locationManager stopUpdatingLocation];
 	[self.locationManager stopUpdatingHeading];
-
+    
 	// post notification
 	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidStopUpdatingHeading object:self userInfo:nil];
 	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidStopUpdatingServices object:self userInfo:nil];
@@ -77,27 +78,27 @@
 		[mapView_ release];
 		mapView_ = [mapView retain];
 	}
-
+    
 	// detect taps on the map-view
 	MTTouchesMovedGestureRecognizer * tapInterceptor = [[[MTTouchesMovedGestureRecognizer alloc] init] autorelease];
 	// safe self for block
 	__block __typeof__(self) blockSelf = self;
-
+    
 	tapInterceptor.touchesMovedCallback = ^(NSSet * touches, UIEvent * event) {
 		// Reset transform on map
         [blockSelf.mapView resetHeadingRotationAnimated:YES];
         // hide heading angle overlay
         [blockSelf.mapView hideHeadingAngleView];
-
+        
 		// stop location-services
 		[[MTLocationManager sharedInstance].locationManager stopUpdatingLocation];
 		[[MTLocationManager sharedInstance].locationManager stopUpdatingHeading];
-
+        
 		// Tell LocateMeBarButtonItem to update it's state
 		[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidStopUpdatingHeading object:blockSelf userInfo:nil];
 		[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidStopUpdatingServices object:blockSelf userInfo:nil];
 	};
-
+    
 	[self.mapView addGestureRecognizer:tapInterceptor];
 }
 
@@ -114,29 +115,32 @@
 							  oldLocation, @"oldLocation", nil];
     
     // move heading angle overlay to new coordinate
-    [self.mapView moveHeadingAngleViewToCoordinate:newLocation.coordinate];
-
+    if (!MTLocationUsesNewAPIs()) {
+        [self.mapView setCenterCoordinate:newLocation.coordinate animated:YES];
+        [self.mapView moveHeadingAngleViewToCoordinate:newLocation.coordinate];
+    }
+    
 	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidUpdateToLocationFromLocation object:self userInfo:userInfo];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, @"locationManager",
 							  error, @"error", nil];
-
+    
 	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidFailWithError object:self userInfo:userInfo];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading {
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, @"locationManager",
 							  newHeading, @"newHeading", nil];
-
+    
     if (newHeading.headingAccuracy > 0) {
         // show heading angle overlay
         [self.mapView showHeadingAngleView];
         // rotate map according to heading
         [self.mapView rotateToHeading:newHeading animated:YES];
     }
-
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidUpdateHeading object:self userInfo:userInfo];
 }
 
@@ -147,14 +151,14 @@
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, @"locationManager",
 							  region, @"region", nil];
-
+    
 	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidEnterRegion object:self userInfo:userInfo];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, @"locationManager",
 							  region, @"region", nil];
-
+    
 	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidExitRegion object:self userInfo:userInfo];
 }
 
@@ -162,14 +166,14 @@
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, @"locationManager",
 							  region, @"region",
 							  error, @"error", nil];
-
+    
 	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerMonitoringDidFailForRegion object:self userInfo:userInfo];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, @"locationManager",
 							  [NSNumber numberWithInt:status], @"status", nil];
-
+    
 	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidChangeAuthorizationStatus object:self userInfo:userInfo];
 }
 
@@ -180,35 +184,39 @@
 ////////////////////////////////////////////////////////////////////////
 
 - (void)locateMeButton:(MTLocateMeButton *)locateMeButton didChangeTrackingMode:(MTUserTrackingMode)trackingMode {
+    if (MTLocationUsesNewAPIs()) {
+        self.mapView.userTrackingMode = (MKUserTrackingMode)trackingMode;
+    } 
+    
     // check new status after status-toggle and update locationManager accordingly
     switch(trackingMode) {
             // if we are currently idle, stop updates
         case MTUserTrackingModeNone:
             [self stopAllServices];
             break;
-
+            
             // if we are currently searching, start updating location
         case MTUserTrackingModeSearching:
             //NSLog(@"Start updating location");
             [self.locationManager startUpdatingLocation];
             [self.locationManager stopUpdatingHeading];
             break;
-
+            
             // if we are already receiving updates
         case MTUserTrackingModeFollow:
             //NSLog(@"Start updating location");
             [self.locationManager startUpdatingLocation];
             [self.locationManager stopUpdatingHeading];
             break;
-
+            
             // if we are currently receiving heading updates, start updating heading
         case MTUserTrackingModeFollowWithHeading:
             //NSLog(@"start updating heading");
             [self.locationManager startUpdatingLocation];
             [self.locationManager startUpdatingHeading];
             break;
-
     }
+    
 }
 
 
@@ -225,7 +233,7 @@ static MTLocationManager *sharedMTLocationManager = nil;
 			sharedMTLocationManager = [[self alloc] init];
 		}
 	}
-
+    
 	return sharedMTLocationManager;
 }
 
@@ -233,11 +241,11 @@ static MTLocationManager *sharedMTLocationManager = nil;
 	@synchronized(self) {
 		if (sharedMTLocationManager == nil) {
 			sharedMTLocationManager = [super allocWithZone:zone];
-
+            
 			return sharedMTLocationManager;
 		}
 	}
-
+    
 	return nil;
 }
 

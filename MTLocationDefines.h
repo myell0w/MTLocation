@@ -57,3 +57,4 @@ typedef enum {
 // UIView Tags
 #define kMTLocationGoogleBadgeTag   666
 #define kMTLocationHeadingViewTag   667
+

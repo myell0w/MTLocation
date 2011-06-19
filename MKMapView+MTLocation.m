@@ -30,19 +30,23 @@ static char headingAngleViewKey;
 ////////////////////////////////////////////////////////////////////////
 
 - (void)sizeToFitTrackingModeFollowWithHeading {
-    CGRect newFrame = self.frame;
-    CGRect bounds = self.superview.bounds;
-    // pythagoras ftw.
-    CGFloat superviewDiagonal = ceilf(sqrtf(bounds.size.width * bounds.size.width + bounds.size.height * bounds.size.height));
-    
-    // set new size of frame
-    newFrame.size.width = superviewDiagonal + 5.f;
-    newFrame.size.height = superviewDiagonal + 5.f;
-    self.frame = newFrame;
-    
-    // center in superview
-    self.center = self.superview.center;
-    self.frame = CGRectIntegral(self.frame);
+    if (MTLocationUsesNewAPIs()) {
+        self.frame = self.superview.bounds;
+    } else {
+        CGRect newFrame = self.frame;
+        CGRect bounds = self.superview.bounds;
+        // pythagoras ftw.
+        CGFloat superviewDiagonal = ceilf(sqrtf(bounds.size.width * bounds.size.width + bounds.size.height * bounds.size.height));
+        
+        // set new size of frame
+        newFrame.size.width = superviewDiagonal + 5.f;
+        newFrame.size.height = superviewDiagonal + 5.f;
+        self.frame = newFrame;
+        
+        // center in superview
+        self.center = self.superview.center;
+        self.frame = CGRectIntegral(self.frame);
+    } 
 }
 
 - (void)addGoogleBadge {
@@ -55,44 +59,54 @@ static char headingAngleViewKey;
 }
 
 - (void)addGoogleBadgeAtPoint:(CGPoint)topLeftOfGoogleBadge {
-    UIImageView *googleView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GoogleBadge.png"]] autorelease];
-	googleView.tag = kMTLocationGoogleBadgeTag;
-    googleView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin;
-    googleView.frame = CGRectMake(topLeftOfGoogleBadge.x, topLeftOfGoogleBadge.y,
-                                  googleView.frame.size.width, googleView.frame.size.height);
-    
-    [self.superview addSubview:googleView];
+    if (!MTLocationUsesNewAPIs()) {
+        UIImageView *googleView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GoogleBadge.png"]] autorelease];
+        googleView.tag = kMTLocationGoogleBadgeTag;
+        googleView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin;
+        googleView.frame = CGRectMake(topLeftOfGoogleBadge.x, topLeftOfGoogleBadge.y,
+                                      googleView.frame.size.width, googleView.frame.size.height);
+        
+        [self.superview addSubview:googleView];
+    }
 }
 
 - (void)addHeadingAngleView {
-    UIImageView *headingAngleView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"HeadingAngleSmall.png"]] autorelease];
-    headingAngleView.hidden = YES;
-    headingAngleView.tag = kMTLocationHeadingViewTag;
-    
-    // add to superview
-    [self.superview addSubview:headingAngleView];
-    // add as associated object to MapView
-    objc_setAssociatedObject(self, &headingAngleViewKey, headingAngleView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    if (!MTLocationUsesNewAPIs()) {
+        UIImageView *headingAngleView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"HeadingAngleSmall.png"]] autorelease];
+        headingAngleView.hidden = YES;
+        headingAngleView.tag = kMTLocationHeadingViewTag;
+        
+        // add to superview
+        [self.superview addSubview:headingAngleView];
+        // add as associated object to MapView
+        objc_setAssociatedObject(self, &headingAngleViewKey, headingAngleView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
 }
 
 - (void)showHeadingAngleView {
-    id headingAngleView = objc_getAssociatedObject(self, &headingAngleViewKey);
-    
-    [headingAngleView setHidden:NO];
+    if (!MTLocationUsesNewAPIs()) {
+        id headingAngleView = objc_getAssociatedObject(self, &headingAngleViewKey);
+        
+        [headingAngleView setHidden:NO];
+    }
 }
 
 - (void)hideHeadingAngleView {
-    id headingAngleView = objc_getAssociatedObject(self, &headingAngleViewKey);
-    
-    [headingAngleView setHidden:YES];
+    if (!MTLocationUsesNewAPIs()) {
+        id headingAngleView = objc_getAssociatedObject(self, &headingAngleViewKey);
+        
+        [headingAngleView setHidden:YES];
+    }
 }
 
 - (void)moveHeadingAngleViewToCoordinate:(CLLocationCoordinate2D)coordinate {
-    CGPoint center = [self convertCoordinate:coordinate toPointToView:self.superview];
-    id headingAngleView = objc_getAssociatedObject(self, &headingAngleViewKey);
-    
-    center.y -= [headingAngleView frame].size.height/2 + 8;
-    [headingAngleView setCenter:center];
+    if (!MTLocationUsesNewAPIs()) {
+        CGPoint center = [self convertCoordinate:coordinate toPointToView:self.superview];
+        id headingAngleView = objc_getAssociatedObject(self, &headingAngleViewKey);
+        
+        center.y -= [headingAngleView frame].size.height/2 + 8;
+        [headingAngleView setCenter:center];
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -105,7 +119,9 @@ static char headingAngleViewKey;
 }
 
 - (void)rotateToHeading:(CLHeading *)heading animated:(BOOL)animated {
-    MTRotateViewToHeading(self, heading, animated);
+    if (!MTLocationUsesNewAPIs()) {
+        MTRotateViewToHeading(self, heading, animated);
+    }
 }
 
 - (void)resetHeadingRotation {
@@ -113,7 +129,9 @@ static char headingAngleViewKey;
 }
 
 - (void)resetHeadingRotationAnimated:(BOOL)animated {
-    MTResetViewRotation(self, animated);
+    if (!MTLocationUsesNewAPIs()) {
+        MTResetViewRotation(self, animated);
+    }
 }
 
 @end
