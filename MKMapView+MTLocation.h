@@ -18,6 +18,9 @@
 
 @interface MKMapView (MTLocation)
 
+// sizes to MapView so that it can be rotated using a transform without showing it's background
+- (void)sizeToFitTrackingModeFollowWithHeading;
+
 - (void)addGoogleBadge;
 - (void)addGoogleBadgeAtPoint:(CGPoint)topLeftOfGoogleBadge;
 

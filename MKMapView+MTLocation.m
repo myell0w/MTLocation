@@ -29,6 +29,22 @@ static char headingAngleViewKey = 'h';
 #pragma mark Adding Overlay Views
 ////////////////////////////////////////////////////////////////////////
 
+- (void)sizeToFitTrackingModeFollowWithHeading {
+    CGRect newFrame = self.frame;
+    CGRect bounds = self.superview.bounds;
+    // pythagoras ftw.
+    CGFloat superviewDiagonal = ceilf(sqrtf(bounds.size.width * bounds.size.width + bounds.size.height * bounds.size.height));
+    
+    // set new size of frame
+    newFrame.size.width = superviewDiagonal + 5.f;
+    newFrame.size.height = superviewDiagonal + 5.f;
+    self.frame = newFrame;
+    
+    // center in superview
+    self.center = self.superview.center;
+    self.frame = CGRectIntegral(self.frame);
+}
+
 - (void)addGoogleBadge {
     CGPoint p;
     
