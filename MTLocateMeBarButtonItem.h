@@ -16,6 +16,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "MTLocationDefines.h"
 
+@class MKMapView;
 @class MTLocateMeButton;
 @protocol MTLocateMeButtonDelegate;
 
@@ -30,6 +31,7 @@
 
 
 // initializer
+- (id)initWithMapView:(MKMapView *)mapView;
 - (id)initWithTrackingMode:(MTUserTrackingMode)trackingMode startListening:(BOOL)startListening;
 - (id)initWithTrackingMode:(MTUserTrackingMode)trackingMode;
 

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3919814113AE005100AB1C2D /* UIBarButtonItem+MTLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 3919813F13AE005000AB1C2D /* UIBarButtonItem+MTLocation.h */; };
+		3919814213AE005100AB1C2D /* UIBarButtonItem+MTLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3919814013AE005000AB1C2D /* UIBarButtonItem+MTLocation.m */; };
 		392B1664132677BB00BF254A /* MTLocationFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 392B1662132677BB00BF254A /* MTLocationFunctions.h */; };
 		392B1665132677BB00BF254A /* MTLocationFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 392B1663132677BB00BF254A /* MTLocationFunctions.m */; };
 		39382D7A12E9B6400012007D /* MTLocateMeBarButtonItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 39382D7512E9B6400012007D /* MTLocateMeBarButtonItem.h */; };
@@ -29,6 +31,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3919813F13AE005000AB1C2D /* UIBarButtonItem+MTLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+MTLocation.h"; sourceTree = "<group>"; };
+		3919814013AE005000AB1C2D /* UIBarButtonItem+MTLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+MTLocation.m"; sourceTree = "<group>"; };
 		392B1662132677BB00BF254A /* MTLocationFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLocationFunctions.h; sourceTree = "<group>"; };
 		392B1663132677BB00BF254A /* MTLocationFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTLocationFunctions.m; sourceTree = "<group>"; };
 		39382D7512E9B6400012007D /* MTLocateMeBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLocateMeBarButtonItem.h; sourceTree = "<group>"; };
@@ -136,6 +140,8 @@
 				39B0E069131E58950057991D /* MKMapView+MTLocation.m */,
 				39781DB11323C6A80030FB3D /* MKAnnotationView+MTLocation.h */,
 				39781DB21323C6A80030FB3D /* MKAnnotationView+MTLocation.m */,
+				3919813F13AE005000AB1C2D /* UIBarButtonItem+MTLocation.h */,
+				3919814013AE005000AB1C2D /* UIBarButtonItem+MTLocation.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -212,6 +218,7 @@
 				39B0E06A131E58950057991D /* MKMapView+MTLocation.h in Headers */,
 				39781DB31323C6A80030FB3D /* MKAnnotationView+MTLocation.h in Headers */,
 				392B1664132677BB00BF254A /* MTLocationFunctions.h in Headers */,
+				3919814113AE005100AB1C2D /* UIBarButtonItem+MTLocation.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +282,7 @@
 				39B0E06B131E58950057991D /* MKMapView+MTLocation.m in Sources */,
 				39781DB41323C6A80030FB3D /* MKAnnotationView+MTLocation.m in Sources */,
 				392B1665132677BB00BF254A /* MTLocationFunctions.m in Sources */,
+				3919814213AE005100AB1C2D /* UIBarButtonItem+MTLocation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

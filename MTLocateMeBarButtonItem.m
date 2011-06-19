@@ -14,6 +14,9 @@
 
 #import "MTLocateMeBarButtonItem.h"
 #import "MTLocateMeButton.h"
+#import "MTLocationManager.h"
+#import "MKMapView+MTLocation.h"
+#import <MapKit/MapKit.h>
 
 
 ////////////////////////////////////////////////////////////////////////
@@ -43,6 +46,21 @@
 #pragma mark -
 #pragma mark Lifecycle, Memory Management
 ////////////////////////////////////////////////////////////////////////
+
+- (id)initWithMapView:(MKMapView *)mapView {
+    if ((self = [self initWithTrackingMode:MTUserTrackingModeNone startListening:NO])) {
+        // use MTLocationmanager as delegate, and set it's mapView
+        self.delegate = [MTLocationManager sharedInstance];
+        [MTLocationManager sharedInstance].mapView = mapView;
+        
+        // prepare mapView for use with MTLocation
+        [mapView sizeToFitTrackingModeFollowWithHeading];
+        [mapView addGoogleBadge];
+        [mapView addHeadingAngleView];
+    }
+    
+    return self;
+}
 
 - (id)initWithTrackingMode:(MTUserTrackingMode)trackingMode startListening:(BOOL)startListening {
     locateMeButton_ = [[MTLocateMeButton alloc] initWithFrame:CGRectZero];

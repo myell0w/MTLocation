@@ -20,7 +20,7 @@
 #define kDefaultGoogleBadgeOriginX 12
 #define kDefaultGoogleBadgeYOffset 27
 
-static char headingAngleViewKey = 'h';
+static char headingAngleViewKey;
 
 @implementation MKMapView (MTLocation)
 
