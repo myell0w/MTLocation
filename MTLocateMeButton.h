@@ -21,7 +21,7 @@
 
 @interface MTLocateMeButton : UIButton {
 	// Current Location-State of the Button
-	MTLocationStatus locationStatus_;
+	MTUserTrackingMode trackingMode_;
 
 	// Subview: activity indicator is shown during MTLocationStatusSearching
 	UIActivityIndicatorView* activityIndicator_;
@@ -40,12 +40,12 @@
     id<MTLocateMeButtonDelegate> delegate_;
 }
 
-@property (nonatomic, assign) MTLocationStatus locationStatus;
+@property (nonatomic, assign) MTUserTrackingMode trackingMode;
 @property (nonatomic, assign) BOOL headingEnabled;
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @property (nonatomic, assign) id<MTLocateMeButtonDelegate> delegate;
 
-- (void)setLocationStatus:(MTLocationStatus)locationStatus animated:(BOOL)animated;
+- (void)setTrackingMode:(MTUserTrackingMode)trackingMode animated:(BOOL)animated;
 // sets the right frame when used in a UINavigationBar for portrait/landscape
 - (void)setFrameForInterfaceOrientation:(UIInterfaceOrientation)orientation duration:(NSTimeInterval)duration;
 
@@ -55,6 +55,6 @@
 
 @protocol MTLocateMeButtonDelegate <NSObject>
 
-- (void)locateMeButton:(MTLocateMeButton *)locateMeButton didChangeLocationStatus:(MTLocationStatus)locationStatus;
+- (void)locateMeButton:(MTLocateMeButton *)locateMeButton didChangeTrackingMode:(MTUserTrackingMode)trackingMode;
 
 @end

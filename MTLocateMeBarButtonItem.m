@@ -44,11 +44,11 @@
 #pragma mark Lifecycle, Memory Management
 ////////////////////////////////////////////////////////////////////////
 
-- (id)initWithLocationStatus:(MTLocationStatus)locationStatus startListening:(BOOL)startListening {
+- (id)initWithTrackingMode:(MTUserTrackingMode)trackingMode startListening:(BOOL)startListening {
     locateMeButton_ = [[MTLocateMeButton alloc] initWithFrame:CGRectZero];
     
 	if ((self = [super initWithCustomView:locateMeButton_])) {
-		locateMeButton_.locationStatus = locationStatus;
+		locateMeButton_.trackingMode = trackingMode;
         
         if (startListening) {
             [self startListeningToLocationUpdates];
@@ -59,13 +59,13 @@
 }
 
 // the designated initializer
-- (id)initWithLocationStatus:(MTLocationStatus)locationStatus {
-	return [self initWithLocationStatus:locationStatus startListening:YES];
+- (id)initWithTrackingMode:(MTUserTrackingMode)trackingMode {
+	return [self initWithTrackingMode:trackingMode startListening:YES];
 }
 
 // The designated initializer of the base-class
 - (id)initWithCustomView:(UIView *)customView {
-	return [self initWithLocationStatus:MTLocationStatusIdle];
+	return [self initWithTrackingMode:MTUserTrackingModeNone];
 }
 
 - (void)dealloc {
@@ -85,16 +85,16 @@
 #pragma mark Setter/Getter
 ////////////////////////////////////////////////////////////////////////
 
-- (void)setLocationStatus:(MTLocationStatus)locationStatus {
-	[self setLocationStatus:locationStatus animated:NO];
+- (void)setTrackingMode:(MTUserTrackingMode)trackingMode {
+	[self setTrackingMode:trackingMode animated:NO];
 }
 
-- (void)setLocationStatus:(MTLocationStatus)locationStatus animated:(BOOL)animated {
-	[self.locateMeButton setLocationStatus:locationStatus animated:YES];
+- (void)setTrackingMode:(MTUserTrackingMode)trackingMode animated:(BOOL)animated {
+	[self.locateMeButton setTrackingMode:trackingMode animated:YES];
 }
 
-- (MTLocationStatus)locationStatus {
-	return self.locateMeButton.locationStatus;
+- (MTUserTrackingMode)trackingMode {
+	return self.locateMeButton.trackingMode;
 }
 
 - (void)setHeadingEnabled:(BOOL)headingEnabled {
@@ -169,12 +169,12 @@
 	CLLocation *newLocation = [notification.userInfo valueForKey:@"newLocation"];
 
     // only set new location status if we are currently not receiving heading updates
-	if (self.locationStatus != MTLocationStatusReceivingHeadingUpdates) {
+	if (self.trackingMode != MTUserTrackingModeFollowWithHeading) {
 		// if horizontal accuracy is below our threshold update status
 		if (newLocation.horizontalAccuracy < kMTLocationMinimumHorizontalAccuracy) {
-			[self setLocationStatus:MTLocationStatusReceivingLocationUpdates animated:YES];
+			[self setTrackingMode:MTUserTrackingModeFollow animated:YES];
 		} else {
-			[self setLocationStatus:MTLocationStatusSearching animated:YES];
+			[self setTrackingMode:MTUserTrackingModeSearching animated:YES];
 		}
 	}
 }
@@ -183,19 +183,19 @@
 	CLHeading *newHeading = [notification.userInfo valueForKey:@"newHeading"];
 
     if (newHeading.headingAccuracy > 0) {
-        [self setLocationStatus:MTLocationStatusReceivingHeadingUpdates animated:YES];
+        [self setTrackingMode:MTUserTrackingModeFollowWithHeading animated:YES];
     } else {
-        [self setLocationStatus:MTLocationStatusReceivingLocationUpdates animated:YES];
+        [self setTrackingMode:MTUserTrackingModeFollow animated:YES];
     }
 }
 
 - (void)locationManagerDidFail:(NSNotification *)notification {
-    [self setLocationStatus:MTLocationStatusIdle animated:YES];
+    [self setTrackingMode:MTUserTrackingModeNone animated:YES];
 }
 
 - (void)locationManagerDidStopUpdatingServices:(NSNotification *)notification {
 	// update locationStatus
-	[self setLocationStatus:MTLocationStatusIdle animated:YES];
+	[self setTrackingMode:MTUserTrackingModeNone animated:YES];
 }
 
 

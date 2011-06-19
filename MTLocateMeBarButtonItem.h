@@ -24,17 +24,17 @@
 	MTLocateMeButton *locateMeButton_;
 }
 
-@property (nonatomic, assign) MTLocationStatus locationStatus;
+@property (nonatomic, assign) MTUserTrackingMode trackingMode;
 @property (nonatomic, assign) BOOL headingEnabled;
 @property (nonatomic, assign) id<MTLocateMeButtonDelegate> delegate;
 
 
 // initializer
-- (id)initWithLocationStatus:(MTLocationStatus)locationStatus startListening:(BOOL)startListening;
-- (id)initWithLocationStatus:(MTLocationStatus)locationStatus;
+- (id)initWithTrackingMode:(MTUserTrackingMode)trackingMode startListening:(BOOL)startListening;
+- (id)initWithTrackingMode:(MTUserTrackingMode)trackingMode;
 
 // re-direct setting of location status to MTLocateMeButton
-- (void)setLocationStatus:(MTLocationStatus)locationStatus animated:(BOOL)animated;
+- (void)setTrackingMode:(MTUserTrackingMode)trackingMode animated:(BOOL)animated;
 // re-direct target-action to MTLocateMeButton
 - (void)addTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents;
 

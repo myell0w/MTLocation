@@ -63,7 +63,7 @@
 @property (nonatomic, readonly) UIView *inactiveSubview;
 
 - (void)updateUI;
-- (void)locationStatusToggled:(id)sender;
+- (void)trackingModeToggled:(id)sender;
 
 - (void)setSmallFrame:(UIView *)view;
 - (void)setBigFrame:(UIView *)view;
@@ -73,7 +73,7 @@
 
 @implementation MTLocateMeButton
 
-@synthesize locationStatus = locationStatus_;
+@synthesize trackingMode = trackingMode_;
 @synthesize headingEnabled = headingEnabled_;
 @synthesize activityIndicator = activityIndicator_;
 @synthesize imageView = imageView_;
@@ -108,7 +108,7 @@
             imageViewFrame_ = CGRectInset(buttonFrame, kImageViewInsetPortrait, kImageViewInsetPortrait);
         }
         
-		locationStatus_ = MTLocationStatusIdle;
+		trackingMode_ = MTLocationStatusIdle;
 		headingEnabled_ = YES;
         
 		activityIndicator_ = [[UIActivityIndicatorView alloc] initWithFrame:activityIndicatorFrame_];
@@ -123,7 +123,7 @@
         
 		[self addSubview:imageView_];
         [self addSubview:activityIndicator_];
-		[self addTarget:self action:@selector(locationStatusToggled:) forControlEvents:UIControlEventTouchUpInside];
+		[self addTarget:self action:@selector(trackingModeToggled:) forControlEvents:UIControlEventTouchUpInside];
         
 		[self updateUI];
 	}
@@ -157,23 +157,23 @@
 	return [CLLocationManager headingAvailable] && headingEnabled_;
 }
 
-- (void)setLocationStatus:(MTLocationStatus)locationStatus {
-	if (locationStatus_ != locationStatus) {
-		locationStatus_ = locationStatus;
+- (void)setTrackingMode:(MTUserTrackingMode)trackingMode {
+	if (trackingMode_ != trackingMode) {
+		trackingMode_ = trackingMode;
 		[self updateUI];
 	}
 }
 
-- (void)setLocationStatus:(MTLocationStatus)locationStatus animated:(BOOL)animated {
-	if (locationStatus_ != locationStatus) {
+- (void)setTrackingMode:(MTUserTrackingMode)trackingMode animated:(BOOL)animated {
+	if (trackingMode_ != trackingMode) {
 		if (animated) {
 			// Important: do not use setter here, because otherwise updateUI is triggered too soon!
-			locationStatus_ = locationStatus;
+			trackingMode_ = trackingMode;
 			[self setSmallFrame:self.inactiveSubview];
             
 			// animate currently visible subview to a smaller frame
 			// when finished, animate currently invisible subview to big frame
-			[UIView beginAnimations:@"AnimateLocationStatusShrink" context:(void *)[NSNumber numberWithInt:locationStatus]];
+			[UIView beginAnimations:@"AnimateLocationStatusShrink" context:(void *)[NSNumber numberWithInt:trackingMode]];
 			[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
 			[UIView setAnimationDuration:kShrinkAnimationDuration];
 			[UIView setAnimationDelegate:self];
@@ -183,7 +183,7 @@
             
 			[UIView commitAnimations];
 		} else {
-			self.locationStatus = locationStatus;
+			self.trackingMode = trackingMode;
 		}
 	}
 }
@@ -244,29 +244,29 @@
 ////////////////////////////////////////////////////////////////////////
 
 - (void)updateUI {
-	switch (self.locationStatus) {
-		case MTLocationStatusIdle:
+	switch (self.trackingMode) {
+		case MTUserTrackingModeNone:
 			[self setImage:[UIImage imageNamed:kLocationStatusIdleBackgroundImage] forState:UIControlStateNormal];
 			[self.activityIndicator stopAnimating];
 			self.imageView.image = [UIImage imageNamed:kLocationStatusIdleImage];
 			self.activeSubview = self.imageView;
 			break;
             
-		case MTLocationStatusSearching:
+		case MTUserTrackingModeSearching:
 			[self setImage:[UIImage imageNamed:kLocationStatusSearchingBackgroundImage] forState:UIControlStateNormal];
 			[self.activityIndicator startAnimating];
 			self.imageView.image = nil;
 			self.activeSubview = self.activityIndicator;
 			break;
             
-		case MTLocationStatusReceivingLocationUpdates:
+		case MTUserTrackingModeFollow:
 			[self setImage:[UIImage imageNamed:kLocationStatusRecevingLocationUpdatesBackgroundImage] forState:UIControlStateNormal];
 			[self.activityIndicator stopAnimating];
 			self.imageView.image = [UIImage imageNamed:kLocationStatusRecevingLocationUpdatesImage];
 			self.activeSubview = self.imageView;
 			break;
             
-		case MTLocationStatusReceivingHeadingUpdates:
+		case MTUserTrackingModeFollowWithHeading:
 			[self setImage:[UIImage imageNamed:kLocationStatusRecevingHeadingUpdatesBackgroundImage] forState:UIControlStateNormal];
 			[self.activityIndicator stopAnimating];
 			self.imageView.image = [UIImage imageNamed:kLocationStatusRecevingHeadingUpdatesImage];
@@ -276,39 +276,39 @@
 }
 
 // is called when the user taps the button
-- (void)locationStatusToggled:(id)sender {
-	MTLocationStatus newLocationStatus = MTLocationStatusIdle;
+- (void)trackingModeToggled:(id)sender {
+	MTUserTrackingMode newTrackingMode = MTUserTrackingModeNone;
     
 	// set new location status
-	switch (self.locationStatus) {
+	switch (self.trackingMode) {
 			// if we are currently idle, search for location
-		case MTLocationStatusIdle:
-			newLocationStatus = MTLocationStatusSearching;
+		case MTUserTrackingModeNone:
+			newTrackingMode = MTUserTrackingModeSearching;
 			break;
             
 			// if we are currently searching, abort and switch back to idle
-		case MTLocationStatusSearching:
-			newLocationStatus = MTLocationStatusIdle;
+		case MTUserTrackingModeSearching:
+			newTrackingMode = MTUserTrackingModeNone;
 			break;
             
 			// if we are currently receiving updates next status depends whether heading is supported or not
-		case MTLocationStatusReceivingLocationUpdates:
-			newLocationStatus = self.headingEnabled ? MTLocationStatusReceivingHeadingUpdates : MTLocationStatusIdle;
+		case MTUserTrackingModeFollow:
+			newTrackingMode = self.headingEnabled ? MTUserTrackingModeFollowWithHeading : MTUserTrackingModeNone;
 			break;
             
 			// if we are currently receiving heading updates, switch back to idle
-		case MTLocationStatusReceivingHeadingUpdates:
-			newLocationStatus = MTLocationStatusIdle;
+		case MTUserTrackingModeFollowWithHeading:
+			newTrackingMode = MTUserTrackingModeNone;
 			// post notification that heading updates stopped
 			[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidStopUpdatingHeading object:self userInfo:nil];
 			break;
 	}
     
 	// update to new location status
-	[self setLocationStatus:newLocationStatus animated:YES];
+	[self setTrackingMode:newTrackingMode animated:YES];
     
 	// call delegate
-    [self.delegate locateMeButton:self didChangeLocationStatus:newLocationStatus];
+    [self.delegate locateMeButton:self didChangeTrackingMode:newTrackingMode];
 }
 
 // sets a view to a smaller frame, used for animation

@@ -179,30 +179,30 @@
 #pragma mark MTLocateMeButtonDelegate Methods
 ////////////////////////////////////////////////////////////////////////
 
-- (void)locateMeButton:(MTLocateMeButton *)locateMeButton didChangeLocationStatus:(MTLocationStatus)locationStatus {
+- (void)locateMeButton:(MTLocateMeButton *)locateMeButton didChangeTrackingMode:(MTUserTrackingMode)trackingMode {
     // check new status after status-toggle and update locationManager accordingly
-    switch(locationStatus) {
+    switch(trackingMode) {
             // if we are currently idle, stop updates
-        case MTLocationStatusIdle:
+        case MTUserTrackingModeNone:
             [self stopAllServices];
             break;
 
             // if we are currently searching, start updating location
-        case MTLocationStatusSearching:
+        case MTUserTrackingModeSearching:
             //NSLog(@"Start updating location");
             [self.locationManager startUpdatingLocation];
             [self.locationManager stopUpdatingHeading];
             break;
 
             // if we are already receiving updates
-        case MTLocationStatusReceivingLocationUpdates:
+        case MTUserTrackingModeFollow:
             //NSLog(@"Start updating location");
             [self.locationManager startUpdatingLocation];
             [self.locationManager stopUpdatingHeading];
             break;
 
             // if we are currently receiving heading updates, start updating heading
-        case MTLocationStatusReceivingHeadingUpdates:
+        case MTUserTrackingModeFollowWithHeading:
             //NSLog(@"start updating heading");
             [self.locationManager startUpdatingLocation];
             [self.locationManager startUpdatingHeading];
@@ -253,7 +253,7 @@ static MTLocationManager *sharedMTLocationManager = nil;
 	return NSUIntegerMax;
 }
 
-- (void)release {
+- (oneway void)release {
 }
 
 - (id)autorelease {

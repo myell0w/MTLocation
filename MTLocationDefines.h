@@ -15,21 +15,24 @@
 
 // The location status determines in which Status regarding to Core Location the application
 // currently is, whether it is idle, searching for a location, receiving locations or receiving heading information
-typedef enum MTLocationStatus {
-	MTLocationStatusIdle = 0,						// Currently Idle
-	MTLocationStatusReceivingLocationUpdates,       // Currently receiving location updates
-	MTLocationStatusReceivingHeadingUpdates,        // Currently receiving heading updates
-   	MTLocationStatusSearching                       // Currently determining Location
-} MTLocationStatus;
-
-// legacy
-#define MTUserTrackingModeNone                  MTLocationStatusIdle
-#define MTUserTrackingModeFollow                MTLocationStatusReceivingLocationUpdates
-#define MTUserTrackingModeFollowWithHeading     MTLocationStatusReceivingHeadingUpdates
-
+typedef enum {
+    MTUserTrackingModeNone = 0,                     // Currently Idle
+    MTUserTrackingModeFollow,                       // Currently receiving location updates
+    MTUserTrackingModeFollowWithHeading,            // Currently receiving heading updates
+    MTUserTrackingModeSearching                     // Currently determining Location
+} MTUserTrackingMode;
 
 // number of defines stati
-#define kMTLocationStatusCount 4
+#define kMTUserTrackingModeCount    4
+
+// legacy __attribute__((deprecated))
+#define MTLocationStatus                            MTUserTrackingMode
+#define MTLocationStatusIdle                        MTUserTrackingModeNone
+#define MTLocationStatusReceivingLocationUpdates    MTUserTrackingModeFollow
+#define MTLocationStatusReceivingHeadingUpdates     MTUserTrackingModeFollowWithHeading
+#define MTLocationStatusSearching                   MTUserTrackingModeSearching
+#define kMTLocationStatusCount                      kMTUserTrackingModeCount
+
 
 // defined threshold for a location that counts as a location update
 #define kMTLocationMinimumHorizontalAccuracy 1000
