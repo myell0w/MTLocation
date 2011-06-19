@@ -70,6 +70,22 @@ void MTRotateViewToHeading(UIView *view, CLHeading *heading, BOOL animated) {
 	}
 }
 
+// Thanks to Stefan Bachl for providing algorithmus
+void MTRotateViewForDirectionFromCoordinateToCoordinate(UIView *view, CLHeading *heading, CLLocationCoordinate2D fromLocation, CLLocationCoordinate2D toLocation, BOOL animated) {
+    if (heading.headingAccuracy > 0) {
+        float fromLatitude = fromLocation.latitude / 180.f * M_PI;
+        float fromLongitude = fromLocation.longitude / 180.f * M_PI;
+        float toLatitude = toLocation.latitude / 180.f * M_PI;
+        float toLongitude = toLocation.longitude / 180.f * M_PI;
+        float direction = atan2(sin(toLongitude-fromLongitude)*cos(toLatitude), cos(fromLatitude)*sin(toLatitude)-sin(fromLatitude)*cos(toLatitude)*cos(toLongitude-fromLongitude));    
+        double directionToSet = (direction * 180.0f / M_PI) - heading.magneticHeading;
+        
+        [UIView animateWithDuration:animated ? 0.5f : 0.0f animations:^(void) {
+            [view setTransform:CGAffineTransformMakeRotation(directionToSet * M_PI/180.f)];
+        }];
+    }
+}
+
 void MTResetViewRotation(UIView *view, BOOL animated) {
     // reset rotation of map-view
 	[UIView animateWithDuration:animated ? 0.5 : 0.0
@@ -87,3 +103,5 @@ void MTResetViewRotation(UIView *view, BOOL animated) {
                          }
                      }];
 }
+
+

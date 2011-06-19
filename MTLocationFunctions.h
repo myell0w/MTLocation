@@ -25,5 +25,7 @@ void MTOpenDirectionInGoogleMaps(CLLocationCoordinate2D startingPoint, CLLocatio
 
 // rotates any UIView according to some heading information
 void MTRotateViewToHeading(UIView *view, CLHeading *heading, BOOL animated);
+// rotates any UIView to point from one coordinate to another
+void MTRotateViewForDirectionFromCoordinateToCoordinate(UIView *view, CLHeading *heading, CLLocationCoordinate2D fromLocation, CLLocationCoordinate2D toLocation, BOOL animated);
 // clears the rotation-transform on the view
 void MTResetViewRotation(UIView *view, BOOL animated);
