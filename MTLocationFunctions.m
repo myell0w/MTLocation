@@ -19,7 +19,7 @@
 
 
 
-BOOL MTLocationUsesNewAPIs() {
+BOOL MTLocationUsesNewAPIs(void) {
 #if (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_5_0)
     static BOOL useNewAPIs = NO;
     static BOOL checkedForNewAPI = NO;
