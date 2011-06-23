@@ -26,6 +26,24 @@ static char headingAngleViewKey;
 
 ////////////////////////////////////////////////////////////////////////
 #pragma mark -
+#pragma mark Lifecycle
+////////////////////////////////////////////////////////////////////////
+
++ (MKMapView *)mapViewInSuperview:(UIView *)superview {
+    MKMapView *mapView = [[[MKMapView alloc] initWithFrame:CGRectZero] autorelease];
+
+    mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+
+    [superview addSubview:mapView];
+    [mapView sizeToFitTrackingModeFollowWithHeading];
+    [mapView addGoogleBadge];
+    [mapView addHeadingAngleView];
+    
+    return mapView;
+}
+
+////////////////////////////////////////////////////////////////////////
+#pragma mark -
 #pragma mark Adding Overlay Views
 ////////////////////////////////////////////////////////////////////////
 
