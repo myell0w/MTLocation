@@ -59,6 +59,10 @@
     [self.mapView resetHeadingRotationAnimated:YES];
     [self.mapView hideHeadingAngleView];
     
+    if (MTLocationUsesNewAPIs()) {
+        self.mapView.userTrackingMode = MKUserTrackingModeNone;
+    }
+    
 	// stop location-services
 	[self.locationManager stopUpdatingLocation];
 	[self.locationManager stopUpdatingHeading];
