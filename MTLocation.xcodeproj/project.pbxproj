@@ -333,6 +333,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = MTLocation;
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -348,6 +349,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = MTLocation;
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
