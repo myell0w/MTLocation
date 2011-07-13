@@ -141,6 +141,10 @@
     if (newHeading.headingAccuracy > 0) {
         // show heading angle overlay
         [self.mapView showHeadingAngleView];
+        
+        // move heading angle overlay to new coordinate
+        [self.mapView moveHeadingAngleViewToCoordinate:self.mapView.userLocation.coordinate];
+        
         // rotate map according to heading
         [self.mapView rotateToHeading:newHeading animated:YES];
     }

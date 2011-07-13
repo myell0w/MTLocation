@@ -40,8 +40,8 @@
 #define kWidthLandscape         32.f
 #define kHeightLandscape        32.f
 
-#define kActivityIndicatorInsetPortrait 12.f
-#define kImageViewInsetPortrait		    10.f
+#define kActivityIndicatorInsetPortrait 6.f
+#define kImageViewInsetPortrait		    5.f
 
 #define kActivityIndicatorInsetLandscape  8.f
 #define kImageViewInsetLandscape  	      6.f
