@@ -23,6 +23,7 @@
 
 // re-define as read/write
 @property (nonatomic, retain, readwrite) CLLocation *lastKnownLocation;
+@property (nonatomic, copy) mt_location_changed_block locationChangedBlock;
 
 @end
 
@@ -32,6 +33,7 @@
 @synthesize lastKnownLocation = lastKnownLocation_;
 @synthesize mapView = mapView_;
 @synthesize displayHeadingCalibration = displayHeadingCalibration_;
+@synthesize locationChangedBlock = locationChangedBlock_;
 
 
 ////////////////////////////////////////////////////////////////////////
@@ -53,6 +55,7 @@
     [locationManager_ release], locationManager_ = nil;
 	[mapView_ release], mapView_ = nil;
     [lastKnownLocation_ release], lastKnownLocation_ = nil;
+    [locationChangedBlock_ release], locationChangedBlock_ = nil;
 
     [super dealloc];
 }
@@ -78,6 +81,14 @@
 
 - (void)invalidateLastKnownLocation {
     self.lastKnownLocation = nil;
+}
+
+- (void)whenLocationChanged:(mt_location_changed_block)block {
+    self.locationChangedBlock = block;
+}
+
+- (void)removeLocationChangedBlock {
+    self.locationChangedBlock = nil;
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -130,6 +141,11 @@
     [self.mapView moveHeadingAngleViewToCoordinate:newLocation.coordinate];
     self.lastKnownLocation = newLocation;
 
+    // call delegate-block if there is one
+    if (self.locationChangedBlock != nil) {
+        self.locationChangedBlock(newLocation);
+    }
+    
 	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidUpdateToLocationFromLocation object:self userInfo:userInfo];
 }
 
