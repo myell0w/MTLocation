@@ -224,23 +224,19 @@
 static MTLocationManager *sharedMTLocationManager = nil;
 
 + (MTLocationManager *)sharedInstance {
-	@synchronized(self) {
-		if (sharedMTLocationManager == nil) {
-			sharedMTLocationManager = [[self alloc] init];
-		}
-	}
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedMTLocationManager = [[self alloc] init];
+    });
 
 	return sharedMTLocationManager;
 }
 
 + (id)allocWithZone:(NSZone *)zone {
-	@synchronized(self) {
-		if (sharedMTLocationManager == nil) {
-			sharedMTLocationManager = [super allocWithZone:zone];
-
-			return sharedMTLocationManager;
-		}
-	}
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedMTLocationManager = [super allocWithZone:zone];
+    });
 
 	return nil;
 }
