@@ -19,9 +19,17 @@
 #import "MTTouchesMovedGestureRecognizer.h"
 
 
+@interface MTLocationManager ()
+
+// re-define as read/write
+@property (nonatomic, retain, readwrite) CLLocation *lastKnownLocation;
+
+@end
+
 @implementation MTLocationManager
 
 @synthesize locationManager = locationManager_;
+@synthesize lastKnownLocation = lastKnownLocation_;
 @synthesize mapView = mapView_;
 @synthesize displayHeadingCalibration = displayHeadingCalibration_;
 
@@ -44,6 +52,7 @@
 - (void)dealloc {
     [locationManager_ release], locationManager_ = nil;
 	[mapView_ release], mapView_ = nil;
+    [lastKnownLocation_ release], lastKnownLocation_ = nil;
 
     [super dealloc];
 }
@@ -65,6 +74,10 @@
 	// post notification
 	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidStopUpdatingHeading object:self userInfo:nil];
 	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidStopUpdatingServices object:self userInfo:nil];
+}
+
+- (void)invalidateLastKnownLocation {
+    self.lastKnownLocation = nil;
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -115,6 +128,7 @@
     
     // move heading angle overlay to new coordinate
     [self.mapView moveHeadingAngleViewToCoordinate:newLocation.coordinate];
+    self.lastKnownLocation = newLocation;
 
 	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidUpdateToLocationFromLocation object:self userInfo:userInfo];
 }
