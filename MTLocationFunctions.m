@@ -17,24 +17,17 @@
 #import <MapKit/MapKit.h>
 
 
-
-
 BOOL MTLocationUsesNewAPIs(void) {
-#if (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_5_0)
     static BOOL useNewAPIs = NO;
-    static BOOL checkedForNewAPI = NO;
     
-    if (!checkedForNewAPI) {
+#if (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_5_0)
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         useNewAPIs = NSClassFromString(@"MKUserTrackingBarButtonItem") != nil;
-        
-        checkedForNewAPI = YES;
-    }
+    });
+#endif
     
     return useNewAPIs;
-    
-#else
-    return NO;
-#endif
 }
 
 
