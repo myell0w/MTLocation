@@ -20,11 +20,21 @@
 #import "MTTouchesMovedGestureRecognizer.h"
 
 
+@interface MTLocationManager ()
+
+// re-define as read/write
+@property (nonatomic, retain, readwrite) CLLocation *lastKnownLocation;
+@property (nonatomic, copy) mt_location_changed_block locationChangedBlock;
+
+@end
+
 @implementation MTLocationManager
 
 @synthesize locationManager = locationManager_;
+@synthesize lastKnownLocation = lastKnownLocation_;
 @synthesize mapView = mapView_;
 @synthesize displayHeadingCalibration = displayHeadingCalibration_;
+@synthesize locationChangedBlock = locationChangedBlock_;
 
 
 ////////////////////////////////////////////////////////////////////////
@@ -45,7 +55,9 @@
 - (void)dealloc {
     [locationManager_ release], locationManager_ = nil;
 	[mapView_ release], mapView_ = nil;
-    
+    [lastKnownLocation_ release], lastKnownLocation_ = nil;
+    [locationChangedBlock_ release], locationChangedBlock_ = nil;
+
     [super dealloc];
 }
 
@@ -70,6 +82,18 @@
 	// post notification
 	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidStopUpdatingHeading object:self userInfo:nil];
 	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidStopUpdatingServices object:self userInfo:nil];
+}
+
+- (void)invalidateLastKnownLocation {
+    self.lastKnownLocation = nil;
+}
+
+- (void)whenLocationChanged:(mt_location_changed_block)block {
+    self.locationChangedBlock = block;
+}
+
+- (void)removeLocationChangedBlock {
+    self.locationChangedBlock = nil;
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -122,6 +146,14 @@
     if (!MTLocationUsesNewAPIs()) {
         [self.mapView setCenterCoordinate:newLocation.coordinate animated:YES];
         [self.mapView moveHeadingAngleViewToCoordinate:newLocation.coordinate];
+    }
+
+    // save last known global location
+    self.lastKnownLocation = newLocation;
+
+    // call delegate-block if there is one
+    if (self.locationChangedBlock != nil) {
+        self.locationChangedBlock(newLocation);
     }
     
 	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidUpdateToLocationFromLocation object:self userInfo:userInfo];
@@ -236,24 +268,20 @@
 static MTLocationManager *sharedMTLocationManager = nil;
 
 + (MTLocationManager *)sharedInstance {
-	@synchronized(self) {
-		if (sharedMTLocationManager == nil) {
-			sharedMTLocationManager = [[self alloc] init];
-		}
-	}
-    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedMTLocationManager = [[self alloc] init];
+    });
+
 	return sharedMTLocationManager;
 }
 
 + (id)allocWithZone:(NSZone *)zone {
-	@synchronized(self) {
-		if (sharedMTLocationManager == nil) {
-			sharedMTLocationManager = [super allocWithZone:zone];
-            
-			return sharedMTLocationManager;
-		}
-	}
-    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedMTLocationManager = [super allocWithZone:zone];
+    });
+
 	return nil;
 }
 

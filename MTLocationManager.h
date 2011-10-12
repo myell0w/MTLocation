@@ -18,15 +18,22 @@
 #import "MTLocateMeButton.h"
 #import "MTLocateMeBarButtonItem.h"
 
+// block-type of block that gets executed when location changes
+typedef void (^mt_location_changed_block)(CLLocation *location);
+
 // Singleton class that acts as the Location Manager and it's delegate
 // Sends Notifications when CLLocationManagerDelegate-Methods are called
 @interface MTLocationManager : NSObject <CLLocationManagerDelegate, MTLocateMeButtonDelegate> {
     // The Core Location location manager
     CLLocationManager *locationManager_;
+    // The last known location
+    CLLocation *lastKnownLocation_;
 	// Optional: a MapView that gets rotated according to heading updates
 	MKMapView *mapView_;
     // configure if heading calibration should be displayed
     BOOL displayHeadingCalibration_;
+    
+    mt_location_changed_block locationChangedBlock_;
 }
 
 
@@ -36,6 +43,7 @@
 ////////////////////////////////////////////////////////////////////////
 
 @property (nonatomic, retain) CLLocationManager *locationManager;
+@property (nonatomic, retain, readonly) CLLocation *lastKnownLocation;
 @property (nonatomic, retain) MKMapView *mapView;
 @property (nonatomic, getter=isHeadingCalibrationDisplayed) BOOL displayHeadingCalibration;
 
@@ -49,5 +57,9 @@
 + (MTLocationManager *)sharedInstance;
 
 - (void)stopAllServices;
+- (void)invalidateLastKnownLocation;
+
+- (void)whenLocationChanged:(mt_location_changed_block)block;
+- (void)removeLocationChangedBlock;
 
 @end

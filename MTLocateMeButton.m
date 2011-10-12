@@ -195,7 +195,7 @@
 ////////////////////////////////////////////////////////////////////////
 
 - (void)setFrameForInterfaceOrientation:(UIInterfaceOrientation)orientation {
-    if (UIInterfaceOrientationIsPortrait(orientation) || [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+    if (UIInterfaceOrientationIsPortrait(orientation) || UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         self.frame = (CGRect){{self.frame.origin.x, self.frame.origin.y}, [UIImage imageNamed:kLocationStatusIdleBackgroundImage].size};
         
         self.activityIndicatorFrame = CGRectInset(self.bounds, kActivityIndicatorInsetPortrait, kActivityIndicatorInsetPortrait);
