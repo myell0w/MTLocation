@@ -20,6 +20,6 @@
 
 @interface UIBarButtonItem (MTLocation)
 
-+ (UIBarButtonItem *)userTrackingBarButtonItemForMapView:(MKMapView *)mapView;
++ (id)userTrackingBarButtonItemForMapView:(MKMapView *)mapView;
 
 @end

@@ -276,15 +276,6 @@ static MTLocationManager *sharedMTLocationManager = nil;
 	return sharedMTLocationManager;
 }
 
-+ (id)allocWithZone:(NSZone *)zone {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedMTLocationManager = [super allocWithZone:zone];
-    });
-
-	return nil;
-}
-
 - (id)copyWithZone:(NSZone *)zone {
 	return self;
 }
