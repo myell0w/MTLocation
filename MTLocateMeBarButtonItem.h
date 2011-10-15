@@ -21,9 +21,7 @@
 @protocol MTLocateMeButtonDelegate;
 
 
-@interface MTLocateMeBarButtonItem : UIBarButtonItem {
-	MTLocateMeButton *locateMeButton_;
-}
+@interface MTLocateMeBarButtonItem : UIBarButtonItem 
 
 @property (nonatomic, assign) MTUserTrackingMode trackingMode;
 @property (nonatomic, assign) BOOL headingEnabled;

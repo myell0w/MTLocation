@@ -7,12 +7,8 @@
 
 typedef void (^TouchesEventBlock)(NSSet * touches, UIEvent * event);
 
-@interface MTTouchesMovedGestureRecognizer : UIGestureRecognizer {
-	TouchesEventBlock touchesMovedCallback_;
-	NSDate *touchesBeganTimestamp_;
-}
+@interface MTTouchesMovedGestureRecognizer : UIGestureRecognizer 
 
 @property(copy) TouchesEventBlock touchesMovedCallback;
-
 
 @end

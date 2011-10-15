@@ -16,10 +16,10 @@
 // Buttons
 #import "MTLocateMeBarButtonItem.h"
 #import "MTLocateMeButton.h"
-#import "UIBarButtonItem+MTLocation.h"
 // Categories
 #import "MKMapView+MTLocation.h"
 #import "MKAnnotationView+MTLocation.h"
+#import "UIBarButtonItem+MTLocation.h"
 // Utils
 #import "MTLocationDefines.h"
 #import "MTLocationManager.h"

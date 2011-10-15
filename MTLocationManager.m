@@ -36,7 +36,6 @@
 @synthesize displayHeadingCalibration = displayHeadingCalibration_;
 @synthesize locationChangedBlock = locationChangedBlock_;
 
-
 ////////////////////////////////////////////////////////////////////////
 #pragma mark -
 #pragma mark Lifecycle
@@ -274,25 +273,6 @@ static MTLocationManager *sharedMTLocationManager = nil;
     });
 
 	return sharedMTLocationManager;
-}
-
-- (id)copyWithZone:(NSZone *)zone {
-	return self;
-}
-
-- (id)retain {
-	return self;
-}
-
-- (NSUInteger)retainCount {
-	return NSUIntegerMax;
-}
-
-- (oneway void)release {
-}
-
-- (id)autorelease {
-	return self;
 }
 
 @end

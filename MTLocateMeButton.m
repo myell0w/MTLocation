@@ -55,10 +55,15 @@
 
 @interface MTLocateMeButton ()
 
+// Subview: activity indicator is shown during MTLocationStatusSearching
 @property (nonatomic, retain) UIActivityIndicatorView *activityIndicator;
+// Subview: Holds image that is shown in all other LocationStati
 @property (nonatomic, retain) UIImageView *imageView;
+// the initial frame of the activity indicator
 @property (nonatomic, assign) CGRect activityIndicatorFrame;
+// the initial frame of the image view
 @property (nonatomic, assign) CGRect imageViewFrame;
+// the currently displayed sub-view
 @property (nonatomic, assign) UIView *activeSubview;
 @property (nonatomic, readonly) UIView *inactiveSubview;
 

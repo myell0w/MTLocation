@@ -19,27 +19,9 @@
 @protocol MTLocateMeButtonDelegate;
 
 
-@interface MTLocateMeButton : UIButton {
-	// Current Location-State of the Button
-	MTUserTrackingMode trackingMode_;
+@interface MTLocateMeButton : UIButton
 
-	// Subview: activity indicator is shown during MTLocationStatusSearching
-	UIActivityIndicatorView* activityIndicator_;
-	// Subview: Holds image that is shown in all other LocationStati
-	UIImageView *imageView_;
-	// the initial frame of the activity indicator
-	CGRect activityIndicatorFrame_;
-	// the initial frame of the image view
-	CGRect imageViewFrame_;
-
-	// the currently displayed sub-view
-	UIView *activeSubview_;
-
-	BOOL headingEnabled_;
-    
-    id<MTLocateMeButtonDelegate> delegate_;
-}
-
+// Current Location-State of the Button
 @property (nonatomic, assign) MTUserTrackingMode trackingMode;
 @property (nonatomic, assign) BOOL headingEnabled;
 @property (nonatomic, retain) CLLocationManager *locationManager;
