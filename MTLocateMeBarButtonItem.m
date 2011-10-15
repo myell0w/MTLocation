@@ -48,7 +48,7 @@
 ////////////////////////////////////////////////////////////////////////
 
 - (id)initWithMapView:(MKMapView *)mapView {
-    if ((self = [self initWithTrackingMode:MTUserTrackingModeNone startListening:NO])) {
+    if ((self = [self initWithTrackingMode:MTUserTrackingModeNone startListening:YES])) {
         // use MTLocationmanager as delegate, and set it's mapView
         self.delegate = [MTLocationManager sharedInstance];
         [MTLocationManager sharedInstance].mapView = mapView;
@@ -92,9 +92,9 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kMTLocationManagerDidUpdateHeading object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kMTLocationManagerDidFailWithError object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kMTLocationManagerDidStopUpdatingServices object:nil];
-
+    
 	locateMeButton_ = nil;
-
+    
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -183,22 +183,15 @@
 ////////////////////////////////////////////////////////////////////////
 
 - (void)locationManagerDidUpdateToLocationFromLocation:(NSNotification *)notification {
-	CLLocation *newLocation = [notification.userInfo valueForKey:@"newLocation"];
-
     // only set new location status if we are currently not receiving heading updates
 	if (self.trackingMode != MTUserTrackingModeFollowWithHeading) {
-		// if horizontal accuracy is below our threshold update status
-		if (newLocation.horizontalAccuracy < kMTLocationMinimumHorizontalAccuracy) {
-			[self setTrackingMode:MTUserTrackingModeFollow animated:YES];
-		} else {
-			[self setTrackingMode:MTUserTrackingModeSearching animated:YES];
-		}
+        [self setTrackingMode:MTUserTrackingModeFollow animated:YES];
 	}
 }
 
 - (void)locationManagerDidUpdateHeading:(NSNotification *)notification {
 	CLHeading *newHeading = [notification.userInfo valueForKey:@"newHeading"];
-
+    
     if (newHeading.headingAccuracy > 0) {
         [self setTrackingMode:MTUserTrackingModeFollowWithHeading animated:YES];
     } else {
