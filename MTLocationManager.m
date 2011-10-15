@@ -23,7 +23,7 @@
 @interface MTLocationManager ()
 
 // re-define as read/write
-@property (nonatomic, retain, readwrite) CLLocation *lastKnownLocation;
+@property (nonatomic, strong, readwrite) CLLocation *lastKnownLocation;
 @property (nonatomic, copy) mt_location_changed_block locationChangedBlock;
 
 @end
@@ -52,12 +52,11 @@
 }
 
 - (void)dealloc {
-    [locationManager_ release], locationManager_ = nil;
-	[mapView_ release], mapView_ = nil;
-    [lastKnownLocation_ release], lastKnownLocation_ = nil;
-    [locationChangedBlock_ release], locationChangedBlock_ = nil;
+    locationManager_ = nil;
+	mapView_ = nil;
+    lastKnownLocation_ = nil;
+    locationChangedBlock_ = nil;
 
-    [super dealloc];
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -102,12 +101,11 @@
 
 - (void)setMapView:(MKMapView *)mapView {
 	if(mapView != mapView_) {
-		[mapView_ release];
-		mapView_ = [mapView retain];
+		mapView_ = mapView;
 	}
     
 	// detect taps on the map-view
-	MTTouchesMovedGestureRecognizer * tapInterceptor = [[[MTTouchesMovedGestureRecognizer alloc] init] autorelease];
+	MTTouchesMovedGestureRecognizer * tapInterceptor = [[MTTouchesMovedGestureRecognizer alloc] init];
 	// safe self for block
 	__block __typeof__(self) blockSelf = self;
     

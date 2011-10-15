@@ -24,8 +24,8 @@
 // Current Location-State of the Button
 @property (nonatomic, assign) MTUserTrackingMode trackingMode;
 @property (nonatomic, assign) BOOL headingEnabled;
-@property (nonatomic, retain) CLLocationManager *locationManager;
-@property (nonatomic, assign) id<MTLocateMeButtonDelegate> delegate;
+@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, unsafe_unretained) id<MTLocateMeButtonDelegate> delegate;
 
 - (void)setTrackingMode:(MTUserTrackingMode)trackingMode animated:(BOOL)animated;
 // sets the right frame when used in a UINavigationBar for portrait/landscape

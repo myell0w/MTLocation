@@ -27,10 +27,10 @@ typedef void (^mt_location_changed_block)(CLLocation *location);
  */
 @interface MTLocationManager : NSObject <CLLocationManagerDelegate, MTLocateMeButtonDelegate> 
 
-@property (nonatomic, retain) CLLocationManager *locationManager;
-@property (nonatomic, retain, readonly) CLLocation *lastKnownLocation;
+@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong, readonly) CLLocation *lastKnownLocation;
 // Optional: a MapView that gets rotated according to heading updates
-@property (nonatomic, retain) MKMapView *mapView;
+@property (nonatomic, strong) MKMapView *mapView;
 // configure if heading calibration should be displayed
 @property (nonatomic, getter=isHeadingCalibrationDisplayed) BOOL displayHeadingCalibration;
 

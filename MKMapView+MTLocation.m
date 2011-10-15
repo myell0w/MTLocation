@@ -30,7 +30,7 @@ static char headingAngleViewKey;
 ////////////////////////////////////////////////////////////////////////
 
 + (MKMapView *)mapViewInSuperview:(UIView *)superview {
-    MKMapView *mapView = [[[MKMapView alloc] initWithFrame:CGRectZero] autorelease];
+    MKMapView *mapView = [[MKMapView alloc] initWithFrame:CGRectZero];
 
     mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
@@ -78,7 +78,7 @@ static char headingAngleViewKey;
 
 - (void)addGoogleBadgeAtPoint:(CGPoint)topLeftOfGoogleBadge {
     if (!MTLocationUsesNewAPIs()) {
-        UIImageView *googleView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GoogleBadge.png"]] autorelease];
+        UIImageView *googleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GoogleBadge.png"]];
         googleView.tag = kMTLocationGoogleBadgeTag;
         googleView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin;
         googleView.frame = CGRectMake(topLeftOfGoogleBadge.x, topLeftOfGoogleBadge.y,
@@ -90,7 +90,7 @@ static char headingAngleViewKey;
 
 - (void)addHeadingAngleView {
     if (!MTLocationUsesNewAPIs()) {
-        UIImageView *headingAngleView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"HeadingAngleSmall.png"]] autorelease];
+        UIImageView *headingAngleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"HeadingAngleSmall.png"]];
         headingAngleView.hidden = YES;
         headingAngleView.tag = kMTLocationHeadingViewTag;
         

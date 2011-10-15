@@ -11,7 +11,7 @@
 
 @interface MTTouchesMovedGestureRecognizer ()
 
-@property (nonatomic, retain) NSDate *touchesBeganTimestamp;
+@property (nonatomic, strong) NSDate *touchesBeganTimestamp;
 
 @end
 
@@ -30,10 +30,9 @@
 }
 
 - (void)dealloc {
-    [touchesMovedCallback_ release], touchesMovedCallback_ = nil;
-	[touchesBeganTimestamp_ release], touchesBeganTimestamp_ = nil;
+    touchesMovedCallback_ = nil;
+	touchesBeganTimestamp_ = nil;
 
-    [super dealloc];
 }
 
 /*- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {

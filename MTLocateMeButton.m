@@ -56,16 +56,16 @@
 @interface MTLocateMeButton ()
 
 // Subview: activity indicator is shown during MTLocationStatusSearching
-@property (nonatomic, retain) UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 // Subview: Holds image that is shown in all other LocationStati
-@property (nonatomic, retain) UIImageView *imageView;
+@property (nonatomic, strong) UIImageView *imageView;
 // the initial frame of the activity indicator
 @property (nonatomic, assign) CGRect activityIndicatorFrame;
 // the initial frame of the image view
 @property (nonatomic, assign) CGRect imageViewFrame;
 // the currently displayed sub-view
-@property (nonatomic, assign) UIView *activeSubview;
-@property (nonatomic, readonly) UIView *inactiveSubview;
+@property (nonatomic, unsafe_unretained) UIView *activeSubview;
+@property (unsafe_unretained, nonatomic, readonly) UIView *inactiveSubview;
 
 - (void)updateUI;
 - (void)trackingModeToggled:(id)sender;
@@ -138,11 +138,10 @@
 
 - (void)dealloc {
     delegate_ = nil;
-    [activityIndicator_ release], activityIndicator_ = nil;
-	[imageView_ release], imageView_ = nil;
-	[locationManager_ release], locationManager_ = nil;
+    activityIndicator_ = nil;
+	imageView_ = nil;
+	locationManager_ = nil;
     
-    [super dealloc];
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -178,7 +177,7 @@
             
 			// animate currently visible subview to a smaller frame
 			// when finished, animate currently invisible subview to big frame
-			[UIView beginAnimations:@"AnimateLocationStatusShrink" context:(void *)[NSNumber numberWithInt:trackingMode]];
+			[UIView beginAnimations:@"AnimateLocationStatusShrink" context:(__bridge void *)[NSNumber numberWithInt:trackingMode]];
 			[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
 			[UIView setAnimationDuration:kShrinkAnimationDuration];
 			[UIView setAnimationDelegate:self];

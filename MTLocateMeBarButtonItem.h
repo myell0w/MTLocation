@@ -25,7 +25,7 @@
 
 @property (nonatomic, assign) MTUserTrackingMode trackingMode;
 @property (nonatomic, assign) BOOL headingEnabled;
-@property (nonatomic, assign) id<MTLocateMeButtonDelegate> delegate;
+@property (nonatomic, unsafe_unretained) id<MTLocateMeButtonDelegate> delegate;
 
 
 // initializer

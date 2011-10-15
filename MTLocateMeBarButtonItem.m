@@ -26,7 +26,7 @@
 
 @interface MTLocateMeBarButtonItem ()
 
-@property (nonatomic, retain) MTLocateMeButton *locateMeButton;
+@property (nonatomic, strong) MTLocateMeButton *locateMeButton;
 
 - (void)locationManagerDidUpdateToLocationFromLocation:(NSNotification *)notification;
 - (void)locationManagerDidUpdateHeading:(NSNotification *)notification;
@@ -93,9 +93,8 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kMTLocationManagerDidFailWithError object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kMTLocationManagerDidStopUpdatingServices object:nil];
 
-	[locateMeButton_ release], locateMeButton_ = nil;
+	locateMeButton_ = nil;
 
-	[super dealloc];
 }
 
 ////////////////////////////////////////////////////////////////////////
