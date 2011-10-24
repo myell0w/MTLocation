@@ -37,6 +37,8 @@ typedef void (^mt_location_changed_block)(CLLocation *location);
 // Singleton Instance
 + (MTLocationManager *)sharedInstance;
 
+/** Sets the specified tracking mode programatically (doesn't update button) */
+- (void)setTrackingMode:(MTUserTrackingMode)trackingMode;
 - (void)stopAllServices;
 - (void)invalidateLastKnownLocation;
 

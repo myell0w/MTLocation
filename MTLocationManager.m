@@ -26,6 +26,8 @@
 @property (nonatomic, strong, readwrite) CLLocation *lastKnownLocation;
 @property (nonatomic, copy) mt_location_changed_block locationChangedBlock;
 
+- (void)setActiveServicesForTrackingMode:(MTUserTrackingMode)trackingMode;
+
 @end
 
 @implementation MTLocationManager
@@ -63,6 +65,10 @@
 #pragma mark -
 #pragma mark Location Service Methods
 ////////////////////////////////////////////////////////////////////////
+
+- (void)setTrackingMode:(MTUserTrackingMode)trackingMode {
+    [self setActiveServicesForTrackingMode:trackingMode];
+}
 
 - (void)stopAllServices {
 	// Reset transform on map
@@ -221,6 +227,15 @@
 ////////////////////////////////////////////////////////////////////////
 
 - (void)locateMeButton:(MTLocateMeButton *)locateMeButton didChangeTrackingMode:(MTUserTrackingMode)trackingMode {
+    [self setActiveServicesForTrackingMode:trackingMode];    
+}
+     
+////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Private
+////////////////////////////////////////////////////////////////////////
+
+- (void)setActiveServicesForTrackingMode:(MTUserTrackingMode)trackingMode {
     if (MTLocationUsesNewAPIs()) {
         self.mapView.userTrackingMode = (MKUserTrackingMode)trackingMode;
     } 
@@ -253,8 +268,8 @@
             [self.locationManager startUpdatingHeading];
             break;
     }
-    
 }
+     
 
 
 ////////////////////////////////////////////////////////////////////////
