@@ -53,14 +53,6 @@
     return self;
 }
 
-- (void)dealloc {
-    locationManager_ = nil;
-	mapView_ = nil;
-    lastKnownLocation_ = nil;
-    locationChangedBlock_ = nil;
-
-}
-
 ////////////////////////////////////////////////////////////////////////
 #pragma mark -
 #pragma mark Location Service Methods
@@ -108,37 +100,35 @@
 - (void)setMapView:(MKMapView *)mapView {
 	if(mapView != mapView_) {
 		mapView_ = mapView;
-	}
-    
-	// detect taps on the map-view
-	MTTouchesMovedGestureRecognizer * tapInterceptor = [[MTTouchesMovedGestureRecognizer alloc] init];
-	// safe self for block
-	__block __typeof__(self) blockSelf = self;
-    
-	tapInterceptor.touchesMovedCallback = ^(NSSet * touches, UIEvent * event) {
-		// Reset transform on map
-        [blockSelf.mapView resetHeadingRotationAnimated:YES];
-        // hide heading angle overlay
-        [blockSelf.mapView hideHeadingAngleView];
         
-		// stop location-services
-		[[MTLocationManager sharedInstance].locationManager stopUpdatingLocation];
-		[[MTLocationManager sharedInstance].locationManager stopUpdatingHeading];
+        // detect taps on the map-view
+        MTTouchesMovedGestureRecognizer * tapInterceptor = [[MTTouchesMovedGestureRecognizer alloc] init];
+        // safe self for block
+        __unsafe_unretained MTLocationManager *blockSelf = self;
         
-		// Tell LocateMeBarButtonItem to update it's state
-		[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidStopUpdatingHeading object:blockSelf userInfo:nil];
-		[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidStopUpdatingServices object:blockSelf userInfo:nil];
-	};
-    
-	[self.mapView addGestureRecognizer:tapInterceptor];
+        tapInterceptor.touchesMovedCallback = ^(NSSet * touches, UIEvent * event) {
+            // Reset transform on map
+            [blockSelf.mapView resetHeadingRotationAnimated:YES];
+            // hide heading angle overlay
+            [blockSelf.mapView hideHeadingAngleView];
+            
+            // stop location-services
+            [[MTLocationManager sharedInstance].locationManager stopUpdatingLocation];
+            [[MTLocationManager sharedInstance].locationManager stopUpdatingHeading];
+            
+            // Tell LocateMeBarButtonItem to update it's state
+            [[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidStopUpdatingHeading object:blockSelf userInfo:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidStopUpdatingServices object:blockSelf userInfo:nil];
+        };
+        
+        [self.mapView addGestureRecognizer:tapInterceptor];
+    }
 }
-
 
 ////////////////////////////////////////////////////////////////////////
 #pragma mark -
 #pragma mark locationManager Delegate
 ////////////////////////////////////////////////////////////////////////
-
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
 	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, @"locationManager",
@@ -150,10 +140,10 @@
         [self.mapView setCenterCoordinate:newLocation.coordinate animated:YES];
         [self.mapView moveHeadingAngleViewToCoordinate:newLocation.coordinate];
     }
-
+    
     // save last known global location
     self.lastKnownLocation = newLocation;
-
+    
     // call delegate-block if there is one
     if (self.locationChangedBlock != nil) {
         self.locationChangedBlock(newLocation);
@@ -176,10 +166,8 @@
     if (newHeading.headingAccuracy > 0) {
         // show heading angle overlay
         [self.mapView showHeadingAngleView];
-        
         // move heading angle overlay to new coordinate
         [self.mapView moveHeadingAngleViewToCoordinate:self.mapView.userLocation.coordinate];
-        
         // rotate map according to heading
         [self.mapView rotateToHeading:newHeading animated:YES];
     }
@@ -220,7 +208,6 @@
 	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidChangeAuthorizationStatus object:self userInfo:userInfo];
 }
 
-
 ////////////////////////////////////////////////////////////////////////
 #pragma mark -
 #pragma mark MTLocateMeButtonDelegate Methods
@@ -229,7 +216,7 @@
 - (void)locateMeButton:(MTLocateMeButton *)locateMeButton didChangeTrackingMode:(MTUserTrackingMode)trackingMode {
     [self setActiveServicesForTrackingMode:trackingMode];    
 }
-     
+
 ////////////////////////////////////////////////////////////////////////
 #pragma mark -
 #pragma mark Private
@@ -269,8 +256,6 @@
             break;
     }
 }
-     
-
 
 ////////////////////////////////////////////////////////////////////////
 #pragma mark -
@@ -284,7 +269,7 @@ static MTLocationManager *sharedMTLocationManager = nil;
     dispatch_once(&onceToken, ^{
         sharedMTLocationManager = [[self alloc] init];
     });
-
+    
 	return sharedMTLocationManager;
 }
 

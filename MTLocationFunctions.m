@@ -84,7 +84,7 @@ void MTRotateViewToHeading(UIView *view, CLHeading *heading, BOOL animated) {
 	}
 }
 
-// Thanks to Stefan Bachl for providing algorithmus
+// Thanks to Stefan Bachl for providing the algorithm
 void MTRotateViewForDirectionFromCoordinateToCoordinate(UIView *view, CLHeading *heading, CLLocationCoordinate2D fromLocation, CLLocationCoordinate2D toLocation, BOOL animated) {
     if (heading.headingAccuracy > 0) {
         float fromLatitude = fromLocation.latitude / 180.f * M_PI;
