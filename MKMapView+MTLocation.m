@@ -29,8 +29,8 @@ static char headingAngleViewKey;
 #pragma mark Lifecycle
 ////////////////////////////////////////////////////////////////////////
 
-+ (MKMapView *)mapViewInSuperview:(UIView *)superview {
-    MKMapView *mapView = [[MKMapView alloc] initWithFrame:CGRectZero];
++ (id)mapViewInSuperview:(UIView *)superview {
+    MKMapView *mapView = [[[self class] alloc] initWithFrame:CGRectZero];
 
     mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 

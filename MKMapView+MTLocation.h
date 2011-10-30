@@ -19,7 +19,7 @@
 @interface MKMapView (MTLocation)
 
 // creates and initializes a MapView and adds it to superview
-+ (MKMapView *)mapViewInSuperview:(UIView *)superview;
++ (id)mapViewInSuperview:(UIView *)superview;
 
 // sizes to MapView so that it can be rotated using a transform without showing it's background
 - (void)sizeToFitTrackingModeFollowWithHeading;
