@@ -21,6 +21,9 @@ Just copy over all .h and .m - Files to your project, as well as the images incl
 Usage
 ------------------
 
+Here's a minimal example of how to use MTLocation:
+https://gist.github.com/1373050
+
 If you have problems getting the map-rotation to work, please refer to the following thread on StackOverflow:
 [Rotating MapView](http://stackoverflow.com/questions/6262463/rotating-mapview-according-to-compass "Rotating MapView")
 
