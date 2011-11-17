@@ -63,9 +63,10 @@
 }
 
 - (id)initWithTrackingMode:(MTUserTrackingMode)trackingMode startListening:(BOOL)startListening {
-    locateMeButton_ = [[MTLocateMeButton alloc] initWithFrame:CGRectZero];
+    MTLocateMeButton *locateMeButton = [[MTLocateMeButton alloc] initWithFrame:CGRectZero];
     
-	if ((self = [super initWithCustomView:locateMeButton_])) {
+	if ((self = [super initWithCustomView:locateMeButton])) {
+		locateMeButton_ = locateMeButton;
 		locateMeButton_.trackingMode = trackingMode;
         
         if (startListening) {
