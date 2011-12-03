@@ -78,7 +78,7 @@ static char headingAngleViewKey;
 
 - (void)addGoogleBadgeAtPoint:(CGPoint)topLeftOfGoogleBadge {
     if (!MTLocationUsesNewAPIs()) {
-        UIImageView *googleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GoogleBadge.png"]];
+        UIImageView *googleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"MTLocation.bundle/GoogleBadge"]];
         googleView.tag = kMTLocationGoogleBadgeTag;
         googleView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin;
         googleView.frame = CGRectMake(topLeftOfGoogleBadge.x, topLeftOfGoogleBadge.y,
@@ -90,7 +90,7 @@ static char headingAngleViewKey;
 
 - (void)addHeadingAngleView {
     if (!MTLocationUsesNewAPIs()) {
-        UIImageView *headingAngleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"HeadingAngleSmall.png"]];
+        UIImageView *headingAngleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"MTLocation.bundle/HeadingAngleSmall"]];
         headingAngleView.hidden = YES;
         headingAngleView.tag = kMTLocationHeadingViewTag;
         

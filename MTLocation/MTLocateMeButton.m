@@ -21,15 +21,15 @@
 ////////////////////////////////////////////////////////////////////////
 
 // Background images
-#define kLocationStatusIdleBackgroundImage						@"LocateMeButton.png"
-#define kLocationStatusSearchingBackgroundImage					@"LocateMeButtonTrackingPressed.png"
-#define kLocationStatusRecevingLocationUpdatesBackgroundImage	@"LocateMeButtonTrackingPressed.png"
-#define kLocationStatusRecevingHeadingUpdatesBackgroundImage	@"LocateMeButtonTrackingPressed.png"
+#define kMTLocationStatusIdleBackgroundImage						@"MTLocation.bundle/LocateMeButton"
+#define kMTLocationStatusSearchingBackgroundImage					@"MTLocation.bundle/LocateMeButtonTrackingPressed"
+#define kMTLocationStatusRecevingLocationUpdatesBackgroundImage	@"MTLocation.bundle/LocateMeButtonTrackingPressed"
+#define kMTLocationStatusRecevingHeadingUpdatesBackgroundImage	@"MTLocation.bundle/LocateMeButtonTrackingPressed"
 
 // foreground images
-#define kLocationStatusIdleImage					@"Location.png"
-#define kLocationStatusRecevingLocationUpdatesImage	@"Location.png"
-#define kLocationStatusRecevingHeadingUpdatesImage	@"LocationHeading.png"
+#define kMTLocationStatusIdleImage					@"MTLocation.bundle/Location"
+#define kMTLocationStatusRecevingLocationUpdatesImage	@"MTLocation.bundle/Location"
+#define kMTLocationStatusRecevingHeadingUpdatesImage	@"MTLocation.bundle/LocationHeading"
 
 // animation durations
 #define kShrinkAnimationDuration 0.25
@@ -101,7 +101,7 @@
     if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
         buttonFrame = CGRectMake(0.,0.,kWidthLandscape,kHeightLandscape);
     } else {
-        buttonFrame = (CGRect){CGPointZero, [UIImage imageNamed:kLocationStatusIdleBackgroundImage].size};
+        buttonFrame = (CGRect){CGPointZero, [UIImage imageNamed:kMTLocationStatusIdleBackgroundImage].size};
     }
     
     if ((self = [super initWithFrame:buttonFrame])) {
@@ -200,7 +200,7 @@
 
 - (void)setFrameForInterfaceOrientation:(UIInterfaceOrientation)orientation {
     if (UIInterfaceOrientationIsPortrait(orientation) || UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        self.frame = (CGRect){{self.frame.origin.x, self.frame.origin.y}, [UIImage imageNamed:kLocationStatusIdleBackgroundImage].size};
+        self.frame = (CGRect){{self.frame.origin.x, self.frame.origin.y}, [UIImage imageNamed:kMTLocationStatusIdleBackgroundImage].size};
         
         self.activityIndicatorFrame = CGRectInset(self.bounds, kActivityIndicatorInsetPortrait, kActivityIndicatorInsetPortrait);
         self.imageViewFrame = CGRectInset(self.bounds, kImageViewInsetPortrait , kImageViewInsetPortrait);
@@ -245,30 +245,30 @@
 - (void)updateUI {
 	switch (self.trackingMode) {
 		case MTUserTrackingModeNone:
-			[self setImage:[UIImage imageNamed:kLocationStatusIdleBackgroundImage] forState:UIControlStateNormal];
+			[self setImage:[UIImage imageNamed:kMTLocationStatusIdleBackgroundImage] forState:UIControlStateNormal];
 			[self.activityIndicator stopAnimating];
-			self.imageView.image = [UIImage imageNamed:kLocationStatusIdleImage];
+			self.imageView.image = [UIImage imageNamed:kMTLocationStatusIdleImage];
 			self.activeSubview = self.imageView;
 			break;
             
 		case MTUserTrackingModeSearching:
-			[self setImage:[UIImage imageNamed:kLocationStatusSearchingBackgroundImage] forState:UIControlStateNormal];
+			[self setImage:[UIImage imageNamed:kMTLocationStatusSearchingBackgroundImage] forState:UIControlStateNormal];
 			[self.activityIndicator startAnimating];
 			self.imageView.image = nil;
 			self.activeSubview = self.activityIndicator;
 			break;
             
 		case MTUserTrackingModeFollow:
-			[self setImage:[UIImage imageNamed:kLocationStatusRecevingLocationUpdatesBackgroundImage] forState:UIControlStateNormal];
+			[self setImage:[UIImage imageNamed:kMTLocationStatusRecevingLocationUpdatesBackgroundImage] forState:UIControlStateNormal];
 			[self.activityIndicator stopAnimating];
-			self.imageView.image = [UIImage imageNamed:kLocationStatusRecevingLocationUpdatesImage];
+			self.imageView.image = [UIImage imageNamed:kMTLocationStatusRecevingLocationUpdatesImage];
 			self.activeSubview = self.imageView;
 			break;
             
 		case MTUserTrackingModeFollowWithHeading:
-			[self setImage:[UIImage imageNamed:kLocationStatusRecevingHeadingUpdatesBackgroundImage] forState:UIControlStateNormal];
+			[self setImage:[UIImage imageNamed:kMTLocationStatusRecevingHeadingUpdatesBackgroundImage] forState:UIControlStateNormal];
 			[self.activityIndicator stopAnimating];
-			self.imageView.image = [UIImage imageNamed:kLocationStatusRecevingHeadingUpdatesImage];
+			self.imageView.image = [UIImage imageNamed:kMTLocationStatusRecevingHeadingUpdatesImage];
 			self.activeSubview = self.imageView;
 			break;
 	}
