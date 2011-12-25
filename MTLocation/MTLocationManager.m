@@ -2,7 +2,7 @@
 //  MTLocationManager.m
 //
 //  Created by Matthias Tretter on 06.02.11.
-//  Copyright (c) 2009-2011  Matthias Tretter, @myell0w. All rights reserved.
+//  Copyright (c) 2009-2012  Matthias Tretter, @myell0w. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
 // to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -131,9 +131,9 @@
 ////////////////////////////////////////////////////////////////////////
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
-	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, @"locationManager",
-							  newLocation, @"newLocation",
-							  oldLocation, @"oldLocation", nil];
+	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, kMTLocationLocationManagerKey,
+							  newLocation, kMTLocationNewLocationKey,
+							  oldLocation, kMTLocationOldLocationKey, nil];
     
     // move heading angle overlay to new coordinate
     if (!MTLocationUsesNewAPIs()) {
@@ -153,15 +153,15 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, @"locationManager",
-							  error, @"error", nil];
+	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, kMTLocationLocationManagerKey,
+							  error, kMTLocationErrorKey, nil];
     
 	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidFailWithError object:self userInfo:userInfo];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading {
-	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, @"locationManager",
-							  newHeading, @"newHeading", nil];
+	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, kMTLocationLocationManagerKey,
+							  newHeading, kMTLocationNewHeadingKey, nil];
     
     if (newHeading.headingAccuracy > 0) {
         // show heading angle overlay
@@ -180,30 +180,30 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
-	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, @"locationManager",
-							  region, @"region", nil];
+	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, kMTLocationLocationManagerKey,
+							  region, kMTLocationRegionKey, nil];
     
 	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidEnterRegion object:self userInfo:userInfo];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
-	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, @"locationManager",
-							  region, @"region", nil];
+	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, kMTLocationLocationManagerKey,
+							  region, kMTLocationRegionKey, nil];
     
 	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidExitRegion object:self userInfo:userInfo];
 }
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
-	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, @"locationManager",
-							  region, @"region",
-							  error, @"error", nil];
+	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, kMTLocationLocationManagerKey,
+							  region, kMTLocationRegionKey,
+							  error, kMTLocationErrorKey, nil];
     
 	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerMonitoringDidFailForRegion object:self userInfo:userInfo];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
-	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, @"locationManager",
-							  [NSNumber numberWithInt:status], @"status", nil];
+	NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: manager, kMTLocationLocationManagerKey,
+							  [NSNumber numberWithInt:status], kMTLocationAuthorizationStatusKey, nil];
     
 	[[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidChangeAuthorizationStatus object:self userInfo:userInfo];
 }

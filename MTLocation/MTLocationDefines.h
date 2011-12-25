@@ -2,7 +2,7 @@
 //  MTLocationDefines.h
 //
 //  Created by Matthias Tretter on 21.01.11.
-//  Copyright (c) 2009-2011  Matthias Tretter, @myell0w. All rights reserved.
+//  Copyright (c) 2009-2012  Matthias Tretter, @myell0w. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
 // to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -38,7 +38,7 @@ typedef enum {
 #define kMTHeadingAccuracyLargeThreshold	45
 #define kMTHeadingAccuracyMediumThreshold	30
 
-// notifications that are sent when BarButtonItem is used as LocationManager-Delegate
+// Notifications that are sent when BarButtonItem is used as LocationManager-Delegate
 #define kMTLocationManagerDidUpdateToLocationFromLocation	@"kMTLocationManagerDidUpdateToLocationFromLocation"
 #define kMTLocationManagerDidFailWithError					@"kMTLocationManagerDidFailWithError"
 #define kMTLocationManagerDidUpdateHeading					@"kMTLocationManagerDidUpdateHeading"
@@ -50,8 +50,45 @@ typedef enum {
 #define kMTLocationManagerDidStopUpdatingHeading			@"kMTLocationManagerDidStopUpdatingHeading"
 #define kMTLocationManagerDidStopUpdatingServices			@"kMTLocationManagerDidStopUpdatingServices"
 
+// Keys for Notification UserInfo
+#define kMTLocationLocationManagerKey                       @"locationManager"
+#define kMTLocationNewLocationKey                           @"newLocation"
+#define kMTLocationOldLocationKey                           @"oldLocation"
+#define kMTLocationNewHeadingKey                            @"newHeading"
+#define kMTLocationRegionKey                                @"region"
+#define kMTLocationErrorKey                                 @"error"
+#define kMTLocationAuthorizationStatusKey                   @"status"
 
 // UIView Tags
 #define kMTLocationGoogleBadgeTag   666
 #define kMTLocationHeadingViewTag   667
 
+// Helper Functions for easier retreival of Notification UserInfos
+
+NS_INLINE CLLocationManager* MTLocationGetLocationManager(NSNotification *notification) {
+    return [notification.userInfo valueForKey:kMTLocationLocationManagerKey];
+}
+
+NS_INLINE CLLocation* MTLocationGetNewLocation(NSNotification *notification) {
+    return [notification.userInfo valueForKey:kMTLocationNewLocationKey];
+}
+
+NS_INLINE CLLocation* MTLocationGetOldLocation(NSNotification *notification) {
+    return [notification.userInfo valueForKey:kMTLocationOldLocationKey];
+}
+
+NS_INLINE CLHeading* MTLocationGetNewHeading(NSNotification *notification) {
+    return [notification.userInfo valueForKey:kMTLocationNewHeadingKey];
+}
+
+NS_INLINE CLRegion* MTLocationGetRegion(NSNotification *notification) {
+    return [notification.userInfo valueForKey:kMTLocationRegionKey];
+}
+
+NS_INLINE NSError* MTLocationGetError(NSNotification *notification) {
+    return [notification.userInfo valueForKey:kMTLocationErrorKey];
+}
+
+NS_INLINE CLAuthorizationStatus MTLocationGetAuthorizationStatus(NSNotification *notification) {
+    return (CLAuthorizationStatus)[[notification.userInfo valueForKey:kMTLocationAuthorizationStatusKey] intValue];
+}

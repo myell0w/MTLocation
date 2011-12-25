@@ -2,7 +2,7 @@
 //  MTLocateMeButton.m
 //
 //  Created by Matthias Tretter on 21.01.11.
-//  Copyright (c) 2009-2011  Matthias Tretter, @myell0w. All rights reserved.
+//  Copyright (c) 2009-2012  Matthias Tretter, @myell0w. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"),
 // to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -23,28 +23,28 @@
 // Background images
 #define kMTLocationStatusIdleBackgroundImage						@"MTLocation.bundle/LocateMeButton"
 #define kMTLocationStatusSearchingBackgroundImage					@"MTLocation.bundle/LocateMeButtonTrackingPressed"
-#define kMTLocationStatusRecevingLocationUpdatesBackgroundImage	@"MTLocation.bundle/LocateMeButtonTrackingPressed"
-#define kMTLocationStatusRecevingHeadingUpdatesBackgroundImage	@"MTLocation.bundle/LocateMeButtonTrackingPressed"
+#define kMTLocationStatusRecevingLocationUpdatesBackgroundImage     @"MTLocation.bundle/LocateMeButtonTrackingPressed"
+#define kMTLocationStatusRecevingHeadingUpdatesBackgroundImage      @"MTLocation.bundle/LocateMeButtonTrackingPressed"
 
 // foreground images
-#define kMTLocationStatusIdleImage					@"MTLocation.bundle/Location"
+#define kMTLocationStatusIdleImage                      @"MTLocation.bundle/Location"
 #define kMTLocationStatusRecevingLocationUpdatesImage	@"MTLocation.bundle/Location"
 #define kMTLocationStatusRecevingHeadingUpdatesImage	@"MTLocation.bundle/LocationHeading"
 
 // animation durations
-#define kShrinkAnimationDuration 0.25
-#define kExpandAnimationDuration 0.25
-#define kExpandAnimationDelay    0.1
+#define kShrinkAnimationDuration            0.25
+#define kExpandAnimationDuration            0.25
+#define kExpandAnimationDelay               0.1
 
 // size & insets
-#define kWidthLandscape         32.f
-#define kHeightLandscape        32.f
+#define kWidthLandscape                     32.f
+#define kHeightLandscape                    32.f
 
-#define kActivityIndicatorInsetPortrait 6.f
-#define kImageViewInsetPortrait		    5.f
+#define kActivityIndicatorInsetPortrait     6.f
+#define kImageViewInsetPortrait             5.f
 
-#define kActivityIndicatorInsetLandscape  8.f
-#define kImageViewInsetLandscape  	      6.f
+#define kActivityIndicatorInsetLandscape    8.f
+#define kImageViewInsetLandscape            6.f
 
 
 ////////////////////////////////////////////////////////////////////////
