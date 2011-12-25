@@ -67,7 +67,7 @@ void MTRotateViewToHeading(UIView *view, CLHeading *heading, BOOL animated) {
         }
         
 		// Apply the transformation animated
-		[UIView animateWithDuration:animationDuration
+		[UIView animateWithDuration:animationDuration delay:0.0 options:UIViewAnimationCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState 
 						 animations:^{
 							 [view setTransform:CGAffineTransformMakeRotation(heading.magneticHeading * M_PI / -180.0)];
                              
@@ -80,7 +80,7 @@ void MTRotateViewToHeading(UIView *view, CLHeading *heading, BOOL animated) {
                                      [[mapView viewForAnnotation:annotation] setTransform:CGAffineTransformMakeRotation(heading.magneticHeading * M_PI / 180.0)];
                                  }
                              }
-						 }];
+						 } completion:nil];
 	}
 }
 
