@@ -22,8 +22,6 @@
 
 @interface MTLocationManager ()
 
-// re-define as read/write
-@property (nonatomic, strong, readwrite) CLLocation *lastKnownLocation;
 @property (nonatomic, copy) mt_location_changed_block locationChangedBlock;
 
 - (void)setActiveServicesForTrackingMode:(MTUserTrackingMode)trackingMode;
