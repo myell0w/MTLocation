@@ -23,5 +23,6 @@
 // Utils
 #import "MTLocationDefines.h"
 #import "MTLocationManager.h"
+#import "MTOneTimeLocationManager.h"
 #import "MTTouchesMovedGestureRecognizer.h"
 #import "MTLocationFunctions.h"
