@@ -96,21 +96,19 @@
 
 
 - (id)initWithFrame:(CGRect)frame {
-	CGRect buttonFrame = CGRectZero;
+	CGSize buttonSize = CGSizeMake(kWidthLandscape, kHeightLandscape);
     
-    if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
-        buttonFrame = CGRectMake(CGRectGetMinX(frame),CGRectGetMinY(frame),kWidthLandscape,kHeightLandscape);
-    } else {
-        buttonFrame = (CGRect){(CGPoint){CGRectGetMinX(frame),CGRectGetMinY(frame)}, [UIImage imageNamed:kMTLocationStatusIdleBackgroundImage].size};
+    if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+        buttonSize = [UIImage imageNamed:kMTLocationStatusIdleBackgroundImage].size;
     }
     
-    if ((self = [super initWithFrame:buttonFrame])) {
+    if ((self = [super initWithFrame:(CGRect){frame.origin, buttonSize}])) {
         if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
-            activityIndicatorFrame_ = CGRectInset(buttonFrame, kActivityIndicatorInsetLandscape, kActivityIndicatorInsetLandscape);
-            imageViewFrame_ = CGRectInset(buttonFrame, kImageViewInsetLandscape , kImageViewInsetLandscape);
+            activityIndicatorFrame_ = CGRectInset(self.bounds, kActivityIndicatorInsetLandscape, kActivityIndicatorInsetLandscape);
+            imageViewFrame_ = CGRectInset(self.bounds, kImageViewInsetLandscape , kImageViewInsetLandscape);
         } else {
-            activityIndicatorFrame_ = CGRectInset(buttonFrame, kActivityIndicatorInsetPortrait, kActivityIndicatorInsetPortrait);
-            imageViewFrame_ = CGRectInset(buttonFrame, kImageViewInsetPortrait, kImageViewInsetPortrait);
+            activityIndicatorFrame_ = CGRectInset(self.bounds, kActivityIndicatorInsetPortrait, kActivityIndicatorInsetPortrait);
+            imageViewFrame_ = CGRectInset(self.bounds, kImageViewInsetPortrait, kImageViewInsetPortrait);
         }
         
 		trackingMode_ = MTLocationStatusIdle;
