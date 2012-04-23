@@ -95,13 +95,13 @@
 ////////////////////////////////////////////////////////////////////////
 
 
-- (id)initWithFrame:(CGRect)frame  {
+- (id)initWithFrame:(CGRect)frame {
 	CGRect buttonFrame = CGRectZero;
     
     if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
-        buttonFrame = CGRectMake(0.,0.,kWidthLandscape,kHeightLandscape);
+        buttonFrame = CGRectMake(CGRectGetMinX(frame),CGRectGetMinY(frame),kWidthLandscape,kHeightLandscape);
     } else {
-        buttonFrame = (CGRect){CGPointZero, [UIImage imageNamed:kMTLocationStatusIdleBackgroundImage].size};
+        buttonFrame = (CGRect){(CGPoint){CGRectGetMinX(frame),CGRectGetMinY(frame)}, [UIImage imageNamed:kMTLocationStatusIdleBackgroundImage].size};
     }
     
     if ((self = [super initWithFrame:buttonFrame])) {
