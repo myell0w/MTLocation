@@ -63,6 +63,10 @@ typedef enum {
 #define kMTLocationGoogleBadgeTag   666
 #define kMTLocationHeadingViewTag   667
 
+// block-type of block that gets executed when location changes
+typedef void (^mt_location_changed_block)(CLLocation *location);
+typedef void (^mt_location_error_block)(NSError *error);
+
 // Helper Functions for easier retreival of Notification UserInfos
 
 NS_INLINE CLLocationManager* MTLocationGetLocationManager(NSNotification *notification) {

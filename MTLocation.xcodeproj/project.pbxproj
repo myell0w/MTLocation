@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		39382DED12E9B7370012007D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39382DEC12E9B7370012007D /* UIKit.framework */; };
 		39CFA15E12FA29F000B859F9 /* MTLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 39CFA15D12FA29F000B859F9 /* MTLocation.h */; };
+		9B3AE9B61545601F0076F873 /* MTOneTimeLocationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B3AE9B41545601F0076F873 /* MTOneTimeLocationManager.h */; };
+		9B3AE9B71545601F0076F873 /* MTOneTimeLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B3AE9B51545601F0076F873 /* MTOneTimeLocationManager.m */; };
 		9BDD927B148AB18D008E21A1 /* MTLocateMeBarButtonItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BDD9277148AB18D008E21A1 /* MTLocateMeBarButtonItem.h */; };
 		9BDD927C148AB18D008E21A1 /* MTLocateMeBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BDD9278148AB18D008E21A1 /* MTLocateMeBarButtonItem.m */; };
 		9BDD927D148AB18D008E21A1 /* MTLocateMeButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BDD9279148AB18D008E21A1 /* MTLocateMeButton.h */; };
@@ -33,6 +35,8 @@
 /* Begin PBXFileReference section */
 		39382DEC12E9B7370012007D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		39CFA15D12FA29F000B859F9 /* MTLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTLocation.h; path = MTLocation/MTLocation.h; sourceTree = "<group>"; };
+		9B3AE9B41545601F0076F873 /* MTOneTimeLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTOneTimeLocationManager.h; path = MTLocation/MTOneTimeLocationManager.h; sourceTree = "<group>"; };
+		9B3AE9B51545601F0076F873 /* MTOneTimeLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTOneTimeLocationManager.m; path = MTLocation/MTOneTimeLocationManager.m; sourceTree = "<group>"; };
 		9BDD9276148AB101008E21A1 /* MTLocation.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MTLocation.bundle; sourceTree = "<group>"; };
 		9BDD9277148AB18D008E21A1 /* MTLocateMeBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTLocateMeBarButtonItem.h; path = MTLocation/MTLocateMeBarButtonItem.h; sourceTree = "<group>"; };
 		9BDD9278148AB18D008E21A1 /* MTLocateMeBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTLocateMeBarButtonItem.m; path = MTLocation/MTLocateMeBarButtonItem.m; sourceTree = "<group>"; };
@@ -167,6 +171,8 @@
 			children = (
 				9BDD928B148AB1AF008E21A1 /* MTLocationManager.h */,
 				9BDD928C148AB1AF008E21A1 /* MTLocationManager.m */,
+				9B3AE9B41545601F0076F873 /* MTOneTimeLocationManager.h */,
+				9B3AE9B51545601F0076F873 /* MTOneTimeLocationManager.m */,
 			);
 			name = Delegation;
 			sourceTree = "<group>";
@@ -189,6 +195,7 @@
 				9BDD9295148AB1C5008E21A1 /* MTLocationFunctions.h in Headers */,
 				9BDD9297148AB1C5008E21A1 /* MTTouchesMovedGestureRecognizer.h in Headers */,
 				9BDD929A148AB1E2008E21A1 /* Prefix.pch in Headers */,
+				9B3AE9B61545601F0076F873 /* MTOneTimeLocationManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,6 +260,7 @@
 				9BDD928E148AB1AF008E21A1 /* MTLocationManager.m in Sources */,
 				9BDD9296148AB1C5008E21A1 /* MTLocationFunctions.m in Sources */,
 				9BDD9298148AB1C5008E21A1 /* MTTouchesMovedGestureRecognizer.m in Sources */,
+				9B3AE9B71545601F0076F873 /* MTOneTimeLocationManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

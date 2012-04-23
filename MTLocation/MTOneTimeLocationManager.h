@@ -1,5 +1,6 @@
 //
-//  MTLocationManager.h
+//  MTOneTimeLocationManager.h
+//  MTLocation
 //
 //  Created by Matthias Tretter on 06.02.11.
 //  Copyright (c) 2009-2012  Matthias Tretter, @myell0w. All rights reserved.
@@ -12,35 +13,18 @@
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 // WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
-#import <CoreLocation/CoreLocation.h>
-#import <MapKit/MapKit.h>
-#import "MTLocateMeButton.h"
-#import "MTLocateMeBarButtonItem.h"
+#import "MTLocationManager.h"
 #import "MTLocationDefines.h"
 
-/**
- Singleton class that acts as the Location Manager and it's delegate
- Sends Notifications when CLLocationManagerDelegate-Methods are called
- */
-@interface MTLocationManager : NSObject <CLLocationManagerDelegate, MTLocateMeButtonDelegate> 
+@interface MTOneTimeLocationManager : NSObject
 
-@property (nonatomic, strong) CLLocationManager *locationManager;
-@property (nonatomic, strong) CLLocation *lastKnownLocation;
-// Optional: a MapView that gets rotated according to heading updates
-@property (nonatomic, strong) MKMapView *mapView;
-// configure if heading calibration should be displayed
-@property (nonatomic, getter=isHeadingCalibrationDisplayed) BOOL displayHeadingCalibration;
+@property (nonatomic, copy) mt_location_changed_block completion;
+@property (nonatomic, copy) mt_location_error_block error;
 
-// Singleton Instance
-+ (MTLocationManager *)sharedInstance;
-
-/** Sets the specified tracking mode programatically (doesn't update button) */
-- (void)setTrackingMode:(MTUserTrackingMode)trackingMode;
-- (void)stopAllServices;
-- (void)invalidateLastKnownLocation;
-
-- (void)whenLocationChanged:(mt_location_changed_block)block;
-- (void)removeLocationChangedBlock;
+- (void)startUpdatingLocationWithAcccuracy:(CLLocationAccuracy)accuracy
+                            distanceFilter:(CLLocationDistance)distanceFilter
+                                completion:(mt_location_changed_block)completion 
+                                     error:(mt_location_error_block)error;
+- (void)cancel;
 
 @end
