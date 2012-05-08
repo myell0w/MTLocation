@@ -199,6 +199,33 @@
 	}
 }
 
+- (void)setIdleBackgroundImage:(UIImage *)idleBackgroundImage {
+    if (_idleBackgroundImage != idleBackgroundImage) {
+        _idleBackgroundImage = idleBackgroundImage;
+        [self updateUI];
+    }
+}
+
+- (void)setSearchingBackgroundImage:(UIImage *)searchingBackgroundImage {
+    if (_searchingBackgroundImage != searchingBackgroundImage) {
+        _searchingBackgroundImage = searchingBackgroundImage;
+        [self updateUI];
+    }
+}
+
+- (void)setRecevingHeadingUpdatesBackgroundImage:(UIImage *)recevingHeadingUpdatesBackgroundImage {
+    if (_recevingHeadingUpdatesBackgroundImage != recevingHeadingUpdatesBackgroundImage) {
+        _recevingHeadingUpdatesBackgroundImage = recevingHeadingUpdatesBackgroundImage;
+        [self updateUI];
+    }
+}
+
+- (void)setRecevingLocationUpdatesBackgroundImage:(UIImage *)recevingLocationUpdatesBackgroundImage {
+    if (_recevingLocationUpdatesBackgroundImage != recevingLocationUpdatesBackgroundImage) {
+        _recevingHeadingUpdatesBackgroundImage = recevingLocationUpdatesBackgroundImage;
+        [self updateUI];
+    }
+}
 
 ////////////////////////////////////////////////////////////////////////
 #pragma mark -
