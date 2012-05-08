@@ -27,6 +27,12 @@
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, unsafe_unretained) id<MTLocateMeButtonDelegate> delegate;
 
+// Images for different States
+@property (nonatomic, strong) UIImage *idleBackgroundImage;
+@property (nonatomic, strong) UIImage *searchingBackgroundImage;
+@property (nonatomic, strong) UIImage *recevingLocationUpdatesBackgroundImage;
+@property (nonatomic, strong) UIImage *recevingHeadingUpdatesBackgroundImage;
+
 - (void)setTrackingMode:(MTUserTrackingMode)trackingMode animated:(BOOL)animated;
 // sets the right frame when used in a UINavigationBar for portrait/landscape
 - (void)setFrameForInterfaceOrientation:(UIInterfaceOrientation)orientation;
