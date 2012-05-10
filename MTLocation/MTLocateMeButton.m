@@ -202,6 +202,7 @@
 - (void)setIdleBackgroundImage:(UIImage *)idleBackgroundImage {
     if (_idleBackgroundImage != idleBackgroundImage) {
         _idleBackgroundImage = idleBackgroundImage;
+        self.frame = (CGRect){ .origin = self.frame.origin, .size = _idleBackgroundImage.size };
         [self updateUI];
     }
 }
@@ -222,7 +223,7 @@
 
 - (void)setRecevingLocationUpdatesBackgroundImage:(UIImage *)recevingLocationUpdatesBackgroundImage {
     if (_recevingLocationUpdatesBackgroundImage != recevingLocationUpdatesBackgroundImage) {
-        _recevingHeadingUpdatesBackgroundImage = recevingLocationUpdatesBackgroundImage;
+        _recevingLocationUpdatesBackgroundImage = recevingLocationUpdatesBackgroundImage;
         [self updateUI];
     }
 }
