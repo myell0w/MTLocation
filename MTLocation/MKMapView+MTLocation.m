@@ -17,17 +17,15 @@
 #import "MTLocationFunctions.h"
 #import <objc/runtime.h>
 
-#define kDefaultGoogleBadgeOriginX 12
-#define kDefaultGoogleBadgeYOffset 27
+
+#define kDefaultGoogleBadgeOriginX      12.f
+#define kDefaultGoogleBadgeYOffset      27.f
+
 
 static char headingAngleViewKey;
 
-@implementation MKMapView (MTLocation)
 
-////////////////////////////////////////////////////////////////////////
-#pragma mark -
-#pragma mark Lifecycle
-////////////////////////////////////////////////////////////////////////
+@implementation MKMapView (MTLocation)
 
 + (id)mapViewInSuperview:(UIView *)superview {
     MKMapView *mapView = [[[self class] alloc] initWithFrame:CGRectZero];
@@ -41,11 +39,6 @@ static char headingAngleViewKey;
     
     return mapView;
 }
-
-////////////////////////////////////////////////////////////////////////
-#pragma mark -
-#pragma mark Adding Overlay Views
-////////////////////////////////////////////////////////////////////////
 
 - (void)sizeToFitTrackingModeFollowWithHeading {
     if (MTLocationUsesNewAPIs()) {
@@ -126,11 +119,6 @@ static char headingAngleViewKey;
         [headingAngleView setCenter:center];
     }
 }
-
-////////////////////////////////////////////////////////////////////////
-#pragma mark -
-#pragma mark Rotation (Heading information)
-////////////////////////////////////////////////////////////////////////
 
 - (void)rotateToHeading:(CLHeading *)heading {
     [self rotateToHeading:heading animated:YES];

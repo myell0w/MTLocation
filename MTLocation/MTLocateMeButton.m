@@ -16,8 +16,7 @@
 
 
 ////////////////////////////////////////////////////////////////////////
-#pragma mark -
-#pragma mark Customize Section
+#pragma mark - Customize Section
 ////////////////////////////////////////////////////////////////////////
 
 // Background images
@@ -47,18 +46,12 @@
 #define kImageViewInsetLandscape            6.f
 
 
-////////////////////////////////////////////////////////////////////////
-#pragma mark -
-#pragma mark Private Class Extension
-////////////////////////////////////////////////////////////////////////
-
-
 @interface MTLocateMeButton ()
 
 // Subview: activity indicator is shown during MTLocationStatusSearching
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 // Subview: Holds image that is shown in all other LocationStati
-@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UIImageView *buttonImageView;
 // the initial frame of the activity indicator
 @property (nonatomic, assign) CGRect activityIndicatorFrame;
 // the initial frame of the image view
@@ -67,37 +60,15 @@
 @property (nonatomic, unsafe_unretained) UIView *activeSubview;
 @property (unsafe_unretained, nonatomic, readonly) UIView *inactiveSubview;
 
-- (void)updateUI;
-- (void)trackingModeToggled:(id)sender;
-
-- (void)setSmallFrame:(UIView *)view;
-- (void)setBigFrame:(UIView *)view;
-
 @end
 
 
 @implementation MTLocateMeButton
 
-@synthesize trackingMode = _trackingMode;
-@synthesize headingEnabled = _headingEnabled;
-@synthesize activityIndicator = _activityIndicator;
-@synthesize imageView = _buttonImageView;
-@synthesize activityIndicatorFrame = _activityIndicatorFrame;
-@synthesize imageViewFrame = _buttonImageViewFrame;
-@synthesize activeSubview = _activeSubview;
-@synthesize locationManager = _locationManager;
-@synthesize delegate = _delegate;
-@synthesize idleBackgroundImage = _idleBackgroundImage;
-@synthesize searchingBackgroundImage = _searchingBackgroundImage;
-@synthesize recevingHeadingUpdatesBackgroundImage = _recevingHeadingUpdatesBackgroundImage;
-@synthesize recevingLocationUpdatesBackgroundImage = _recevingLocationUpdatesBackgroundImage;
-
-
 ////////////////////////////////////////////////////////////////////////
 #pragma mark -
 #pragma mark Lifecycle, Memory Management
 ////////////////////////////////////////////////////////////////////////
-
 
 - (id)initWithFrame:(CGRect)frame {
 	CGSize buttonSize = CGSizeMake(kWidthLandscape, kHeightLandscape);
@@ -107,17 +78,17 @@
     _recevingHeadingUpdatesBackgroundImage = [UIImage imageNamed:kMTLocationStatusRecevingHeadingUpdatesBackgroundImage];
     _recevingLocationUpdatesBackgroundImage = [UIImage imageNamed:kMTLocationStatusRecevingLocationUpdatesBackgroundImage];
     
-    if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+    if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation) || UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         buttonSize = _idleBackgroundImage.size;
     }
     
     if ((self = [super initWithFrame:(CGRect){frame.origin, buttonSize}])) {
         if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
             _activityIndicatorFrame = CGRectInset(self.bounds, kActivityIndicatorInsetLandscape, kActivityIndicatorInsetLandscape);
-            _buttonImageViewFrame = CGRectInset(self.bounds, kImageViewInsetLandscape , kImageViewInsetLandscape);
+            _imageViewFrame = CGRectInset(self.bounds, kImageViewInsetLandscape , kImageViewInsetLandscape);
         } else {
             _activityIndicatorFrame = CGRectInset(self.bounds, kActivityIndicatorInsetPortrait, kActivityIndicatorInsetPortrait);
-            _buttonImageViewFrame = CGRectInset(self.bounds, kImageViewInsetPortrait, kImageViewInsetPortrait);
+            _imageViewFrame = CGRectInset(self.bounds, kImageViewInsetPortrait, kImageViewInsetPortrait);
         }
         
 		_trackingMode = MTLocationStatusIdle;
@@ -129,7 +100,7 @@
 		_activityIndicator.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		_activityIndicator.userInteractionEnabled = NO;
         
-		_buttonImageView = [[UIImageView alloc] initWithFrame:_buttonImageViewFrame];
+		_buttonImageView = [[UIImageView alloc] initWithFrame:_imageViewFrame];
 		_buttonImageView.contentMode = UIViewContentModeScaleAspectFit;
 		_buttonImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         
@@ -143,14 +114,6 @@
     return self;
 }
 
-- (void)dealloc {
-    _delegate = nil;
-    _activityIndicator = nil;
-	_buttonImageView = nil;
-	_locationManager = nil;
-    
-}
-
 ////////////////////////////////////////////////////////////////////////
 #pragma mark -
 #pragma mark Setter/Getter
@@ -158,7 +121,7 @@
 
 - (UIView *)inactiveSubview {
 	if (self.activeSubview == self.activityIndicator) {
-		return self.imageView;
+		return self.buttonImageView;
 	} else {
 		return self.activityIndicator;
 	}
@@ -228,6 +191,20 @@
     }
 }
 
+- (void)setActivityIndicatorColor:(UIColor *)activityIndicatorColor {
+    if ([self.activityIndicator respondsToSelector:@selector(setColor:)]) {
+        self.activityIndicator.color = activityIndicatorColor;
+    }
+}
+
+- (UIColor *)activityIndicatorColor {
+    if ([self.activityIndicator respondsToSelector:@selector(setColor:)]) {
+        return self.activityIndicator.color;
+    } else {
+        return [UIColor whiteColor];
+    }
+}
+
 ////////////////////////////////////////////////////////////////////////
 #pragma mark -
 #pragma mark Portrait/Landscape
@@ -282,29 +259,29 @@
 		case MTUserTrackingModeNone:
 			[self setImage:self.idleBackgroundImage forState:UIControlStateNormal];
 			[self.activityIndicator stopAnimating];
-			self.imageView.image = [UIImage imageNamed:kMTLocationStatusIdleImage];
-			self.activeSubview = self.imageView;
+			self.buttonImageView.image = [UIImage imageNamed:kMTLocationStatusIdleImage];
+			self.activeSubview = self.buttonImageView;
 			break;
             
 		case MTUserTrackingModeSearching:
 			[self setImage:self.searchingBackgroundImage forState:UIControlStateNormal];
 			[self.activityIndicator startAnimating];
-			self.imageView.image = nil;
+			self.buttonImageView.image = nil;
 			self.activeSubview = self.activityIndicator;
 			break;
             
 		case MTUserTrackingModeFollow:
 			[self setImage:self.recevingLocationUpdatesBackgroundImage forState:UIControlStateNormal];
 			[self.activityIndicator stopAnimating];
-			self.imageView.image = [UIImage imageNamed:kMTLocationStatusRecevingLocationUpdatesImage];
-			self.activeSubview = self.imageView;
+			self.buttonImageView.image = [UIImage imageNamed:kMTLocationStatusRecevingLocationUpdatesImage];
+			self.activeSubview = self.buttonImageView;
 			break;
             
 		case MTUserTrackingModeFollowWithHeading:
 			[self setImage:self.recevingHeadingUpdatesBackgroundImage forState:UIControlStateNormal];
 			[self.activityIndicator stopAnimating];
-			self.imageView.image = [UIImage imageNamed:kMTLocationStatusRecevingHeadingUpdatesImage];
-			self.activeSubview = self.imageView;
+			self.buttonImageView.image = [UIImage imageNamed:kMTLocationStatusRecevingHeadingUpdatesImage];
+			self.activeSubview = self.buttonImageView;
 			break;
 	}
 }

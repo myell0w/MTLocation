@@ -24,36 +24,26 @@
 
 @property (nonatomic, copy) mt_location_changed_block locationChangedBlock;
 
-- (void)setActiveServicesForTrackingMode:(MTUserTrackingMode)trackingMode;
-
 @end
 
 @implementation MTLocationManager
 
-@synthesize locationManager = locationManager_;
-@synthesize lastKnownLocation = lastKnownLocation_;
-@synthesize mapView = mapView_;
-@synthesize displayHeadingCalibration = displayHeadingCalibration_;
-@synthesize locationChangedBlock = locationChangedBlock_;
-
 ////////////////////////////////////////////////////////////////////////
-#pragma mark -
-#pragma mark Lifecycle
+#pragma mark - Lifecycle
 ////////////////////////////////////////////////////////////////////////
 
 - (id)init {
     if ((self = [super init])) {
-        locationManager_ = [[CLLocationManager alloc] init];
-		locationManager_.delegate = self;
-        displayHeadingCalibration_ = YES;
+        _locationManager = [[CLLocationManager alloc] init];
+		_locationManager.delegate = self;
+        _displayHeadingCalibration = YES;
     }
     
     return self;
 }
 
 ////////////////////////////////////////////////////////////////////////
-#pragma mark -
-#pragma mark Location Service Methods
+#pragma mark - MTLocationManager
 ////////////////////////////////////////////////////////////////////////
 
 - (void)setTrackingMode:(MTUserTrackingMode)trackingMode {
@@ -90,14 +80,9 @@
     self.locationChangedBlock = nil;
 }
 
-////////////////////////////////////////////////////////////////////////
-#pragma mark -
-#pragma mark Setter/Getter
-////////////////////////////////////////////////////////////////////////
-
 - (void)setMapView:(MKMapView *)mapView {
-	if(mapView != mapView_) {
-		mapView_ = mapView;
+	if(mapView != _mapView) {
+		_mapView = mapView;
         
         // detect taps on the map-view
         MTTouchesMovedGestureRecognizer * tapInterceptor = [[MTTouchesMovedGestureRecognizer alloc] init];
@@ -124,8 +109,7 @@
 }
 
 ////////////////////////////////////////////////////////////////////////
-#pragma mark -
-#pragma mark locationManager Delegate
+#pragma mark - CLLocationManagerDelegate
 ////////////////////////////////////////////////////////////////////////
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
@@ -207,8 +191,7 @@
 }
 
 ////////////////////////////////////////////////////////////////////////
-#pragma mark -
-#pragma mark MTLocateMeButtonDelegate Methods
+#pragma mark - MTLocateMeButtonDelegate
 ////////////////////////////////////////////////////////////////////////
 
 - (void)locateMeButton:(MTLocateMeButton *)locateMeButton didChangeTrackingMode:(MTUserTrackingMode)trackingMode {
@@ -216,8 +199,7 @@
 }
 
 ////////////////////////////////////////////////////////////////////////
-#pragma mark -
-#pragma mark Private
+#pragma mark - Private
 ////////////////////////////////////////////////////////////////////////
 
 - (void)setActiveServicesForTrackingMode:(MTUserTrackingMode)trackingMode {
@@ -256,8 +238,7 @@
 }
 
 ////////////////////////////////////////////////////////////////////////
-#pragma mark -
-#pragma mark Singleton definitons
+#pragma mark - Singleton
 ////////////////////////////////////////////////////////////////////////
 
 static MTLocationManager *sharedMTLocationManager = nil;

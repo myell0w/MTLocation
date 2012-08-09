@@ -19,6 +19,7 @@
 #import "MTLocateMeBarButtonItem.h"
 #import "MTLocationDefines.h"
 
+
 /**
  Singleton class that acts as the Location Manager and it's delegate
  Sends Notifications when CLLocationManagerDelegate-Methods are called

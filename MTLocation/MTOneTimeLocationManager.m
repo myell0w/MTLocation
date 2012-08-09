@@ -26,11 +26,6 @@
 
 @implementation MTOneTimeLocationManager
 
-@synthesize locationManager = locationManager_;
-@synthesize completion = completion_;
-@synthesize error = error_;
-@synthesize accuracy = accuracy_;
-
 ////////////////////////////////////////////////////////////////////////
 #pragma mark - WTOneTimeLocationManager
 ////////////////////////////////////////////////////////////////////////

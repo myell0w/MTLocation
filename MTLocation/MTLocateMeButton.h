@@ -16,6 +16,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "MTLocationDefines.h"
 
+
 @protocol MTLocateMeButtonDelegate;
 
 
@@ -33,12 +34,14 @@
 @property (nonatomic, strong) UIImage *recevingLocationUpdatesBackgroundImage;
 @property (nonatomic, strong) UIImage *recevingHeadingUpdatesBackgroundImage;
 
+/** default to white, only works on iOS 5 and up */
+@property (nonatomic, strong) UIColor *activityIndicatorColor;
+
 - (void)setTrackingMode:(MTUserTrackingMode)trackingMode animated:(BOOL)animated;
 // sets the right frame when used in a UINavigationBar for portrait/landscape
 - (void)setFrameForInterfaceOrientation:(UIInterfaceOrientation)orientation;
 
 @end
-
 
 
 @protocol MTLocateMeButtonDelegate <NSObject>

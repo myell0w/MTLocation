@@ -19,32 +19,17 @@
 #import <MapKit/MapKit.h>
 
 
-////////////////////////////////////////////////////////////////////////
-#pragma mark -
-#pragma mark Private Class Extension
-////////////////////////////////////////////////////////////////////////
-
 @interface MTLocateMeBarButtonItem ()
 
 @property (nonatomic, strong) MTLocateMeButton *locateMeButton;
-
-- (void)locationManagerDidUpdateToLocationFromLocation:(NSNotification *)notification;
-- (void)locationManagerDidUpdateHeading:(NSNotification *)notification;
-- (void)locationManagerDidFail:(NSNotification *)notification;
-- (void)locationManagerDidStopUpdatingServices:(NSNotification *)notification;
 
 @end
 
 
 @implementation MTLocateMeBarButtonItem
 
-@synthesize locateMeButton = locateMeButton_;
-@synthesize headingEnabled = headingEnabled_;
-
-
 ////////////////////////////////////////////////////////////////////////
-#pragma mark -
-#pragma mark Lifecycle, Memory Management
+#pragma mark - Lifecycle
 ////////////////////////////////////////////////////////////////////////
 
 - (id)initWithMapView:(MKMapView *)mapView {
@@ -66,8 +51,8 @@
     MTLocateMeButton *locateMeButton = [[MTLocateMeButton alloc] initWithFrame:CGRectZero];
     
 	if ((self = [super initWithCustomView:locateMeButton])) {
-		locateMeButton_ = locateMeButton;
-		locateMeButton_.trackingMode = trackingMode;
+		_locateMeButton = locateMeButton;
+		_locateMeButton.trackingMode = trackingMode;
         
         if (startListening) {
             [self startListeningToLocationUpdates];
@@ -88,19 +73,14 @@
 }
 
 - (void)dealloc {
-    // end listening to location update notifications
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kMTLocationManagerDidUpdateToLocationFromLocation object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kMTLocationManagerDidUpdateHeading object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kMTLocationManagerDidFailWithError object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kMTLocationManagerDidStopUpdatingServices object:nil];
-    
-	locateMeButton_ = nil;
-    
 }
 
 ////////////////////////////////////////////////////////////////////////
-#pragma mark -
-#pragma mark Setter/Getter
+#pragma mark - MTLocateMeBarButtonItem
 ////////////////////////////////////////////////////////////////////////
 
 - (void)setTrackingMode:(MTUserTrackingMode)trackingMode {
@@ -135,20 +115,9 @@
     return self.locateMeButton.delegate;
 }
 
-////////////////////////////////////////////////////////////////////////
-#pragma mark -
-#pragma mark Portrait/Landscape
-////////////////////////////////////////////////////////////////////////
-
 - (void)setFrameForInterfaceOrientation:(UIInterfaceOrientation)orientation {
     [self.locateMeButton setFrameForInterfaceOrientation:orientation];
 }
-
-
-////////////////////////////////////////////////////////////////////////
-#pragma mark -
-#pragma mark Listener
-////////////////////////////////////////////////////////////////////////
 
 - (void)startListeningToLocationUpdates {
     // begin listening to location update notifications
@@ -177,10 +146,8 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-
 ////////////////////////////////////////////////////////////////////////
-#pragma mark -
-#pragma mark Location Manager Notifications
+#pragma mark - Private
 ////////////////////////////////////////////////////////////////////////
 
 - (void)locationManagerDidUpdateToLocationFromLocation:(NSNotification *)notification {
@@ -208,6 +175,5 @@
 	// update locationStatus
 	[self setTrackingMode:MTUserTrackingModeNone animated:YES];
 }
-
 
 @end
