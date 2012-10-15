@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
                'Locate-Me-Button of the built-in Google Maps App.'
   s.homepage = 'https://github.com/myell0w/MTLocation'
   s.author   = { 'Matthias Tretter' => 'myell0w@me.com' }
-  s.source   = { :git => 'https://github.com/myell0w/MTLocation.git', :tag => '0.9' }
+  s.source   = { :git => 'https://github.com/myell0w/MTLocation.git' }
 
   s.description = 'These classes aim to mimic some of the functions of the built-in Google Maps App '       \
                   'on iOS for you. Currently the library contains a simple Location Manager-Singleton '     \
@@ -17,7 +17,6 @@ Pod::Spec.new do |s|
                   'by setting property headingEnabled.'
 
   s.requires_arc = true
-  s.source_files = '*.{h,m}'
+  s.source_files = 'MTLocation'
   s.frameworks   = 'MapKit', 'CoreLocation'
 end
-
