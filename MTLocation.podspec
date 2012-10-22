@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
                'Locate-Me-Button of the built-in Google Maps App.'
   s.homepage = 'https://github.com/myell0w/MTLocation'
   s.author   = { 'Matthias Tretter' => 'myell0w@me.com' }
-  s.source   = { :git => 'https://github.com/myell0w/MTLocation.git', :head }
+  s.source   = { :git => 'https://github.com/myell0w/MTLocation.git', :commit => '39f14e17f0a80b6364f7d70768450e28f83c40fa' }
 
   s.description = 'These classes aim to mimic some of the functions of the built-in Google Maps App '       \
                   'on iOS for you. Currently the library contains a simple Location Manager-Singleton '     \
