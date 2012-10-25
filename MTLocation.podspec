@@ -18,6 +18,6 @@ Pod::Spec.new do |s|
 
   s.requires_arc = true
   s.source_files = 'MTLocation'
-  s.resource     = 'MTLocation/Resources/MTLocation.bundle'
+  s.resource     = 'Resources/MTLocation.bundle'
   s.frameworks   = 'MapKit', 'CoreLocation'
 end
