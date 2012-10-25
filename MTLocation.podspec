@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name     = 'MTLocation'
-  s.version  = '0.9.1'
+  s.version  = '0.9.2'
   s.platform = :ios
   s.summary  = 'Convenience-stuff for CoreLocation/MapKit on iOS. Includes a UIBarButtonItem mimicing the ' \
                'Locate-Me-Button of the built-in Google Maps App.'
@@ -18,5 +18,6 @@ Pod::Spec.new do |s|
 
   s.requires_arc = true
   s.source_files = 'MTLocation'
+  s.resource     = 'MTLocation/Resources/MTLocation.bundle'
   s.frameworks   = 'MapKit', 'CoreLocation'
 end
