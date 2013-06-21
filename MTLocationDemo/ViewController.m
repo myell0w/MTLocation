@@ -2,9 +2,6 @@
 //  ViewController.m
 //  MTLocationDemo
 //
-//  Created by KJ on 6/9/13.
-//  Copyright (c) 2013 Kyle Johnson LLC. All rights reserved.
-//
 
 #import "ViewController.h"
 
