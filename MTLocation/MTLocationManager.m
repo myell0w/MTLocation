@@ -20,7 +20,7 @@
 #import "MTTouchesMovedGestureRecognizer.h"
 
 
-@interface MTLocationManager ()
+@interface MTLocationManager () <UIGestureRecognizerDelegate>
 
 @property (nonatomic, copy) mt_location_changed_block locationChangedBlock;
 
@@ -103,6 +103,8 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidStopUpdatingHeading object:blockSelf userInfo:nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:kMTLocationManagerDidStopUpdatingServices object:blockSelf userInfo:nil];
         };
+        
+        tapInterceptor.delegate = self;
         
         [self.mapView addGestureRecognizer:tapInterceptor];
     }
@@ -199,7 +201,20 @@
 }
 
 ////////////////////////////////////////////////////////////////////////
-#pragma mark - Private
+#pragma mark -
+#pragma mark UIGestureRecognizerDelegate
+////////////////////////////////////////////////////////////////////////
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if ([touch.view isKindOfClass:[UIControl class]]) {
+        return NO;
+    }
+    return YES;
+}
+
+////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Private
 ////////////////////////////////////////////////////////////////////////
 
 - (void)setActiveServicesForTrackingMode:(MTUserTrackingMode)trackingMode {
